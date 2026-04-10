@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noai, noimageai">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El ruido y la separación — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+/* HEADER */
+.proj-head {
+  padding:72px 28px 24px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+.proj-head .proj-links { grid-column:1 / -1; }
+
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; margin-bottom:8px; }
+.proj-links { margin-top:12px; display:flex; gap:20px; }
+.proj-links a { font-family:var(--mono); font-size:0.62rem; color:var(--green); }
+.proj-links a:hover { color:var(--accent); }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* COVER IMAGE */
+.cover-sec { padding:24px 28px 32px; }
+.cover-sec img { width:100%; max-width:900px; display:block; }
+.cover-sec .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+/* ESSAY TEXT */
+.essay-sec {
+  padding:24px 28px 32px;
+  display:grid;
+  grid-template-columns:1fr 280px;
+  gap:0 32px;
+  max-width:1100px;
+}
+.essay-sec .essay-body { grid-column:1; }
+.essay-sec .essay-body h2 {
+  font-family:var(--serif); font-size:1.3rem; font-weight:400;
+  margin:28px 0 12px;
+}
+.essay-sec .essay-body h2:first-child { margin-top:0; }
+.essay-sec .essay-body p {
+  font-family:var(--serif); font-size:1.02rem; line-height:1.8;
+  margin-bottom:14px; color:var(--text);
+}
+.essay-sec .essay-body strong { font-weight:600; }
+
+/* SIDENOTES — desktop: in margin; mobile: inline expandable */
+.sidenote-number {
+  font-size:0.75rem; vertical-align:super; color:var(--accent);
+  cursor:pointer; font-family:var(--mono);
+}
+.sidenote {
+  font-family:var(--sans); font-size:0.78rem; line-height:1.5;
+  color:var(--muted); margin-bottom:12px;
+}
+/* Desktop: sidenotes float in the right column */
+.sidenote-container {
+  grid-column:2; grid-row:1 / 100;
+  position:relative;
+}
+.sidenote-container .sidenote {
+  padding:8px 0;
+  border-bottom:1px solid var(--line);
+}
+
+/* FALLBACK FOOTNOTES (bottom of page, for when sidenotes aren't filled in yet) */
+.footnotes-sec { padding:24px 28px 32px; }
+.footnotes-sec .gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:12px; }
+.footnote-item {
+  font-family:var(--sans); font-size:0.8rem; line-height:1.6;
+  color:var(--muted); margin-bottom:10px; padding-left:20px;
+  text-indent:-20px;
+}
+.footnote-item sup { color:var(--accent); font-family:var(--mono); font-size:0.7rem; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .essay-sec { grid-template-columns:1fr; }
+  .sidenote-container { display:none; }
+  /* On mobile, sidenotes become inline expandable — JS handles this */
+  .proj-head, .cover-sec, .essay-sec, .footnotes-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">El ruido y la separación</h1>
+
+  <div class="proj-meta">2024 · Edgelands Institute</div>
+
+  <div class="proj-tags">
+    <span>writing</span>
+    <span>sound</span>
+    <span>civic</span>
+    <span>policy</span>
+  </div>
+
+  <p class="proj-desc lang-en">Essay on noise as social pathology, written for the Edgelands Institute in the context of Colombia's Law Against Noise. Noise as destructive interference, as colonization of intimacy, as tragedy of the commons. The soundscape as shared territory, and what happens when we abandon it.</p>
+  <p class="proj-desc lang-es">Ensayo sobre el ruido como patología social, escrito para el Instituto Edgelands en el contexto de la Ley Contra El Ruido en Colombia. El ruido como interferencia destructiva, como colonización de la intimidad, como tragedia de los comunes. El paisaje sonoro como territorio compartido, y qué pasa cuando lo abandonamos.</p>
+
+  <div class="proj-links">
+    <a href="https://es.edgelands.institute/blog/el-ruido-y-la-separacion" target="_blank">leer en Edgelands (ES) ↗</a>
+    <a href="https://en.edgelands.institute/blog/el-ruido-y-la-separacion" target="_blank">read on Edgelands (EN) ↗</a>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- COVER IMAGE -->
+<div class="cover-sec">
+  <img src="../images/ruidoysep.jpg" alt="El ruido y la separación — cover collage">
+  <div class="caption lang-en">Cover collage. Sara Arango Franco, 2024.</div>
+  <div class="caption lang-es">Collage de portada. Sara Arango Franco, 2024.</div>
+</div>
+
+<hr class="sep">
+
+<!-- ESSAY — SPANISH -->
+<div class="essay-sec lang-es">
+  <div class="essay-body">
+
+    <!-- TODO: Paste full Spanish essay text here, paragraph by paragraph -->
+    <!-- Each paragraph as <p>, each section heading as <h2> -->
+    <!-- Footnote references as <span class="sidenote-number">1</span> -->
+    <!-- Preserve all hyperlinks from the original -->
+
+    <p><em>[Texto completo del ensayo pendiente de insertar.]</em></p>
+
+  </div>
+  <div class="sidenote-container">
+    <!-- TODO: Sidenotes go here, one per footnote -->
+    <!-- <div class="sidenote"><sup>1</sup> Footnote text...</div> -->
+  </div>
+</div>
+
+<!-- ESSAY — ENGLISH -->
+<div class="essay-sec lang-en">
+  <div class="essay-body">
+
+    <!-- TODO: Paste full English essay text here, paragraph by paragraph -->
+    <!-- Same structure as Spanish version -->
+
+    <p><em>[Full essay text pending insertion.]</em></p>
+
+  </div>
+  <div class="sidenote-container">
+    <!-- TODO: Sidenotes go here -->
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

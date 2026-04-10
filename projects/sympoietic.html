@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sympoietic Art Organism — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+.proj-head { padding:72px 28px 24px; display:grid; grid-template-columns:1fr 1.3fr; gap:24px; align-items:start;}
+.proj-head-visual { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:10px; }
+.proj-head-visual > div:nth-child(1) { grid-column:1; grid-row:1; }
+.proj-head-visual > div:nth-child(2) { grid-column:1; grid-row:2; }
+.proj-head-visual > div:nth-child(3) { grid-column:2; grid-row:1 / 3; }
+.proj-head-visual img { width:100%; height:100%; object-fit:contain; display:block; }
+.proj-head-visual .caption { font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; padding:4px 0; }
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; max-width:640px; margin-bottom:8px; }
+.proj-link { display:inline-block; margin-top:8px; font-family:var(--mono); font-size:0.62rem; color:var(--green); }
+.proj-link:hover { color:var(--accent); }
+
+.collaborators { font-family:var(--mono); font-size:0.62rem; color:var(--muted); line-height:1.8; margin-top:16px; max-width:640px; }
+.collaborators strong { color:var(--text); font-weight:500; }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+.gallery-sec { padding:24px 28px 32px; }
+.gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:12px; }
+
+.gallery { column-count:3; column-gap:12px; }
+.gallery-item { break-inside:avoid; margin-bottom:12px; overflow:hidden; cursor:pointer; }
+.gallery-item img { width:100%; display:block; }
+.gallery-item .placeholder { width:100%; background:var(--card-bg); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.55rem; color:var(--muted); }
+.gallery-item .placeholder.tall { aspect-ratio:3/4; }
+.gallery-item .placeholder.wide { aspect-ratio:4/3; }
+.gallery-item .placeholder.square { aspect-ratio:1/1; }
+.gallery-item .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+.proj-text { padding:24px 28px 32px; }
+.proj-text h2 { font-family:var(--serif); font-size:1.4rem; font-weight:400; margin-bottom:12px; }
+.proj-text p { font-size:0.9rem; line-height:1.7; margin-bottom:12px; color:var(--text); }
+
+.lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.92); align-items:center; justify-content:center; cursor:pointer; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close { position:fixed; top:20px; right:28px; font-family:var(--mono); font-size:0.75rem; color:#999; cursor:pointer; z-index:201; }
+.lightbox-close:hover { color:#fff; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .gallery { column-count:2; }
+  .proj-head, .gallery-sec, .proj-text { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+@media (max-width:480px) { .gallery { column-count:1; } }
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <div class="proj-head-text">
+    <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+    <h1 style="margin-top:20px;">Sympoietic Art Organism</h1>
+
+    <div class="proj-meta">2025 · Santa Fe Institute / Complex Systems Summer School</div>
+
+    <div class="proj-tags">
+      <span>art</span>
+      <span>research</span>
+    </div>
+
+    <p class="proj-desc lang-en">A collective artwork created during the Complex Systems Summer School at the Santa Fe Institute. Ten artists across four continents, working under shared constraints. Each piece feeding the next, the whole emerging without central control. The organism as art: creative structure from reciprocal limitation.</p>
+    <p class="proj-desc lang-es">Obra colectiva creada durante la Complex Systems Summer School en el Santa Fe Institute. Diez artistas en cuatro continentes, trabajando bajo restricciones compartidas. Cada pieza alimentando la siguiente, el todo emergiendo sin control central. El organismo como arte: estructura creativa a partir de limitación recíproca.</p>
+
+    <a class="proj-link" href="https://phileasdg.github.io/sympoietic/" target="_blank">sympoietic art organism — full project ↗</a>
+
+    <div class="collaborators">
+      <strong>Lead:</strong> <a href="https://phileasdg.github.io/sympoietic/phileas-dazeley-gaist-2.html" target="_blank">Phileas Dazeley-Gaist</a><br>
+      <strong>Artists:</strong>
+      <a href="https://phileasdg.github.io/sympoietic/nadine-abd-el-razek.html" target="_blank">Nadine Abd El Razek</a>,
+      Sara Arango Franco,
+      <a href="https://phileasdg.github.io/sympoietic/lina-j-bulla-casas.html" target="_blank">Lina J Bulla Casas</a>,
+      <a href="https://phileasdg.github.io/sympoietic/gabriel-camacho-cabrera.html" target="_blank">Gabriel Camacho Cabrera</a>,
+      <a href="https://phileasdg.github.io/sympoietic/ellynne-dec-2.html" target="_blank">Ellynne Dec</a>,
+      <a href="https://phileasdg.github.io/sympoietic/louison-halgand.html" target="_blank">Louison Halgand</a>,
+      Emerson Paquette,
+      <a href="https://phileasdg.github.io/sympoietic/sonal-raghuvanshi.html" target="_blank">Sonal Raghuvanshi</a>,
+      <a href="https://phileasdg.github.io/sympoietic/kyle-thompson.html" target="_blank">Kyle Thompson</a>
+    </div>
+  </div>
+
+  <div class="proj-head-visual">
+    <div>
+      <img src="../images/network_members.png" alt="Sympoietic Art Organism">
+      <div class="caption">Analytic work [image by Phileas Dazeley-Gaist].</div>
+    </div>
+    <div>
+      <img src="../images/network_viz.png" alt="Sympoietic Art Organism">
+      <div class="caption">Artist-centric citation subgraphs [image by Phileas Dazeley-Gaist].</div>
+    </div>
+    <div>
+      <img src="../images/sympoietic_network.png" alt="Dependency network">
+      <div class="caption">Dependency network [image by Phileas Dazeley-Gaist].</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- SELECTED WORKS -->
+<div class="gallery-sec">
+  <div class="gallery-label"><span class="lang-en-inline">Selected works — Sara Arango Franco</span><span class="lang-es-inline">Obras seleccionadas — Sara Arango Franco</span></div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/814E61E6-0031-4611-9B83-9ACCE93AD5C4_1_105_c.jpeg" alt="1" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/59BEACF1-FFBF-4671-9ED9-FD352349FA2A_1_105_c.jpeg" alt="2" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/106314EE-F5D4-4695-9598-0E863A456C19_1_105_c.jpeg" alt="3" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+
+
+    
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/7841CB72-9DB8-41BA-8595-5232ED1D6C4E.png" alt="1" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/IMG_1453.PNG" alt="Sympoietic Art Organism" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/0B08B17F-972B-4C23-A3F3-34E5E2704A57_1_105_c.jpeg" alt="2" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ARTIST STATEMENT -->
+<div class="proj-text">
+  <div class="gallery-label" style="margin-bottom:16px;"><span class="lang-en-inline">Artist statement — Sara Arango Franco</span><span class="lang-es-inline">Declaración de artista — Sara Arango Franco</span></div>
+
+  <h2 style="margin-bottom:16px;">Organic</h2>
+
+  <div style="column-count:2; column-gap:32px;">
+  <p>This creature evokes the unfoldings of life's tapestry: a finite set of trajectories, made materially manifest by collapsing into being by arbitrary selection from an infinite sample space. Such mediation or manifestation processes are path-dependent and have a fortuitous component. The will of creation, the will of life, acquires, with this exercise, a better metaphor than studio art: visual works become analogues for individual biological beings, and the porousness and interdependence to other beings in both contexts is made more explicit. This work challenges common notions of identity and authorship, and even death itself.</p>
+
+  <p>This exercise highlights the banality of entertaining visual works without a systemic feel for their peers. No living being came to be on its own or is not part of the woven fabric of life.  Nothing ever comes from nowhere. No creation ever does. The role of the artist is that of a translator or mediator, and, to some extent, a good translator adapts form for it to be fertile in its context. Intentional design is replaced by intuitive, ever-evolving mutual interactions. This is a game of agency. (Mathematical) chaos arises.</p>
+
+  <p>If DNA is biology's information record, what does a unit of information mean in a sympoietic (visual) art organism? Proximity in this artistic network, that is, inspiration, is clearly not merely visual. What is a visual informational unit? What would its role be in the evolution of such organisms? Self-referentiality is a likely outcome in organic (non-algorithmic) conditions, if a comparison with life aiming to self-perpetuate is valid. These seem like important questions in the times of generative AI.</p>
+
+  <p>Can this tagged dependency network serve as a training set for a study of visual kinship as studied by visual complexity? Would such a framework be any relevant for these purposes? By then we'd, of course, then have to know what visual complexity is.</p>
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

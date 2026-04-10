@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Monumento — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+/* HEADER */
+.proj-head {
+  padding:72px 28px 16px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; margin-bottom:8px; }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* GALLERY */
+.gallery-sec { padding:16px 28px 16px; }
+.gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:8px; }
+
+.gallery { column-count:3; column-gap:12px; }
+.gallery-item { break-inside:avoid; margin-bottom:12px; overflow:hidden; cursor:pointer; }
+.gallery-item img { width:100%; display:block; }
+.gallery-item .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+/* LIGHTBOX */
+.lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.92); align-items:center; justify-content:center; cursor:pointer; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close { position:fixed; top:20px; right:28px; font-family:var(--mono); font-size:0.75rem; color:#999; cursor:pointer; z-index:201; }
+.lightbox-close:hover { color:#fff; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .gallery { column-count:2; }
+  .proj-head, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+@media (max-width:480px) { .gallery { column-count:1; } }
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;"><span class="lang-en-inline">Monumento: ruidoso duelo monologante</span><span class="lang-es-inline">Monumento: ruidoso duelo monologante</span></h1>
+
+  <div class="proj-meta">2025 — ongoing · Medellín</div>
+
+  <div class="proj-tags">
+    <span>art</span>
+    <span>writing</span>
+    <span>sound</span>
+    <span>research</span>
+  </div>
+
+  <p class="proj-desc lang-en">A written performance of ~400 pages. Nine days of uninterrupted writing in verse after the sudden death of a close friend. What began as grief turned into a meditation on noise, voice, and the body. The text separates the noise (emotional and social interference, dissociation) from what the heart actually knows. It is a confessional prayer, an exercise in radical honesty.</p>
+  <p class="proj-desc lang-es">Una performance escrita de ~400 páginas. Nueve días de escritura ininterrumpida en verso tras la muerte repentina de una amiga cercana. Lo que comenzó como duelo se convirtió en una meditación sobre el ruido, la voz y el cuerpo. El texto separa el ruido (interferencia emocional y social, disociación) de lo que el corazón realmente sabe. Es una oración confesoria, un ejercicio de honestidad radical.</p>
+</div>
+
+<hr class="sep">
+
+<!-- FROM WORD TO VOICE TO BODY -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">From word to voice to body</span><span class="lang-es-inline">De la palabra a la voz al cuerpo</span></div>
+
+  <div style="display:grid; grid-template-columns:5fr 1fr; gap:16px; align-items:start;">
+    <div>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text);">The verse is the natural form of this text. It needs voice and it needs body. The research now moves from the written word to the voice as narrative medium, and from the voice to the body as scenic space. What does grief look like theatrically? How does a body that roars reclaim its right to rage?</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text);">El verso es la forma natural de este texto. Necesita voz y necesita cuerpo. La investigación ahora transita de la palabra escrita a la voz como soporte narrativo, y de la voz al cuerpo como espacio escénico. ¿Cómo se ve teatralmente el duelo? ¿Cómo reclama un cuerpo que ruge su derecho a la rabia?</p>
+
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">The monologue oscillates between poetic-mathematical language, millennial punk rock, syncretic esotericism, and raw affect. It is baroque, nested, unfinished. Work in progress, moving toward a scenic realization accompanied by image curation through collage and illustration.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">El monólogo oscila entre lenguaje poético-matemático, punk rock milenial, esoterismo sincrético y afecto crudo. Es barroco, anidado, inacabado. Trabajo en proceso, avanzando hacia una realización escénica acompañada de curaduría de imagen a través de collage e ilustración.</p>
+
+      <p style="font-size:0.82rem; line-height:1.6; color:var(--muted); margin-top:8px; font-style:italic;">Video documentation of the performance exists. / Existe documentación en video de la performance.</p>
+    </div>
+
+    <div>
+      <img src="../images/monumento.png" alt="Monumento" style="width:100%; max-height:120px; object-fit:contain; display:block;">
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- PROCESS -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Process</span><span class="lang-es-inline">Proceso</span></div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; max-width:720px;">
+    <div class="gallery-item">
+      <img src="../images/monumento/scan 4.png" alt="Illustration — dadaist bench" style="max-height:180px; object-fit:contain;">
+      <div class="caption lang-en">Illustration. "Banca impresora bolso dadaísta."</div>
+      <div class="caption lang-es">Ilustración. "Banca impresora bolso dadaísta."</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/monumento/Scan 5.jpeg" alt="Notebook — process" style="max-height:180px; object-fit:contain;">
+      <div class="caption lang-en">Notebook, 2025.</div>
+      <div class="caption lang-es">Libreta, 2025.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/monumento/Scan 8.png" alt="Illustration — owl" style="max-height:180px; object-fit:contain;">
+      <div class="caption lang-en">Illustration of a ritual, 2025.</div>
+      <div class="caption lang-es">Ilustración de un ritual, 2025.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/monumento/Scan 3.jpeg" alt="Notebook — process" style="max-height:180px; object-fit:contain;">
+      <div class="caption lang-en">Notebook, 2025.</div>
+      <div class="caption lang-es">Libreta, 2025.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

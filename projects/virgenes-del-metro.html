@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Las Vírgenes del Metro de Medellín — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+.proj-head {
+  padding:72px 28px 16px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; margin-bottom:8px; }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+.gallery-sec { padding:16px 28px 16px; }
+.gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:8px; }
+
+.gallery-item { overflow:hidden; cursor:pointer; }
+.gallery-item img { width:100%; display:block; }
+.gallery-item .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+.collaborators { font-family:var(--mono); font-size:0.62rem; color:var(--muted); line-height:1.7; }
+.collaborators strong { color:var(--text); font-weight:400; }
+
+.ext-link { font-family:var(--mono); font-size:0.65rem; color:var(--muted); border-bottom:1px solid var(--line); }
+.ext-link:hover { color:var(--text); border-color:var(--text); }
+
+.map-frame { width:100%; height:500px; border:1px solid var(--line); border-radius:2px; }
+
+.lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.92); align-items:center; justify-content:center; cursor:pointer; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close { position:fixed; top:20px; right:28px; font-family:var(--mono); font-size:0.75rem; color:#999; cursor:pointer; z-index:201; }
+.lightbox-close:hover { color:#fff; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .proj-head, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+  .map-frame { height:350px; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">Las Vírgenes del Metro de Medellín</h1>
+
+  <div class="proj-meta">2024 · Medellín · Edgelands Institute</div>
+
+  <div class="proj-tags">
+    <span>data</span>
+    <span>art</span>
+    <span>civic</span>
+  </div>
+
+  <p class="proj-desc lang-en">During the Edgelands Medellín Symposium in February 2024, we discussed the twenty-three artistic representations of the Virgin Mary installed across the Medellín Metro since 1996, as part of the Metro Culture project. The story: after the peak of the narcotrafficking crisis, when the Metro was being built, sociologists observed that gang leaders respected one thing above all, their mothers. They proposed that placing the Virgin Mary in public transport stations would remind these men of their "cuchas" (a local word for their mothers), and that they wouldn't commit crimes in her presence. The image became a form of social protection, eventually positioned alongside CCTV cameras in an ongoing, quiet tension between faith and surveillance. This image and anecdote became a powerful image for everything we were discussing about security, surveillance, and the social contract. I contacted Metro de Medellín's Culture area, obtained the data on the locations and artists of all twenty-three representations, and built the interactive station map. For the Art Book II, designed by Samuel Schmidt and Aude Py, I provided the photographs of the Virgins and produced the homicide map of Medellín that appears in the book.</p>
+  <p class="proj-desc lang-es">Durante el Simposio Edgelands Medellín en febrero de 2024, discutimos las veintitrés representaciones artísticas de la Virgen María instaladas en el Metro de Medellín desde 1996, como parte del proyecto Cultura Metro. La historia: después del pico de la crisis del narcotráfico, cuando el Metro estaba siendo construido, sociólogos observaron que los líderes de las pandillas respetaban una cosa por encima de todo, a sus madres. Propusieron que colocar la Virgen María en las estaciones de transporte público les recordaría a sus "cuchas" (una palabra local para sus madres), y que no cometerían crímenes en su presencia. La imagen se convirtió en una forma de protección social, eventualmente posicionada junto a cámaras de circuito cerrado en una tensión silenciosa y continua entre fe y vigilancia. Esta imagen y anécdota se convirtieron en una imagen poderosa para todo lo que estábamos discutiendo sobre seguridad, vigilancia y el contrato social. Contacté al área de Cultura del Metro de Medellín, obtuve los datos sobre las ubicaciones y artistas de las veintitrés representaciones, y construí el mapa interactivo de estaciones. Para el Art Book II, diseñado por Samuel Schmidt y Aude Py, proporcioné las fotografías de las Vírgenes y produje el mapa de homicidios de Medellín que aparece en el libro.</p>
+</div>
+
+<hr class="sep">
+
+<!-- COLLABORATORS -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div class="collaborators">
+    <span class="lang-en-inline">A project by the</span><span class="lang-es-inline">Un proyecto del</span> <strong>Edgelands Institute</strong>
+  </div>
+  <div class="collaborators" style="margin-top:4px;">
+    <span class="lang-en-inline">Art Book II design:</span><span class="lang-es-inline">Diseño del Art Book II:</span> <strong>Aude Py</strong> &amp; <strong>Samuel Schmidt</strong>
+  </div>
+  <div class="collaborators" style="margin-top:4px;">
+    <span class="lang-en-inline">Photography of the Virgins, homicide map, interactive map, data acquisition:</span><span class="lang-es-inline">Fotografía de las Vírgenes, mapa de homicidios, mapa interactivo, adquisición de datos:</span> <strong>Sara Arango Franco</strong>
+  </div>
+  <div class="collaborators" style="margin-top:8px;">
+    <span class="lang-en-inline">With thanks to the Culture area of Metro de Medellín for providing the information on the locations and artists of the twenty-three representations.</span><span class="lang-es-inline">Con agradecimiento al área de Cultura del Metro de Medellín por proporcionar la información sobre las ubicaciones y artistas de las veintitrés representaciones.</span>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- LIVE MAP -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Interactive map · 23 Virgins</span><span class="lang-es-inline">Mapa interactivo · 23 Vírgenes</span></div>
+  <iframe class="map-frame" src="https://sarangof.github.io/Virgenes_MDE/?v=2" title="Las Vírgenes del Metro de Medellín — interactive map" loading="lazy"></iframe>
+  <div style="margin-top:6px;">
+    <a href="https://sarangof.github.io/Virgenes_MDE/?v=2" target="_blank" class="ext-link"><span class="lang-en-inline">Open full map</span><span class="lang-es-inline">Abrir mapa completo</span> ↗</a>
+    <span style="margin:0 8px; color:var(--line);">·</span>
+    <a href="https://github.com/sarangof/Virgenes_MDE" target="_blank" class="ext-link">GitHub ↗</a>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- GALLERY -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Photographs</span><span class="lang-es-inline">Fotografías</span></div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr 2fr; gap:12px;">
+    <div class="gallery-item">
+      <img src="../images/virgenes/artbook-homicide.png" alt="Homicide map of Medellín, Art Book II">
+      <div class="caption lang-en">Homicide map of Medellín. Art Book II, Edgelands Institute. Design: Samuel Schmidt &amp; Aude Py.</div>
+      <div class="caption lang-es">Mapa de homicidios de Medellín. Art Book II, Instituto Edgelands. Diseño: Samuel Schmidt &amp; Aude Py.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/virgenes/artbook-virgins.png" alt="Virgins of the Metro, Art Book II">
+      <div class="caption lang-en">Virgins of the Metro. Art Book II, Edgelands Institute. Design: Samuel Schmidt &amp; Aude Py. Photographs: Sara Arango Franco.</div>
+      <div class="caption lang-es">Vírgenes del Metro. Art Book II, Instituto Edgelands. Diseño: Samuel Schmidt &amp; Aude Py. Fotografías: Sara Arango Franco.</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="../images/virgenes/DSCF8366.JPG" alt="Visit to the SIES-M, Medellín">
+      <div class="caption lang-en">Visit to the SIES-M (Sistema Integrado de Emergencias de Seguridad de Medellín). Photo: Edgelands Institute.</div>
+      <div class="caption lang-es">Visita al SIES-M (Sistema Integrado de Emergencias de Seguridad de Medellín). Foto: Instituto Edgelands.</div>
+    </div>
+  </div>
+
+<hr class="sep">
+
+<!-- LINKS -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div class="gallery-label">Links</div>
+  <div style="display:flex; gap:20px; flex-wrap:wrap;">
+    <a href="https://www.edgelands.institute/outcomes/medellin-art-book-ii" target="_blank" class="ext-link">Edgelands Art Book II ↗</a>
+    <a href="https://drive.google.com/file/d/1MtnSHjCUCW-MXjXFWMcMumMiKCMVbUP5/view" target="_blank" class="ext-link">Art Book II — PDF ↗</a>
+    <a href="https://www.edgelands.institute/blog/la-virgen-maria-is-watching-you" target="_blank" class="ext-link">La Virgen Maria is Watching You ↗</a>
+    <a href="https://github.com/sarangof/Virgenes_MDE" target="_blank" class="ext-link">GitHub ↗</a>
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

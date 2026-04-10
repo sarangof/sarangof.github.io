@@ -8,891 +8,569 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================
-   TOKENS
-   ============================================ */
 :root {
-  --black: #0A0A0A;
-  --white: #F5F0EB;
-  --cream: #E8E0D6;
-  --accent: #D85751;
-  --accent2: #E2F16C;
-  --accent3: #70AF94;
-  --accent4: #335852;
-  --muted: #8A8279;
-  --border: #2A2622;
-
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 8rem;
+  --bg: #E4DFD7;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
 }
 
-/* ============================================
-   RESET & BASE
-   ============================================ */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-  background: var(--black);
-  color: var(--white);
-}
-
-body {
-  font-family: var(--font-body);
-  font-weight: 400;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-::selection {
-  background: var(--accent);
-  color: var(--black);
-}
-
-a {
-  color: var(--accent2);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-a:hover { color: var(--accent); }
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* ============================================
-   NAVIGATION
-   ============================================ */
+/* NAV */
 nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: var(--space-sm) var(--space-md);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(10,10,10,0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding:12px 28px;
+  display:flex; justify-content:space-between; align-items:center;
 }
-
-nav .name {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  text-transform: none;
-  letter-spacing: 0;
-  color: var(--white);
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--muted);
 }
-
-nav .links { display: flex; gap: var(--space-md); align-items: center; }
-nav .links a { color: var(--muted); font-weight: 500; }
-nav .links a:hover { color: var(--white); }
-
+nav .links a:hover { color:var(--text); }
 .lang-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: var(--font-body);
-  transition: all 0.2s;
+  background:none; border:none; font-family:var(--mono); font-size:0.65rem;
+  text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
+  cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted);
 }
-.lang-toggle:hover { border-color: var(--white); color: var(--white); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
 
-/* ============================================
-   HERO
-   ============================================ */
+/* HERO */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: var(--space-xl) var(--space-md) var(--space-lg);
-  position: relative;
+  padding:72px 28px 24px;
+  max-width:900px;
+  display:flex; align-items:baseline; flex-wrap:wrap; gap:8px 24px;
 }
-
 .hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 10vw, 8rem);
-  line-height: 0.95;
-  font-weight: 400;
-  margin-bottom: var(--space-sm);
-  color: var(--white);
+  font-family:var(--serif);
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  font-weight:400; line-height:1.05;
+  letter-spacing:-0.01em;
+}
+.hero h1 em { font-style:italic; color:var(--accent); }
+.hero .lead {
+  font-size:0.88rem; font-weight:300; color:var(--muted);
+  max-width:420px; line-height:1.5;
+}
+.hero .loc {
+  font-family:var(--mono); font-size:0.62rem;
+  color:var(--muted); letter-spacing:0.04em;
 }
 
-.hero h1 em {
-  font-style: italic;
-  color: var(--accent);
+/* SECTIONS */
+.sec { padding:32px 28px 40px; }
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+.sec-label {
+  font-family:var(--mono); font-size:0.62rem; text-transform:uppercase;
+  letter-spacing:0.16em; color:var(--muted); margin-bottom:20px;
 }
 
-.hero .subtitle {
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  color: var(--muted);
-  max-width: 600px;
-  line-height: 1.5;
-  margin-bottom: var(--space-md);
-}
-
-.hero .scroll-hint {
-  position: absolute;
-  bottom: var(--space-md);
-  right: var(--space-md);
-  writing-mode: vertical-rl;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-/* ============================================
-   SECTIONS
-   ============================================ */
-section {
-  padding: var(--space-xl) var(--space-md);
-  border-top: 1px solid var(--border);
-}
-
-.section-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: var(--space-lg);
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-/* ============================================
-   TAGS / FILTER
-   ============================================ */
-.tag-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-lg);
-}
-
+/* TAGS */
+.tag-bar { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:16px; }
 .tag-btn {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 6px 16px;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: var(--font-body);
-  transition: all 0.25s;
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.06em; background:none; border:1px solid var(--line);
+  color:var(--muted); padding:2px 10px; cursor:pointer; transition:all 0.15s;
 }
-.tag-btn:hover { border-color: var(--white); color: var(--white); }
-.tag-btn.active { background: var(--white); color: var(--black); border-color: var(--white); }
+.tag-btn:hover { border-color:var(--text); color:var(--text); }
+.tag-btn.active { background:var(--text); color:var(--bg); border-color:var(--text); }
+.t { font-family:var(--mono); font-size:0.5rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); }
 
-.tag-pill {
-  display: inline-block;
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  margin-right: 4px;
-  margin-bottom: 4px;
+/* PROJECT GRID */
+.pgrid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+  gap:10px;
 }
 
-/* ============================================
-   PROJECT GRID
-   ============================================ */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: var(--space-md);
+.pcard {
+  background:var(--card-bg);
+  padding:0;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
 }
 
-.project-card {
-  position: relative;
-  border: 1px solid var(--border);
-  padding: var(--space-md);
-  transition: all 0.35s ease;
-  cursor: default;
+.pcard-img {
+  width:100%; aspect-ratio:4/3;
+  background:#D4CFC8;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.55rem; color:var(--muted);
+  overflow:hidden;
+}
+.pcard-img img { width:100%; height:100%; object-fit:cover; }
+
+.pcard-body { padding:8px 10px 10px; }
+
+.pcard-body h3 {
+  font-family:var(--serif); font-size:0.88rem; font-weight:400;
+  line-height:1.2;
 }
 
-.project-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
-}
+/* Hidden by default */
+.pcard-body .pm,
+.pcard-body .pd,
+.pcard-body .tags-row,
+.pcard-body .plink { display:none; }
 
-.project-card .card-image {
-  width: 100%;
-  height: 220px;
-  background: var(--border);
-  margin-bottom: var(--space-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  overflow: hidden;
+.pcard-body .pm {
+  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
+  margin-top:4px; margin-bottom:6px; letter-spacing:0.01em;
 }
-
-.project-card .card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.pcard-body .pd {
+  font-size:0.78rem; line-height:1.5; color:var(--text);
+  margin-bottom:6px;
 }
-
-.project-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 400;
-  margin-bottom: 0.4rem;
-  color: var(--white);
-  line-height: 1.2;
+.pcard-body .tags-row { gap:6px; flex-wrap:wrap; margin-top:6px; }
+.pcard-body .plink {
+  margin-top:6px;
+  font-family:var(--mono); font-size:0.58rem; color:var(--green);
 }
+.pcard-body .plink:hover { color:var(--accent); }
 
-.project-card .card-year {
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin-bottom: var(--space-sm);
+/* EXPANDED: show everything */
+.pcard.expanded .pcard-body .pm,
+.pcard.expanded .pcard-body .pd,
+.pcard.expanded .pcard-body .tags-row,
+.pcard.expanded .pcard-body .plink { display:flex; }
+.pcard.expanded .pcard-body .pm,
+.pcard.expanded .pcard-body .pd { display:block; }
+.pcard.expanded { grid-column: span 2; }
+
+/* English mode: hide Spanish descriptions even when expanded */
+.pcard.expanded .pcard-body .pd.lang-es { display:none; }
+body.es .pcard.expanded .pcard-body .pd.lang-en { display:none; }
+
+/* WRITING */
+.wlist { max-width:100%; }
+.witem {
+  padding:16px 0; border-bottom:1px solid var(--line);
+  display:grid; grid-template-columns:48px 1fr auto; gap:16px; align-items:baseline;
 }
+.witem:last-child { border-bottom:none; }
+.wy { font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+.witem h3 { font-family:var(--serif); font-size:1.05rem; font-weight:400; line-height:1.25; }
+.witem h3 a { text-decoration:none; }
+.witem h3 a:hover { color:var(--accent); }
+.wv { font-family:var(--mono); font-size:0.62rem; color:var(--muted); text-align:right; white-space:nowrap; }
+.wd { grid-column:2/-1; font-size:0.82rem; color:var(--muted); line-height:1.5; margin-top:-4px; }
 
-.project-card p {
-  font-size: 0.9rem;
-  color: var(--cream);
-  line-height: 1.6;
-  margin-bottom: var(--space-sm);
+/* CV */
+.cv { max-width:100%; column-count:2; column-gap:40px; }
+.cvb {
+  display:grid; grid-template-columns:80px 1fr; gap:16px;
+  padding:12px 0; border-bottom:1px solid var(--line);
+  break-inside:avoid;
 }
+.cvb:last-child { border-bottom:none; }
+.cvp { font-family:var(--mono); font-size:0.65rem; color:var(--muted); padding-top:2px; }
+.cvb h3 { font-family:var(--sans); font-size:0.88rem; font-weight:500; line-height:1.3; }
+.cvo { font-family:var(--mono); font-size:0.72rem; color:var(--green); }
+.cvd { font-size:0.8rem; color:var(--muted); }
+.cv-section-label { break-before:avoid; break-inside:avoid; }
 
-.project-card .card-tags {
-  margin-top: auto;
-}
-
-.project-card .card-link {
-  display: inline-block;
-  margin-top: var(--space-sm);
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: var(--accent2);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
-}
-.project-card .card-link:hover { border-bottom-color: var(--accent2); }
-
-/* ============================================
-   ABOUT
-   ============================================ */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-  max-width: 1100px;
-}
-
+/* ABOUT */
+.about-layout { display:grid; grid-template-columns:1fr 260px; gap:48px; align-items:start; max-width:880px; }
 .about-text h2 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: var(--space-md);
+  font-family:var(--serif); font-size:clamp(1.6rem, 3vw, 2.4rem);
+  font-weight:400; line-height:1.15; margin-bottom:20px;
 }
-
-.about-text h2 em { font-style: italic; color: var(--accent3); }
-
-.about-text p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--cream);
-  margin-bottom: var(--space-sm);
-}
-
+.about-text h2 em { font-style:italic; color:var(--green); }
+.about-text p { font-size:0.9rem; line-height:1.7; margin-bottom:10px; }
 .about-photo {
-  width: 100%;
-  height: 500px;
-  background: var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  width:100%; aspect-ratio:3/4; background:var(--card-bg);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.6rem; color:var(--muted);
 }
 
-/* ============================================
-   WRITING
-   ============================================ */
-.writing-list { max-width: 800px; }
-
-.writing-item {
-  border-bottom: 1px solid var(--border);
-  padding: var(--space-md) 0;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: var(--space-md);
-  align-items: baseline;
-  transition: all 0.2s;
+/* CONTACT */
+.contact { padding:56px 28px 40px; }
+.contact h2 { font-family:var(--serif); font-size:2rem; font-weight:400; margin-bottom:14px; }
+.contact-links { display:flex; gap:24px; }
+.contact-links a {
+  font-family:var(--mono); font-size:0.68rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--muted);
 }
+.contact-links a:hover { color:var(--text); }
 
-.writing-item:hover { padding-left: var(--space-sm); }
-
-.writing-item .w-year {
-  font-size: 0.8rem;
-  color: var(--muted);
-  min-width: 50px;
-}
-
-.writing-item h3 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 400;
-  color: var(--white);
-}
-
-.writing-item .w-venue {
-  font-size: 0.8rem;
-  color: var(--muted);
-  text-align: right;
-}
-
-.writing-item .w-desc {
-  grid-column: 2 / -1;
-  font-size: 0.85rem;
-  color: var(--cream);
-  line-height: 1.5;
-}
-
-/* ============================================
-   CV / TIMELINE
-   ============================================ */
-.timeline { max-width: 800px; }
-
-.timeline-block {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: var(--space-md);
-  padding: var(--space-sm) 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.timeline-block .t-period {
-  font-size: 0.8rem;
-  color: var(--muted);
-  padding-top: 2px;
-}
-
-.timeline-block h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 400;
-  color: var(--white);
-  margin-bottom: 2px;
-}
-
-.timeline-block .t-org {
-  font-size: 0.85rem;
-  color: var(--accent3);
-  margin-bottom: 4px;
-}
-
-.timeline-block .t-desc {
-  font-size: 0.85rem;
-  color: var(--cream);
-  line-height: 1.5;
-}
-
-/* ============================================
-   CONTACT
-   ============================================ */
-.contact-section {
-  text-align: center;
-  padding: var(--space-xl) var(--space-md);
-}
-
-.contact-section h2 {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 400;
-  margin-bottom: var(--space-md);
-}
-
-.contact-links {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-lg);
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* ============================================
-   FOOTER
-   ============================================ */
 footer {
-  padding: var(--space-md);
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.7rem;
-  color: var(--muted);
+  padding:16px 28px; display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
+  border-top:1px solid var(--line);
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 768px) {
-  nav { padding: var(--space-sm); }
-  nav .links { gap: var(--space-sm); }
-  section { padding: var(--space-lg) var(--space-sm); }
-  .hero { padding: var(--space-xl) var(--space-sm) var(--space-lg); }
-  .about-grid { grid-template-columns: 1fr; }
-  .project-grid { grid-template-columns: 1fr; }
-  .writing-item { grid-template-columns: 1fr; gap: var(--space-xs); }
-  .writing-item .w-venue { text-align: left; }
-  .writing-item .w-year { min-width: auto; }
-  .timeline-block { grid-template-columns: 1fr; gap: var(--space-xs); }
+/* RESPONSIVE */
+@media (max-width:768px) {
+  .pgrid { grid-template-columns:repeat(2, 1fr); gap:8px; }
+  .pcard.expanded { grid-column: span 1; }
+  .about-layout { grid-template-columns:1fr; }
+  .witem { grid-template-columns:1fr; gap:2px; }
+  .wv { text-align:left; }
+  .cvb { grid-template-columns:1fr; gap:2px; }
+  .cv { column-count:1; }
+  nav .links { gap:10px; }
+  .hero, .sec, .contact { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+  .hero { flex-direction:column; gap:6px; }
+}
+@media (max-width:480px) {
+  .pgrid { grid-template-columns:1fr 1fr; gap:6px; }
+  .pcard-body { padding:6px 8px 8px; }
+  .pcard-body h3 { font-size:0.78rem; }
 }
 
-/* ============================================
-   NOISE TEXTURE OVERLAY
-   ============================================ */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
-}
-
-/* ============================================
-   ANIMATIONS
-   ============================================ */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* bilingual toggle */
-.lang-es { display: none; }
-body.es .lang-en { display: none; }
-body.es .lang-es { display: block; }
-body.es .lang-es-inline { display: inline; }
-body.es .lang-en-inline { display: none; }
+/* BILINGUAL */
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
 body:not(.es) .lang-es-inline { display: none; }
 
+/* FIX: card descriptions stay hidden until expanded, even in Spanish mode */
+body.es .pcard-body .pd.lang-es { display:none; }
+body.es .pcard-body .pm { display:none; }
+body.es .pcard.expanded .pcard-body .pd.lang-es { display:block; }
+body.es .pcard.expanded .pcard-body .pm { display:block; }
+/* Same fix for writing descriptions */
+body.es .wd.lang-es { display:none; }
+body.es .witem .wd.lang-es { display:block; }
 </style>
 </head>
 <body>
 
-<!-- ==================== NAV ==================== -->
 <nav>
-  <span class="name">Sara Arango Franco</span>
+  <a href="#" class="name" style="color:var(--text)">Sara Arango Franco</a>
   <div class="links">
-    <a href="#projects"><span class="lang-en-inline">Projects</span><span class="lang-es-inline">Proyectos</span></a>
+    <a href="#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
     <a href="#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
-    <a href="#cv"><span class="lang-en-inline">CV</span><span class="lang-es-inline">CV</span></a>
+    <a href="cv.html">CV</a>
     <a href="#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
-    <a href="#contact"><span class="lang-en-inline">Contact</span><span class="lang-es-inline">Contacto</span></a>
-    <button class="lang-toggle" onclick="document.body.classList.toggle('es'); this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES'">ES</button>
+    <button class="lang-toggle">ES</button>
   </div>
 </nav>
 
-<!-- ==================== HERO ==================== -->
 <header class="hero">
-  <h1>Sara<br>Arango <em>Franco</em></h1>
-  <div class="subtitle">
-    <span class="lang-en">Research, art, and urban inquiry.<br>Making invisible systems visible through data, devices, writing, and the body.</span>
-    <span class="lang-es">Investigación, arte e indagación urbana.<br>Hacer visibles los sistemas invisibles a través de datos, dispositivos, escritura y el cuerpo.</span>
-  </div>
-  <div class="subtitle" style="font-size: 0.85rem; color: var(--accent3);">Medellín, Colombia</div>
-  <span class="scroll-hint">Scroll</span>
+  <h1>Sara Arango <em>Franco</em></h1>
+  <p class="lead lang-en">Research, art, and urban inquiry. Making invisible systems visible through data, devices, writing, and perception.</p>
+  <p class="lead lang-es">Investigación, arte e indagación urbana. Haciendo visibles los sistemas invisibles a través de datos, dispositivos, escritura y la percepción.</p>
+  <p class="loc">Medellín, Colombia</p>
 </header>
 
-<!-- ==================== PROJECTS ==================== -->
-<section id="projects">
-  <div class="section-label"><span class="lang-en-inline">Projects</span><span class="lang-es-inline">Proyectos</span></div>
+<hr class="sep">
 
-  <div class="tag-filter">
+<section class="sec" id="work">
+  <div class="sec-label"><span class="lang-en-inline">Selected work</span><span class="lang-es-inline">Trabajo seleccionado</span></div>
+
+  <div class="tag-bar">
     <button class="tag-btn active" data-filter="all">All</button>
     <button class="tag-btn" data-filter="art">Art</button>
     <button class="tag-btn" data-filter="research">Research</button>
     <button class="tag-btn" data-filter="data">Data</button>
     <button class="tag-btn" data-filter="civic">Civic</button>
     <button class="tag-btn" data-filter="sound">Sound</button>
+    <button class="tag-btn" data-filter="policy">Policy</button>
   </div>
 
-  <div class="project-grid">
+  <div class="pgrid">
 
-    <!-- RADIO ABURRÁ -->
-    <div class="project-card fade-in" data-tags="art,research,sound">
-      <div class="card-image">[ image: Radio Aburrá prototype ]</div>
-      <h3>Radio Aburrá</h3>
-      <div class="card-year">2024 — ongoing · <span class="lang-en-inline">with Cristian</span><span class="lang-es-inline">con Cristian</span></div>
-      <p class="lang-en">A portable listening device that filters urban noise to reveal birdsong in real time. Built with custom microphone arrays, digital signal processing, and 3D-printed waveguides, Radio Aburrá proposes an act of sonic attention as a counter-practice to urban noise — recovering the city's ecological soundtrack as common ground. The project is moving toward a museum installation with a documentary layer recording how people in different cities interact with the device.</p>
-      <p class="lang-es">Un dispositivo portátil de escucha que filtra el ruido urbano para revelar el canto de los pájaros en tiempo real. Construido con arreglos de micrófonos, procesamiento digital de señal y guías de onda impresas en 3D, Radio Aburrá propone un acto de atención sonora como contrapráctica al ruido urbano — recuperando la banda sonora ecológica de la ciudad como bien común. El proyecto avanza hacia una instalación museística con una capa documental que registra cómo personas en distintas ciudades interactúan con el dispositivo.</p>
-      <div class="card-tags">
-        <span class="tag-pill">art</span>
-        <span class="tag-pill">sound</span>
-        <span class="tag-pill">research</span>
-      </div>
-    </div>
-
-    <!-- MONUMENTO -->
-    <div class="project-card fade-in" data-tags="art,research">
-      <div class="card-image">[ image: Monumento performance still ]</div>
-      <h3>Monumento</h3>
-      <div class="card-year">2023 — ongoing</div>
-      <p class="lang-en">A written performance of approximately four hundred pages on grief, absence, and the body as archive. Monumento treats the act of writing itself as a performative gesture — accumulation as monument-building, language as material. Video documentation exists from the saris.factory residency. The manuscript is both a literary object and a score for presence.</p>
-      <p class="lang-es">Una performance escrita de aproximadamente cuatrocientas páginas sobre el duelo, la ausencia y el cuerpo como archivo. Monumento trata el acto de escritura como gesto performativo — la acumulación como construcción de monumento, el lenguaje como material. Existe documentación en video de la residencia saris.factory. El manuscrito es a la vez objeto literario y partitura de presencia.</p>
-      <div class="card-tags">
-        <span class="tag-pill">art</span>
-        <span class="tag-pill">research</span>
-      </div>
-    </div>
-
-    <!-- TODO ES COLLAGE -->
-    <div class="project-card fade-in" data-tags="art,data">
-      <div class="card-image">[ image: collage work ]</div>
-      <h3>Todo es collage</h3>
-      <div class="card-year">2020 — ongoing</div>
-      <p class="lang-en">Analog and digital collage practice drawing on family archives, found images, and data. The digital work uses Python to process images as numerical matrices — randomization, interpolation, spectral decomposition — treating the computer's operations on images as analogues to the processes of memory. Exhibited at Bodega Comfama in the context of MATZA × Edgelands. Includes photography and illustration work rooted in the same sensibility.</p>
-      <p class="lang-es">Práctica de collage análogo y digital a partir de archivos familiares, imágenes encontradas y datos. El trabajo digital usa Python para procesar imágenes como matrices numéricas — aleatorización, interpolación, descomposición espectral — tratando las operaciones del computador sobre la imagen como análogos a los procesos de la memoria. Exhibido en Bodega Comfama en el contexto de MATZA × Edgelands. Incluye fotografía e ilustración enraizadas en la misma sensibilidad.</p>
-      <div class="card-tags">
-        <span class="tag-pill">art</span>
-        <span class="tag-pill">data</span>
-      </div>
-    </div>
-
-    <!-- SYMPOIETIC ART ORGANISM -->
-    <div class="project-card fade-in" data-tags="art,research">
-      <div class="card-image">[ image: sympoietic network visualization ]</div>
-      <h3>Sympoietic Art Organism</h3>
-      <div class="card-year">2025</div>
-      <p class="lang-en">A collective artwork born from the Complex Systems Summer School at the Santa Fe Institute. Ten artists across four continents created work under shared constraints — each piece feeding the next, the whole emerging without central control. The organism itself became the art: a living network exploring how creative structure arises from reciprocal limitation and mutual contamination.</p>
-      <p class="lang-es">Una obra colectiva nacida del Complex Systems Summer School en el Santa Fe Institute. Diez artistas en cuatro continentes crearon obra bajo restricciones compartidas — cada pieza alimentando la siguiente, el todo emergiendo sin control central. El organismo mismo se convirtió en la obra: una red viva que explora cómo la estructura creativa surge de la limitación recíproca y la contaminación mutua.</p>
-      <div class="card-tags">
-        <span class="tag-pill">art</span>
-        <span class="tag-pill">research</span>
-      </div>
-    </div>
-
-    <!-- EDGELANDS -->
-    <div class="project-card fade-in" data-tags="research,data,civic,art">
-      <div class="card-image">[ image: Edgelands work — pop-up, workshop, or network viz ]</div>
-      <h3><span class="lang-en-inline">Edgelands Institute — Medellín</span><span class="lang-es-inline">Instituto Edgelands — Medellín</span></h3>
-      <div class="card-year">2021 — ongoing</div>
-      <p class="lang-en">Data consultant and researcher for Edgelands Institute's Medellín program on surveillance, security technologies, and civic participation. Co-authored major reports on urban security tech governance, led data workshops with young people (Decodificando la Seguridad), co-designed the Hablemos Medellín citizen survey, built network visualizations and interactive maps including Las Vírgenes del Metro de Medellín, and contributed to both Art Books. The work sits at the intersection of data, civic engagement, and creative methods.</p>
-      <p class="lang-es">Consultora de datos e investigadora para el programa de Medellín del Instituto Edgelands sobre vigilancia, tecnologías de seguridad y participación ciudadana. Co-autora de informes sobre gobernanza de tecnología de seguridad urbana, líder de talleres de datos con jóvenes (Decodificando la Seguridad), co-diseñadora de la encuesta ciudadana Hablemos Medellín, creadora de visualizaciones de red y mapas interactivos incluyendo Las Vírgenes del Metro de Medellín, y contribuyente a ambos Art Books. El trabajo está en la intersección entre datos, participación cívica y métodos creativos.</p>
-      <div class="card-tags">
-        <span class="tag-pill">research</span>
-        <span class="tag-pill">data</span>
-        <span class="tag-pill">civic</span>
-        <span class="tag-pill">art</span>
-      </div>
-      <a class="card-link" href="https://es.edgelands.institute/cities/medellin#outcomes" target="_blank">View outcomes ↗</a>
-    </div>
-
-    <!-- LAS VÍRGENES -->
-    <div class="project-card fade-in" data-tags="data,art,civic">
-      <div class="card-image">[ image: Vírgenes del Metro map screenshot ]</div>
-      <h3>Las Vírgenes del Metro de Medellín</h3>
-      <div class="card-year">2024 · Edgelands Institute</div>
-      <p class="lang-en">An interactive map of the twenty-three artistic representations of the Virgin Mary across the Medellín Metro system. Produced from data provided by the Metro's Culture area, the map documents how public art became a form of social protection during the narcotrafficking crisis — not through supernatural effects, but through the community's respect for the image. A data project that is also a cultural cartography.</p>
-      <p class="lang-es">Un mapa interactivo de las veintitrés representaciones artísticas de la Virgen María en las estaciones del Metro de Medellín. Producido con datos del área de Cultura del Metro, el mapa documenta cómo el arte público se convirtió en forma de protección social durante la crisis del narcotráfico — no por efectos sobrenaturales, sino por el respeto de la comunidad hacia la imagen. Un proyecto de datos que es también una cartografía cultural.</p>
-      <div class="card-tags">
-        <span class="tag-pill">data</span>
-        <span class="tag-pill">art</span>
-        <span class="tag-pill">civic</span>
-      </div>
-      <a class="card-link" href="https://sarangof.github.io/Virgenes_MDE/?v=2" target="_blank">View map ↗</a>
-    </div>
-
-    <!-- LUNES DE CIUDAD -->
-    <div class="project-card fade-in" data-tags="civic">
-      <div class="card-image">[ image: Lunes de Ciudad gathering ]</div>
-      <h3>Lunes de Ciudad</h3>
-      <div class="card-year">2013 — ongoing</div>
-      <p class="lang-en">A citizen-led public conversation initiative born in Medellín in 2013 and now replicated in more than sixteen cities across Colombia, France, Senegal, Mexico, Ecuador, and the United States. Every Monday, diverse actors — citizens, government officials, academics, activists — gather in public space to debate urban issues. Topics center on peace, coexistence, security, sustainability, and open governance. Thirteen years of sustained horizontal dialogue.</p>
-      <p class="lang-es">Una iniciativa ciudadana de conversación pública nacida en Medellín en 2013 y replicada en más de dieciséis ciudades en Colombia, Francia, Senegal, México, Ecuador y Estados Unidos. Cada lunes, actores diversos — ciudadanos, funcionarios, académicos, activistas — se reúnen en espacio público para debatir temas urbanos. Los temas se centran en paz, convivencia, seguridad, sostenibilidad y gobierno abierto. Trece años de diálogo horizontal sostenido.</p>
-      <div class="card-tags">
-        <span class="tag-pill">civic</span>
-      </div>
-      <a class="card-link" href="https://lunesdeciudad.org/" target="_blank">lunesdeciudad.org ↗</a>
-    </div>
-
-    <!-- URBAN FOOTPRINTS -->
-    <div class="project-card fade-in" data-tags="research,data">
-      <div class="card-image">[ image: urban footprint shapes visualization ]</div>
-      <h3><span class="lang-en-inline">The Shape Compactness of Urban Footprints</span><span class="lang-es-inline">La compacidad de la forma de las huellas urbanas</span></h3>
-      <div class="card-year">2020 · NYU Marron Institute</div>
-      <p class="lang-en">Research with Shlomo Angel at the NYU Marron Institute of Urban Management, developing metrics for the shape compactness of urban footprints across global cities. Published and cited — a contribution to the quantitative understanding of how cities grow and what their forms reveal about planning, sprawl, and territorial governance.</p>
-      <p class="lang-es">Investigación con Shlomo Angel en el Marron Institute of Urban Management de NYU, desarrollando métricas de compacidad de la forma de huellas urbanas en ciudades del mundo. Publicada y citada — una contribución a la comprensión cuantitativa de cómo crecen las ciudades y lo que sus formas revelan sobre planificación, expansión y gobernanza territorial.</p>
-      <div class="card-tags">
-        <span class="tag-pill">research</span>
-        <span class="tag-pill">data</span>
-      </div>
-    </div>
-
-    <!-- URBAN FORESTS -->
-    <div class="project-card fade-in" data-tags="research,data,civic">
-      <div class="card-image">[ image placeholder ]</div>
-      <h3><span class="lang-en-inline">Urban Forests</span><span class="lang-es-inline">Bosques urbanos</span></h3>
-      <div class="card-year">2025 — ongoing · EAFIT + Fundación Al Mar Gen</div>
-      <p class="lang-en">Ongoing research with EAFIT and Fundación Al Mar Gen on urban forests in Medellín — ecological infrastructure, territorial governance, and the intersections between biodiversity data and community knowledge.</p>
-      <p class="lang-es">Investigación en curso con EAFIT y Fundación Al Mar Gen sobre bosques urbanos en Medellín — infraestructura ecológica, gobernanza territorial y las intersecciones entre datos de biodiversidad y conocimiento comunitario.</p>
-      <div class="card-tags">
-        <span class="tag-pill">research</span>
-        <span class="tag-pill">data</span>
-        <span class="tag-pill">civic</span>
-      </div>
-    </div>
-
+<div class="pcard" data-tags="art research sound" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/box-2.cut.png" alt="Radio Aburrá" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>Radio Aburrá</h3>
+    <div class="pm">2024 — · <span class="lang-en-inline">w/ Cristian</span><span class="lang-es-inline">c/ Cristian</span></div>
+    <div class="tags-row"><span class="t">art</span> <span class="t">sound</span> <span class="t">research</span></div>
+    <p class="pd lang-en">A portable listening device that filters urban noise to reveal birdsong in real time. Custom microphone arrays, DSP, 3D-printed waveguides. Moving toward a museum installation with documentary layer.</p>
+    <p class="pd lang-es">Dispositivo portátil que filtra el ruido urbano para revelar el canto de los pájaros en tiempo real. Avanza hacia una instalación museística con capa documental.</p>
   </div>
+</div>
+
+<div class="pcard" data-tags="art research sound" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/ruidoysep.jpg" alt="El ruido y la separación" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>El ruido y la separación</h3>
+    <div class="pm">2025 —</div>
+    <div class="tags-row"><span class="t">art</span> <span class="t">sound</span> <span class="t">research</span></div>
+    <p class="pd lang-en"></p>
+    <p class="pd lang-es"></p>
+  </div>
+</div>
+
+<div class="pcard" data-tags="art research" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/monumento.png" alt="Monumento" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>Monumento</h3>
+    <div class="pm">2025 —</div>
+    <div class="tags-row"><span class="t">art</span> <span class="t">research</span></div>
+    <p class="pd lang-en">A written performance of ~400 pages on grief, absence, and the body as archive. Writing as performative gesture — accumulation as monument-building, language as material. Video documentation from saris.factory residency.</p>
+    <p class="pd lang-es">Performance escrita de ~400 páginas sobre duelo, ausencia y el cuerpo como archivo. La escritura como gesto performativo. Documentación en video de la residencia saris.factory.</p>
+  </div>
+</div>
+
+<a href="projects/collage.html" class="pcard" data-tags="art" style="text-decoration:none;color:inherit;">
+  <div class="pcard-img"><img src="images/collage/taller1.png" alt="Collage" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>Collage</h3>
+  </div>
+</a>
+
+<a href="projects/data-collage.html" class="pcard" data-tags="art data" style="text-decoration:none;color:inherit;">
+  <div class="pcard-img"><img src="images/data_collage/data_collage.png" alt="Data collage" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>Data collage</h3>
+  </div>
+</a>
+
+<a href="projects/photography.html" class="pcard" data-tags="art" style="text-decoration:none;color:inherit;">
+  <div class="pcard-img"><img src="images/000119500009.png" alt="Photography" style="width:100%;height:100%;object-fit:cover;"></div>
+  
+  <div class="pcard-body">
+    <h3><span class="lang-en-inline">Photography</span><span class="lang-es-inline">Fotografía</span></h3>
+  </div>
+</a>
+
+
+<a href="projects/sympoietic.html" class="pcard" data-tags="art research" style="text-decoration:none;color:inherit;">
+  <div class="pcard-img"><img src="images/sympoietic/7841CB72-9DB8-41BA-8595-5232ED1D6C4E.png" alt="Sympoietic art organism" style="width:100%;height:100%;object-fit:cover;"></div>
+  
+  <div class="pcard-body">
+    <h3><span class="lang-en-inline">Sympoietic art organism</span><span class="lang-es-inline">Sympoietic art organism</span></h3>
+  </div>
+</a>
+
+
+<div class="pcard" data-tags="art research" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/IMG_1476.png" alt="A collage about death" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>A collage about death</h3>
+    <div class="pm">2025 · SFI / CSSS</div>
+    <div class="tags-row"><span class="t">art</span> <span class="t">research</span></div>
+    <p class="pd lang-en"></p>
+    <p class="pd lang-es"></p>
+  </div>
+</div>
+
+<div class="pcard" data-tags="art research" onclick="this.classList.toggle('expanded')">  
+  <div class="pcard-img"><img src="images/matzaedgelands.jpg" alt="MATZA × Edgelands" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>MATZA × Edgelands</h3>
+    <div class="pm">2022 · Common Grounds</div>
+    <div class="tags-row"><span class="t">art</span> <span class="t">research</span></div>
+    <p class="pd lang-en">Artist-researcher in residence. International collaboration between Switzerland, Kenya, and Colombia. Led the organization and mediation of the Medellín residency, facilitating dialogue between local and international artists. Produced Pérdidas — espectros de información during this residency. Solo exhibition "Todo es collage" at Bodega Comfama.</p>
+    <p class="pd lang-es">Artista-investigadora en residencia. Colaboración internacional entre Suiza, Kenia y Colombia. Lideré la organización y mediación de la residencia en Medellín. Produje Pérdidas — espectros de información durante esta residencia. Exposición individual "Todo es collage" en Bodega Comfama.</p>
+  </div>
+</div>
+
+<!-- ========== RESEARCH / CIVIC / POLICY CARDS ========== -->
+
+<a href="projects/edgelands-reports.html" class="pcard" data-tags="research data civic policy" style="text-decoration:none;color:inherit;">
+  <div class="pcard-img"><img src="images/img342.png" alt="Edgelands — Reports & Research" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3><span class="lang-en-inline">Edgelands — Reports & Research</span><span class="lang-es-inline">Edgelands — Informes e investigación</span></h3>
+  </div>
+</a>
+
+<div class="pcard" data-tags="research data civic" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/dropping.png" alt="Dropping the pin on surveillance" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>Dropping the Pin on Surveillance</h3>
+    <div class="pm">2023 · Edgelands · Geneva</div>
+    <div class="tags-row"><span class="t">research</span> <span class="t">data</span> <span class="t">civic</span></div>
+    <p class="pd lang-en">Participatory surveillance camera mapping in Geneva. 423 cameras identified through citizen volunteers, geolocated and photographed. An interactive map and public conversation about transparency, visibility, and the right to know what watches us.</p>
+    <p class="pd lang-es">Mapeo participativo de cámaras de vigilancia en Ginebra. 423 cámaras identificadas por voluntarios ciudadanos, geolocalizadas y fotografiadas. Un mapa interactivo y conversación pública sobre transparencia y vigilancia.</p>
+    <a class="plink" href="https://sarangof.github.io/Security_cameras_Geneva/" target="_blank">view map ↗</a>
+  </div>
+</div>
+
+<div class="pcard" data-tags="data art civic" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/virgins.png" alt="Las Vírgenes del Metro" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>Las Vírgenes del Metro</h3>
+    <div class="pm">2024 · Edgelands</div>
+    <div class="tags-row"><span class="t">data</span> <span class="t">art</span> <span class="t">civic</span></div>
+    <p class="pd lang-en">Interactive map of 23 artistic representations of the Virgin Mary across the Medellín Metro. How public art became social protection during the narcotrafficking crisis — not supernaturally, but through communal respect for the image.</p>
+    <p class="pd lang-es">Mapa interactivo de 23 representaciones artísticas de la Virgen María en el Metro de Medellín.</p>
+    <a class="plink" href="https://sarangof.github.io/Virgenes_MDE/?v=2" target="_blank">view map ↗</a>
+  </div>
+</div>
+
+<div class="pcard" data-tags="data research" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/preview_network.jpg" alt="Edgelands Network" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3>Edgelands Network Visualization</h3>
+    <div class="pm">2026 · Edgelands</div>
+    <div class="tags-row"><span class="t">data</span> <span class="t">research</span></div>
+    <p class="pd lang-en">Interactive 3D network visualization of the Edgelands Institute community — mapping expertise, geography, and connections. Built as both a directory and a coordination tool.</p>
+    <p class="pd lang-es">Visualización interactiva 3D de la red del Instituto Edgelands — mapeando experticia, geografía y conexiones.</p>
+  </div>
+</div>
+
+<a href="projects/civic-practice.html" class="pcard" data-tags="civic policy" style="text-decoration:none;color:inherit;">
+  <div class="pcard-img">[ image ]</div>
+  <div class="pcard-body">
+    <h3><span class="lang-en-inline">Cities & Civic Practice</span><span class="lang-es-inline">Ciudades y práctica cívica</span></h3>
+  </div>
+</a>
+
+<div class="pcard" data-tags="research data" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/compactness.jpg" alt="Urban Footprint Compactness" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3><span class="lang-en-inline">Urban Footprint Compactness</span><span class="lang-es-inline">Compacidad urbana</span></h3>
+    <div class="pm">2018 · <span class="lang-en-inline">w/ S. Angel</span><span class="lang-es-inline">c/ S. Angel</span> · NYU</div>
+    <div class="tags-row"><span class="t">research</span> <span class="t">data</span></div>
+    <p class="pd lang-en">Metrics for the shape compactness of urban footprints across global cities. Published in Progress in Planning.</p>
+    <p class="pd lang-es">Métricas de compacidad de huellas urbanas en ciudades del mundo. Publicada en Progress in Planning.</p>
+  </div>
+</div>
+
+<div class="pcard" data-tags="research data" onclick="this.classList.toggle('expanded')">
+  <div class="pcard-img"><img src="images/uri.jpeg" alt="Urban Regularity Index" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="pcard-body">
+    <h3><span class="lang-en-inline">Urban Regularity Index</span><span class="lang-es-inline">Índice de regularidad urbana</span></h3>
+    <div class="pm">2024 — · WRI Ross Center</div>
+    <div class="tags-row"><span class="t">research</span> <span class="t">data</span></div>
+    <p class="pd lang-en">Geospatial research on urban block geometry and irregularity across 1,238 cities in Sub-Saharan Africa and Latin America. A visual index of how cities grow — formal grids versus organic sprawl — analyzing patterns of urban expansion for the World Resources Institute.</p>
+    <p class="pd lang-es">Investigación geoespacial sobre la geometría e irregularidad de manzanas urbanas en 1.238 ciudades de África Subsahariana y América Latina. Un índice visual de cómo crecen las ciudades — para el World Resources Institute.</p>
+  </div>
+</div>
+
+<a href="projects/nyu-litmus.html" class="pcard" data-tags="research data policy" style="text-decoration:none;color:inherit;">
+  <div class="pcard-img">[ image ]</div>
+  <div class="pcard-body">
+    <h3>NYU Marron / Litmus</h3>
+  </div>
+</a>
+
 </section>
 
-<!-- ==================== WRITING ==================== -->
-<section id="writing">
-  <div class="section-label"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></div>
+<hr class="sep">
 
-  <div class="writing-list">
-
-    <div class="writing-item fade-in">
-      <span class="w-year">2026</span>
+<section class="sec" id="writing">
+  <div class="sec-label"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></div>
+  <div class="wlist">
+    <div class="witem">
+      <span class="wy">2026</span>
       <div>
         <h3><span class="lang-en-inline">Is the Algorithm the Spirit of Our Times?</span><span class="lang-es-inline">¿Es el algoritmo el espíritu de nuestros tiempos?</span></h3>
-        <p class="w-desc lang-en">Chapter in the Routledge Handbook of Digital Hermeneutics. On algorithmic mediation and spirituality — how the algorithm functions as a structuring force analogous to the religious spirits of prior eras, mediating perception, attention, and meaning. Forthcoming.</p>
-        <p class="w-desc lang-es">Capítulo en el Routledge Handbook of Digital Hermeneutics. Sobre mediación algorítmica y espiritualidad — cómo el algoritmo funciona como fuerza estructurante análoga a los espíritus religiosos de eras anteriores, mediando percepción, atención y sentido. En preparación.</p>
+        <p class="wd lang-en">Chapter in the Routledge Handbook of Digital Hermeneutics. On algorithmic mediation and spirituality — how the algorithm functions as a structuring force analogous to the religious spirits of prior eras. Forthcoming.</p>
+        <p class="wd lang-es">Capítulo en el Routledge Handbook of Digital Hermeneutics. Mediación algorítmica y espiritualidad. En preparación.</p>
       </div>
-      <span class="w-venue">Routledge</span>
+      <span class="wv">Routledge</span>
     </div>
-
-    <div class="writing-item fade-in">
-      <span class="w-year">2024</span>
-      <div>
-        <h3>El ruido y la separación</h3>
-        <p class="w-desc lang-en">An essay on noise as social pathology — how urban sonic environments produce isolation, erode the commons, and structure territorial control. Published through Edgelands Institute.</p>
-        <p class="w-desc lang-es">Un ensayo sobre el ruido como patología social — cómo los entornos sonoros urbanos producen aislamiento, erosionan los comunes y estructuran el control territorial. Publicado a través del Instituto Edgelands.</p>
+    <div class="witem">
+      <span class="wy">2024</span>
+      <div><h3><a href="https://es.edgelands.institute/blog/el-ruido-y-la-separacion" target="_blank">El ruido y la separación</a></h3>
+        <p class="wd lang-en">Noise as social pathology — how urban sonic environments produce isolation, erode the commons, and structure territorial control.</p>
+        <p class="wd lang-es">El ruido como patología social — entornos sonoros urbanos, aislamiento, los comunes, control territorial.</p>
       </div>
-      <span class="w-venue">Edgelands</span>
+      <span class="wv">Edgelands</span>
     </div>
-
-    <div class="writing-item fade-in">
-      <span class="w-year">2024</span>
-      <div>
-        <h3><span class="lang-en-inline">Medellín: Reflections on the Intensive Use of Digital Technologies for Urban Security</span><span class="lang-es-inline">Medellín: Reflexiones sobre el uso intensivo de tecnologías digitales para la seguridad urbana</span></h3>
-        <p class="w-desc lang-en">Co-authored report with María Camila Roldán, María Andrea González, and Juan Sebastián Aristizábal. A critical examination of Medellín's surveillance infrastructure, its governance gaps, and the civic implications of technology-driven security.</p>
-        <p class="w-desc lang-es">Informe co-autorado con María Camila Roldán, María Andrea González y Juan Sebastián Aristizábal. Un examen crítico de la infraestructura de vigilancia de Medellín, sus vacíos de gobernanza y las implicaciones cívicas de la seguridad basada en tecnología.</p>
-      </div>
-      <span class="w-venue">Edgelands</span>
-    </div>
-
-    <div class="writing-item fade-in">
-      <span class="w-year">2020</span>
-      <div>
-        <h3>The Shape Compactness of Urban Footprints</h3>
-        <p class="w-desc lang-en">With Shlomo Angel. Published research on morphological metrics for urban growth patterns across global cities.</p>
-        <p class="w-desc lang-es">Con Shlomo Angel. Investigación publicada sobre métricas morfológicas de patrones de crecimiento urbano en ciudades del mundo.</p>
-      </div>
-      <span class="w-venue">NYU Marron</span>
-    </div>
-
   </div>
+  
 </section>
 
-<!-- ==================== CV ==================== -->
-<section id="cv">
-  <div class="section-label">CV</div>
+<hr class="sep">
 
-  <div class="timeline">
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2024 —</span>
-      <div>
-        <h3><span class="lang-en-inline">Independent artist-researcher</span><span class="lang-es-inline">Artista-investigadora independiente</span></h3>
-        <p class="t-org">Ruido y Señal</p>
-        <p class="t-desc lang-en">Research, art, and urban inquiry. Radio Aburrá, Monumento, the noise–algorithm–territory arc. Building a named practice at the intersection of data science, sonic inquiry, written performance, and civic engagement.</p>
-        <p class="t-desc lang-es">Investigación, arte e indagación urbana. Radio Aburrá, Monumento, el arco ruido–algoritmo–territorio. Construyendo una práctica nombrada en la intersección entre ciencia de datos, indagación sonora, performance escrita y participación cívica.</p>
-      </div>
-    </div>
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2021 —</span>
-      <div>
-        <h3><span class="lang-en-inline">Data consultant &amp; researcher</span><span class="lang-es-inline">Consultora de datos e investigadora</span></h3>
-        <p class="t-org">Edgelands Institute</p>
-        <p class="t-desc lang-en">Medellín program — surveillance, security technologies, civic participation. Reports, workshops, network visualizations, interactive maps, Art Books.</p>
-        <p class="t-desc lang-es">Programa Medellín — vigilancia, tecnologías de seguridad, participación ciudadana. Informes, talleres, visualizaciones de red, mapas interactivos, Art Books.</p>
-      </div>
-    </div>
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2025</span>
-      <div>
-        <h3><span class="lang-en-inline">Data science consultant</span><span class="lang-es-inline">Consultora de ciencia de datos</span></h3>
-        <p class="t-org">WRI Ross Center for Sustainable Cities</p>
-      </div>
-    </div>
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2025</span>
-      <div>
-        <h3><span class="lang-en-inline">Participant</span><span class="lang-es-inline">Participante</span></h3>
-        <p class="t-org">Complex Systems Summer School — Santa Fe Institute</p>
-      </div>
-    </div>
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2018 — 2020</span>
-      <div>
-        <h3><span class="lang-en-inline">Research scholar</span><span class="lang-es-inline">Investigadora</span></h3>
-        <p class="t-org">NYU Marron Institute of Urban Management</p>
-        <p class="t-desc lang-en">Urban science research with Shlomo Angel and Angela Hawken. GIS, data analysis, urban morphology.</p>
-        <p class="t-desc lang-es">Investigación en ciencia urbana con Shlomo Angel y Angela Hawken. GIS, análisis de datos, morfología urbana.</p>
-      </div>
-    </div>
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2017 — 2019</span>
-      <div>
-        <h3>M.S. Applied Urban Science and Informatics</h3>
-        <p class="t-org">New York University — CUSP</p>
-      </div>
-    </div>
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2013 —</span>
-      <div>
-        <h3><span class="lang-en-inline">Co-founder</span><span class="lang-es-inline">Co-fundadora</span></h3>
-        <p class="t-org">Lunes de Ciudad</p>
-        <p class="t-desc lang-en">Citizen-led public dialogue initiative. Now in 16+ cities across 6 countries.</p>
-        <p class="t-desc lang-es">Iniciativa ciudadana de diálogo público. Actualmente en 16+ ciudades en 6 países.</p>
-      </div>
-    </div>
-
-    <div class="timeline-block fade-in">
-      <span class="t-period">2008 — 2014</span>
-      <div>
-        <h3>B.S. <span class="lang-en-inline">Mathematical Engineering</span><span class="lang-es-inline">Ingeniería Matemática</span></h3>
-        <p class="t-org">Universidad EAFIT — Medellín</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ==================== ABOUT ==================== -->
-<section id="about">
-  <div class="section-label"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></div>
-
-  <div class="about-grid">
+<section class="sec" id="about">
+  <div class="sec-label"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></div>
+  <div class="about-layout">
     <div class="about-text">
       <h2 class="lang-en">The work moves between <em>signal</em> and <em>noise</em></h2>
       <h2 class="lang-es">El trabajo se mueve entre <em>señal</em> y <em>ruido</em></h2>
-
-      <p class="lang-en">Sara Arango Franco is an artist-researcher based in Medellín, Colombia. Her work consistently makes invisible urban systems visible — through data, devices, writing, and the body. Trained as a mathematical engineer (EAFIT) and urban scientist (NYU), she has worked with the World Bank, WRI, and the Edgelands Institute, and participated in the Complex Systems Summer School at the Santa Fe Institute.</p>
-      <p class="lang-es">Sara Arango Franco es una artista-investigadora basada en Medellín, Colombia. Su trabajo hace visibles los sistemas urbanos invisibles — a través de datos, dispositivos, escritura y el cuerpo. Formada como ingeniera matemática (EAFIT) y científica urbana (NYU), ha trabajado con el Banco Mundial, WRI y el Instituto Edgelands, y participó en el Complex Systems Summer School del Santa Fe Institute.</p>
-
-      <p class="lang-en">Her current practice, <strong>Ruido y Señal</strong> (Noise and Signal), threads through several ongoing projects: Radio Aburrá, a device that filters urban noise to reveal birdsong; Monumento, a four-hundred-page written performance on grief; a forthcoming Routledge chapter on the algorithm as spiritual force; and thirteen years of Lunes de Ciudad, a civic dialogue initiative now active in sixteen cities across six countries.</p>
-      <p class="lang-es">Su práctica actual, <strong>Ruido y Señal</strong>, atraviesa varios proyectos en curso: Radio Aburrá, un dispositivo que filtra el ruido urbano para revelar el canto de los pájaros; Monumento, una performance escrita de cuatrocientas páginas sobre el duelo; un capítulo próximo en Routledge sobre el algoritmo como fuerza espiritual; y trece años de Lunes de Ciudad, una iniciativa de diálogo cívico activa en dieciséis ciudades en seis países.</p>
-
-      <p class="lang-en">She is working toward a book that uses noise as a lens for territory, algorithms, grief, extortion, birdsong, and the commons.</p>
-      <p class="lang-es">Trabaja en un libro que usa el ruido como lente para el territorio, los algoritmos, el duelo, la extorsión, el canto de los pájaros y los comunes.</p>
+      <p class="lang-en">Sara Arango Franco is an artist-researcher based in Medellín, Colombia. Her work makes invisible urban systems visible — through data, devices, writing, and perception. Trained as a mathematical engineer (EAFIT) and urban scientist (NYU), she has worked with the World Bank, WRI, and the Edgelands Institute, and participated in the Complex Systems Summer School at the Santa Fe Institute.</p>
+      <p class="lang-es">Sara Arango Franco es una artista-investigadora basada en Medellín, Colombia. Su trabajo hace visibles los sistemas urbanos invisibles — a través de datos, dispositivos, escritura y el cuerpo.</p>
+      <p class="lang-en">Her practice, <strong>Ruido y Señal</strong>, threads through Radio Aburrá, Monumento, a forthcoming Routledge chapter on the algorithm as spiritual force, and thirteen years of Lunes de Ciudad. She is working toward a book that uses noise as a lens for territory, algorithms, grief, extortion, birdsong, and the commons.</p>
+      <p class="lang-es">Su práctica, <strong>Ruido y Señal</strong>, atraviesa Radio Aburrá, Monumento, un capítulo en Routledge sobre el algoritmo como fuerza espiritual, y trece años de Lunes de Ciudad. Trabaja en un libro que usa el ruido como lente para el territorio, los algoritmos, el duelo, la extorsión, el canto de los pájaros y los comunes.</p>
     </div>
-    <div class="about-photo">[ your photo here ]</div>
+    <div class="about-photo"><img src="images/DSCF8500_bw.png" alt="Sara Arango Franco" style="width:100%;height:100%;object-fit:cover;"></div>
   </div>
 </section>
 
-<!-- ==================== CONTACT ==================== -->
-<section id="contact" class="contact-section">
-  <h2 class="lang-en">Let's <em>talk</em></h2>
-  <h2 class="lang-es"><em>Hablemos</em></h2>
+<hr class="sep">
+
+<div class="contact">
+  <h2 class="lang-en">Let's talk</h2>
+  <h2 class="lang-es">Hablemos</h2>
   <div class="contact-links">
     <a href="mailto:sarangofc@gmail.com">Email</a>
     <a href="https://www.instagram.com/paraconsistenta/" target="_blank">Instagram</a>
     <a href="https://github.com/sarangof" target="_blank">GitHub</a>
   </div>
-</section>
+</div>
 
-<!-- ==================== FOOTER ==================== -->
-<footer>
-  <span>© 2026 Sara Arango Franco</span>
-  <span>Medellín, Colombia</span>
-</footer>
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
 
-<!-- ==================== JS ==================== -->
 <script>
-// Tag filtering
-document.querySelectorAll('.tag-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('.project-card').forEach(card => {
-      if (filter === 'all' || card.dataset.tags.includes(filter)) {
-        card.style.display = '';
-        card.style.opacity = '1';
-      } else {
-        card.style.display = 'none';
-      }
+// Non-exclusive tag filtering: click tags to toggle, multiple can be active
+const allBtn = document.querySelector('.tag-btn[data-filter="all"]');
+const tagBtns = document.querySelectorAll('.tag-btn:not([data-filter="all"])');
+const cards = document.querySelectorAll('.pcard');
+
+function updateFilter() {
+  const active = [...tagBtns].filter(b => b.classList.contains('active'));
+  if (active.length === 0) {
+    allBtn.classList.add('active');
+    cards.forEach(c => c.style.display = '');
+  } else {
+    allBtn.classList.remove('active');
+    const filters = active.map(b => b.dataset.filter);
+    cards.forEach(c => {
+      const tags = c.dataset.tags;
+      const match = filters.some(f => tags.includes(f));
+      c.style.display = match ? '' : 'none';
     });
+  }
+}
+
+allBtn.addEventListener('click', () => {
+  tagBtns.forEach(b => b.classList.remove('active'));
+  allBtn.classList.add('active');
+  cards.forEach(c => c.style.display = '');
+});
+
+tagBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('active');
+    updateFilter();
   });
 });
 
-// Scroll fade-in
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// Smooth scroll for nav links
+// Smooth scroll
 document.querySelectorAll('nav a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
-    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior:'smooth' });
   });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
 });
 </script>
 

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Gradually, then Suddenly — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+/* HEADER */
+.proj-head {
+  padding:72px 28px 16px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; margin-bottom:8px; }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* GALLERY */
+.gallery-sec { padding:16px 28px 16px; }
+.gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:8px; }
+
+.gallery-item { overflow:hidden; cursor:pointer; }
+.gallery-item img { width:100%; display:block; }
+.gallery-item .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+.collaborators { font-family:var(--mono); font-size:0.62rem; color:var(--muted); line-height:1.7; margin-top:8px; }
+.collaborators strong { color:var(--text); font-weight:400; }
+
+/* LIGHTBOX */
+.lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.92); align-items:center; justify-content:center; cursor:pointer; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close { position:fixed; top:20px; right:28px; font-family:var(--mono); font-size:0.75rem; color:#999; cursor:pointer; z-index:201; }
+.lightbox-close:hover { color:#fff; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .proj-head, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+@media (max-width:480px) {
+  .two-col { grid-template-columns:1fr !important; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;"><span class="lang-en-inline">Gradually, then Suddenly: A Collage About Death</span><span class="lang-es-inline">Gradualmente, luego de repente: Un collage sobre la muerte</span></h1>
+
+  <div class="proj-meta">2025 · Santa Fe Institute / CSSS</div>
+
+  <div class="proj-tags">
+    <span>art</span>
+    <span>research</span>
+  </div>
+
+  <p class="proj-desc lang-en">A group project at the Complex Systems Summer School (CSSS 2025) exploring death from scientific, historical, and artistic perspectives. The project wove together thermodynamic models of aging, immunological cell death, necropolitics, and artistic representation. My contribution centered on the artistic representations: I wrote the section grounding the visual work in readings on irreversibility, funerary rites, cultural evolution, material culture, and the role of laboratory animals in our understanding of mortality — and produced both a hand-drawn illustration created during CSSS to honor a late friend, and a digital collage synthesizing the research.</p>
+  <p class="proj-desc lang-es">Un proyecto grupal en la Escuela de Verano de Sistemas Complejos (CSSS 2025) que explora la muerte desde perspectivas científicas, históricas y artísticas. El proyecto entrelazó modelos termodinámicos del envejecimiento, muerte celular inmunológica, necropolítica y representación artística. Mi contribución se centró en las representaciones artísticas: escribí la sección que fundamenta la obra visual en lecturas sobre irreversibilidad, ritos funerarios, evolución cultural, cultura material y el rol de los animales de laboratorio en nuestra comprensión de la mortalidad — y produje tanto una ilustración a mano creada durante CSSS para honrar a una amiga fallecida, como un collage digital que sintetiza la investigación.</p>
+</div>
+
+<hr class="sep">
+
+<!-- COLLABORATORS -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div class="gallery-label"><span class="lang-en-inline">Collaborators</span><span class="lang-es-inline">Colaboradores</span></div>
+  <div class="collaborators">
+    <span class="lang-en-inline">Group project with</span><span class="lang-es-inline">Proyecto grupal con</span>
+    <strong>Kathrin Busch</strong>,
+    <strong>Andreas Schmidt Eriksen</strong>,
+    <strong>Christina (Chrissie) Giles</strong>,
+    <strong>Shan Leng</strong>,
+    <strong>George Musser</strong>,
+    <strong>Aditya Raj</strong>,
+    <strong>Lovro Trgovec-Greif</strong>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- THE WORKS -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Works</span><span class="lang-es-inline">Obras</span></div>
+
+  <div class="two-col" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start;">
+
+    <!-- Drawing -->
+    <div class="gallery-item">
+      <img src="../images/collage-death/drawing-csss.png" alt="Hand-drawn illustration — Something propagates">
+      <div class="caption lang-en">Hand-drawn illustration, 2025. Pen and ink on paper. Created during CSSS in contemplation of the connectedness and the common physical laws that govern all of life and non-life. "Something propagates." "Metabolic death ≠ Causal death." "Something forgets us perfectly."</div>
+      <div class="caption lang-es">Ilustración a mano, 2025. Tinta sobre papel. Creada durante CSSS en contemplación de la conexión y las leyes físicas comunes que gobiernan toda la vida y la no-vida. "Something propagates." "Metabolic death ≠ Causal death." "Something forgets us perfectly."</div>
+    </div>
+
+    <!-- Digital collage -->
+    <div class="gallery-item">
+      <img src="../images/collage-death/gradually-then-suddenly.png" alt="Digital collage — Gradually, then Suddenly">
+      <div class="caption lang-en">Digital collage, 2025. Informed by readings on irreversibility, funerary urns as vessels for cultural evolution, and the role of laboratory mice in our understanding of death and agency. The rat urn image draws from Mayan use of mythical animals in funerary artifacts.</div>
+      <div class="caption lang-es">Collage digital, 2025. Informado por lecturas sobre irreversibilidad, urnas funerarias como recipientes de evolución cultural, y el rol de los ratones de laboratorio en nuestra comprensión de la muerte y la agencia. La imagen de la urna de rata se inspira en el uso maya de animales míticos en artefactos funerarios.</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- CONTEXT -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div class="gallery-label"><span class="lang-en-inline">Context</span><span class="lang-es-inline">Contexto</span></div>
+
+  <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text);">The discussions held at CSSS and the language of Complex Systems has proven to be beneficial for our exploration of death, as demonstrated by the fact that SFI already hosts a cluster of studies and researchers revolving around the topics of aging and death. Concepts such as cultural evolution, irreversibility, emergence, propagation, agency, scale, activation thresholds, equilibrium states, among others, have a place in the physiological and/or cultural intricacies of death.</p>
+  <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">A digital collage was also created as a means to process and represent what has been learned and experienced in this project. Some readings informed such process: there are many pathways to death and they all involve complex yet different mechanisms. It is hard to determine a single cause or physical manifestation of death, until it is fully irreversible. We learned that even such irreversibility is almost surprisingly difficult to pinpoint. Reading <em>Death, Design, Data</em>, we were particularly interested in a discussion on funerary urns: urns are vessels, and all living creatures are ourselves vessels for life more than its final products. Urns are part of our material culture, an informational compound that feeds and sustains human culture, and that is part of cultural evolution: it is not arbitrary that scientists study funerary rites as fundamental means to understand past humans in cultural and economic aspects. Our readings, which also included <em>Why We Die</em>, made us appreciate the role of laboratory mice in our current understanding of death and agency, which, along with the reflection above, inspired us to create an image of a funerary urn of a rat, inspired in Mayan use of mythical animals in their urns.</p>
+  <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">These reflections, as well as many other ideas and images — poetic and scientific — woven into this written collage, inspired the spirit of the resulting visual collage.</p>
+
+  <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text);">Las discusiones en CSSS y el lenguaje de los Sistemas Complejos resultaron beneficiosos para nuestra exploración de la muerte, como lo demuestra el hecho de que SFI ya alberga un grupo de estudios e investigadores en torno a los temas del envejecimiento y la muerte. Conceptos como evolución cultural, irreversibilidad, emergencia, propagación, agencia, escala, umbrales de activación, estados de equilibrio, entre otros, tienen lugar en las complejidades fisiológicas y/o culturales de la muerte.</p>
+  <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">Un collage digital fue creado como medio para procesar y representar lo aprendido y vivido en este proyecto. Algunas lecturas informaron dicho proceso: existen muchas vías hacia la muerte y todas involucran mecanismos complejos pero diferentes. Es difícil determinar una causa única o manifestación física de la muerte, hasta que sea completamente irreversible. Aprendimos que incluso tal irreversibilidad es sorprendentemente difícil de precisar. Leyendo <em>Death, Design, Data</em>, nos interesó particularmente una discusión sobre urnas funerarias: las urnas son recipientes, y todas las criaturas vivas somos recipientes de vida más que sus productos finales. Las urnas son parte de nuestra cultura material, un compuesto informacional que alimenta y sostiene la cultura humana, y que es parte de la evolución cultural. Nuestras lecturas, que también incluyeron <em>Why We Die</em>, nos hicieron apreciar el rol de los ratones de laboratorio en nuestra comprensión actual de la muerte y la agencia, lo que nos inspiró a crear la imagen de una urna funeraria de una rata, inspirada en el uso maya de animales míticos en sus urnas.</p>
+  <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">Estas reflexiones, así como muchas otras ideas e imágenes — poéticas y científicas — entretejidas en este collage escrito, inspiraron el espíritu del collage visual resultante.</p>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

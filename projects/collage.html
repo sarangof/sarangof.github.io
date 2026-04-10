@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collage — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding:12px 28px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--muted);
+}
+nav .links a:hover { color:var(--text); }
+.lang-toggle {
+  background:none; border:none; font-family:var(--mono); font-size:0.65rem;
+  text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
+  cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted);
+}
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+/* BACK LINK */
+.back {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.08em; color:var(--muted);
+}
+.back:hover { color:var(--text); }
+
+/* PROJECT HEADER */
+.proj-head {
+  padding:72px 28px 24px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 {
+  font-family:var(--serif);
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  font-weight:400; line-height:1.1;
+  margin-bottom:8px;
+}
+
+.proj-meta {
+  font-family:var(--mono); font-size:0.68rem;
+  color:var(--muted); letter-spacing:0.02em;
+  margin-bottom:20px;
+}
+
+.proj-tags {
+  display:flex; gap:6px; flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.proj-tags span {
+  font-family:var(--mono); font-size:0.55rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--muted);
+  border:1px solid var(--line); padding:2px 10px;
+}
+
+.proj-desc {
+  font-size:0.95rem; line-height:1.7;
+  max-width:640px;
+  margin-bottom:8px;
+}
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* GALLERY */
+.gallery-sec {
+  padding:32px 28px 48px;
+}
+
+.gallery-label {
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--muted); margin-bottom:16px;
+}
+
+/* Masonry-like gallery using columns */
+.gallery {
+  column-count:3;
+  column-gap:12px;
+}
+
+.gallery-item {
+  break-inside:avoid;
+  margin-bottom:12px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.gallery-item img {
+  width:100%;
+  display:block;
+}
+
+.gallery-item .placeholder {
+  width:100%;
+  background:var(--card-bg);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.55rem; color:var(--muted);
+}
+
+/* Different heights for visual variety */
+.gallery-item .placeholder.tall { aspect-ratio:3/4; }
+.gallery-item .placeholder.wide { aspect-ratio:4/3; }
+.gallery-item .placeholder.square { aspect-ratio:1/1; }
+
+.gallery-item .caption {
+  padding:6px 0;
+  font-family:var(--mono); font-size:0.6rem; color:var(--muted);
+  line-height:1.4;
+}
+
+/* LIGHTBOX */
+.lightbox {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(10,10,10,0.92);
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.lightbox.active { display:flex; }
+.lightbox img {
+  max-width:90vw;
+  max-height:90vh;
+  object-fit:contain;
+}
+.lightbox-close {
+  position:fixed; top:20px; right:28px;
+  font-family:var(--mono); font-size:0.75rem;
+  color:#999; cursor:pointer; z-index:201;
+}
+.lightbox-close:hover { color:#fff; }
+
+/* RELATED TEXT */
+.proj-text {
+  padding:24px 28px 32px;
+}
+
+.proj-text h2 {
+  font-family:var(--serif); font-size:1.4rem; font-weight:400;
+  margin-bottom:12px;
+}
+
+.proj-text p {
+  font-size:0.9rem; line-height:1.7;
+  margin-bottom:12px;
+  color:var(--text);
+}
+
+.proj-text blockquote {
+  border-left:2px solid var(--accent);
+  padding-left:16px;
+  margin:20px 0;
+  font-family:var(--serif);
+  font-size:1rem;
+  font-style:italic;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+footer {
+  padding:16px 28px; display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
+  border-top:1px solid var(--line);
+}
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .gallery { column-count:2; }
+  .proj-head, .gallery-sec, .proj-text { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+@media (max-width:480px) {
+  .gallery { column-count:1; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">Collage</h1>
+
+  <div class="proj-meta">2020 — ongoing</div>
+
+  <div class="proj-tags">
+    <span>art</span>
+    <span>data</span>
+  </div>
+
+  <p class="proj-desc lang-en">Analog collage practice drawing on family archives, found images, and printed matter. Cutting, layering, and reassembling as acts of visual thinking — joining the irreconcilable, reconciling languages, making peace with the implausible. Exhibited at Teatro Comfama (2022) in the context of MATZA × Edgelands.</p>
+  <p class="proj-desc lang-es">Práctica de collage análogo a partir de archivos familiares, imágenes encontradas y material impreso. Cortar, superponer y reensamblar como actos de pensamiento visual — juntar lo irreconciliable, conciliar lenguajes, hacer paces con lo inverosímil. Exhibido en el Teatro Comfama (2022) en el contexto de MATZA × Edgelands.</p>
+</div>
+
+<hr class="sep">
+
+<!-- ANALOG COLLAGE -->
+<div class="gallery-sec">
+  <div class="gallery-label"><span class="lang-en-inline">Analog collage</span><span class="lang-es-inline">Collage análogo</span></div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/collage/low_resolution 2.png" alt="Analog collage, 2022. 21.7 × 27.8 cm."></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 21.7 × 27.8 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 21.7 × 27.8 cm.</span></div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/collage/low_resolution 3.png" alt="Analog collage, 2022. 21.7 × 27.8 cm."></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2021. 29.8 × 22.2 cm.</span><span class="lang-es-inline">Collage análogo, 2021. 29.8 × 22.2 cm.</span></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/collage/Maira.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
+      <div class="caption"><span class="lang-en-inline">(In process). Analog collage, 2022. Mounted on retablo. 60.2 × 44.5 cm.</span><span class="lang-es-inline">(En proceso). Collage análogo, 2022. Montado en retablo. 60.2 × 44.5 cm.</span></div>
+    </div>
+    
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/collage/low_resolution 4.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 27.2 × 21.4 cm.</span></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/collage/med_resolution 11.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
+      <div class="caption">Venus de jamón. 2020. 27.5 × 21 cm.</div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/collage/low_resolution 16.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 27.2 × 21.4 cm.</span></div>
+    </div>
+    
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/collage/Juanes.jpg" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 27.2 × 21.4 cm.</span></div>
+    </div>
+
+
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/collage/low_resolution 12.png" alt="Analog collage, 2022. 21.7 × 27.8 cm."></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 31.2 × 24.5 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 31.2 × 24.5 cm.</span></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/collage/sumo.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 34 × 27 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 34 × 27 cm.</span></div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- EXHIBITION CONTEXT -->
+<div class="proj-text">
+  <h2 class="lang-en">Exhibition: Bodega Comfama (2022)</h2>
+  <h2 class="lang-es">Exposición: Bodega Comfama (2022)</h2>
+
+  <p class="lang-en">Solo exhibition at Teatro Comfama, San Ignacio, Medellín, in the context of MATZA × Edgelands. The show included analog and digital collage work, a collage workshop using materials collected through walks in the city center and historical archives, and the curation of a collective "Collage de Collages" — an assembly of participants' individual works into a final collective piece.</p>
+  <p class="lang-es">Exposición individual en el Teatro Comfama, San Ignacio, Medellín, en el contexto de MATZA × Edgelands. La muestra incluyó collage análogo y digital, un taller de collage usando materiales recolectados en caminatas por el centro y archivos históricos, y la curaduría de un "Collage de Collages" — un ensamblaje de obras individuales de los participantes en una pieza colectiva final.</p>
+
+  <blockquote class="lang-en">"Before the pandemic I tried to channel creativity (stumblingly) through drawing and — very limitedly — through my work as a data scientist. Through texts and reflections I arrived at collage and I can't let go: I see it as a symbolic act of joining the irreconcilable, of reconciling languages — that is, solitudes — of making peace with the implausible and thus letting it go."</blockquote>
+  <blockquote class="lang-es">"Antes de la pandemia la creatividad la intentaba canalizar (a tropezones) por medio del dibujo y –muy limitadamente– de mi trabajo como científica de datos. A través de textos y reflexiones llegué al collage y no me despego: lo veo como un acto simbólico de juntar lo irreconciliable, de conciliar lenguajes –es decir soledades–, de hacer paces con lo inverosímil y así dejarlo ir."</blockquote>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// When you replace placeholders with real images, this will enable click-to-enlarge
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

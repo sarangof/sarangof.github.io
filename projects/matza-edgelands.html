@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>MATZA × Edgelands — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+/* HEADER */
+.proj-head {
+  padding:72px 28px 16px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; margin-bottom:8px; }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* SECTIONS */
+.gallery-sec { padding:16px 28px 16px; }
+.gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:8px; }
+
+.gallery-item { overflow:hidden; cursor:pointer; }
+.gallery-item img { width:100%; display:block; }
+.gallery-item .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+.collaborators { font-family:var(--mono); font-size:0.62rem; color:var(--muted); line-height:1.7; }
+.collaborators strong { color:var(--text); font-weight:400; }
+
+.ext-link { font-family:var(--mono); font-size:0.65rem; color:var(--muted); border-bottom:1px solid var(--line); }
+.ext-link:hover { color:var(--text); border-color:var(--text); }
+
+/* LIGHTBOX */
+.lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.92); align-items:center; justify-content:center; cursor:pointer; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close { position:fixed; top:20px; right:28px; font-family:var(--mono); font-size:0.75rem; color:#999; cursor:pointer; z-index:201; }
+.lightbox-close:hover { color:#fff; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .proj-head, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+  .gallery-grid { grid-template-columns:1fr 1fr !important; }
+}
+@media (max-width:480px) {
+  .gallery-grid { grid-template-columns:1fr !important; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">MATZA × Edgelands · Common Grounds</h1>
+
+  <div class="proj-meta">2022 · Medellín · <span class="lang-en-inline">Switzerland, Kenya, Colombia</span><span class="lang-es-inline">Suiza, Kenia, Colombia</span></div>
+
+  <div class="proj-tags">
+    <span>art</span>
+    <span>research</span>
+  </div>
+
+  <p class="proj-desc lang-en">Artist and researcher in residence in the first edition of MATZA Edgelands, a multi-year art initiative created by Séverin Guelpa and Anja Wyden Guelpa (MATZA) in collaboration with the Edgelands Institute. Eleven artists from Colombia, Kenya, and Switzerland were invited to explore the local social contract and imagine new forms of it in the dynamic yet deeply divided context of Medellín. I led the organization and mediation of the Medellín residency, facilitating dialogue between local and international artists. The residency ran from January 31 to February 18, 2022, followed by the Common Grounds exhibition at Bodega Comfama (February 18 – March 20, 2022). During this residency I produced <em>Pérdidas — espectros de información</em>, a large-format digital collage made in Python with open data and images about violence in Colombia.</p>
+  <p class="proj-desc lang-es">Artista e investigadora en residencia en la primera edición de MATZA Edgelands, una iniciativa artística plurianual creada por Séverin Guelpa y Anja Wyden Guelpa (MATZA) en colaboración con el Instituto Edgelands. Once artistas de Colombia, Kenia y Suiza fueron invitados a explorar el contrato social local e imaginar nuevas formas del mismo en el contexto dinámico pero profundamente dividido de Medellín. Lideré la organización y mediación de la residencia en Medellín, facilitando el diálogo entre artistas locales e internacionales. La residencia se realizó del 31 de enero al 18 de febrero de 2022, seguida de la exposición Common Grounds en Bodega Comfama (18 de febrero – 20 de marzo de 2022). Durante esta residencia produje <em>Pérdidas — espectros de información</em>, un collage digital de gran formato hecho en Python con datos abiertos e imágenes sobre la violencia en Colombia.</p>
+</div>
+
+<hr class="sep">
+
+<!-- PARTICIPANTS -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div class="gallery-label"><span class="lang-en-inline">Artists</span><span class="lang-es-inline">Artistas</span></div>
+  <div class="collaborators">
+    <strong>Sara Arango</strong> (CO),
+    <strong>Felipe Castelblanco</strong> (CO),
+    <strong>Alejandro Duque</strong> (CO),
+    <strong>Ogutu Muraya</strong> (KEN),
+    <strong>Onyis Martin</strong> (KEN),
+    <strong>Sandrine Pelletier</strong> (CH),
+    <strong>Margarita Pineda</strong> (CO),
+    <strong>Valentina Pini</strong> (CH),
+    <strong>Julie Semoroz</strong> (CH),
+    <strong>Angelica Teuta</strong> (CO),
+    <strong>Tatyana Zambrano</strong> (CO)
+  </div>
+  <div class="collaborators" style="margin-top:6px;">
+    <span class="lang-en-inline">Curated by</span><span class="lang-es-inline">Curaduría de</span>
+    <strong>Séverin Guelpa</strong> &amp; <strong>Anja Wyden Guelpa</strong>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- GALLERY -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Residency &amp; exhibition</span><span class="lang-es-inline">Residencia y exposición</span></div>
+
+  <div class="gallery-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+    <div class="gallery-item">
+      <img src="../images/matza/_JSE1027.jpg" alt="MATZA Edgelands Medellín — residency">
+      <div class="caption lang-en">Residency at Bodega Comfama, 2022.</div>
+      <div class="caption lang-es">Residencia en Bodega Comfama, 2022.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/matza/_JSE1122.jpg" alt="MATZA Edgelands Medellín — base camp">
+      <div class="caption lang-en">Base camp at Bodega Comfama.</div>
+      <div class="caption lang-es">Campamento base en Bodega Comfama.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/matza/matzaedgelands.jpg" alt="MATZA Edgelands Medellín — Common Grounds exhibition">
+      <div class="caption lang-en">Common Grounds exhibition.</div>
+      <div class="caption lang-es">Exposición Common Grounds.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- PÉRDIDAS -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label">Pérdidas — espectros de información</div>
+
+  
+  <div style="display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start;">
+    <div class="gallery-item">
+      <img src="../images/matza/_JSE2042.jpg" alt="Pérdidas — espectros de información" style="max-height:150px; object-fit:contain; object-position:left;">
+    </div>
+    <div>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text);">Digital collage made in Python with open data and images about violence in Colombia. 3 × 1.1 m. 2022.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text);">Collage digital hecho en Python con datos abiertos e imágenes sobre la violencia en Colombia. 3 × 1,1 m. 2022.</p>
+
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">Me conmueve lo profundas que son las experiencias y las conexiones humanas — lo vasta que es la información que compartimos — y lo rápido que todo esto parece desvanecerse; los pocos registros o representaciones que permanecen son casi arbitrarios. Cuando pasan cosas terribles a veces se convierten en datos. Si bien su recolección y uso son necesarios, somos incapaces de conectar con ellos como conectamos con las personas, el arte o las narraciones. Quería condensar algo de esto y devolverlo al plano sensorial, y con suerte hacer sentir algo a alguien por un momento.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:8px;">Me conmueve lo profundas que son las experiencias y las conexiones humanas — lo vasta que es la información que compartimos — y lo rápido que todo esto parece desvanecerse; los pocos registros o representaciones que permanecen son casi arbitrarios. Cuando pasan cosas terribles a veces se convierten en datos. Si bien su recolección y uso son necesarios, somos incapaces de conectar con ellos como conectamos con las personas, el arte o las narraciones. Quería condensar algo de esto y devolverlo al plano sensorial, y con suerte hacer sentir algo a alguien por un momento.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- LINKS -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div class="gallery-label">Links</div>
+  <div style="display:flex; gap:20px; flex-wrap:wrap;">
+    <a href="https://matza.net/common-grounds-2-2/" target="_blank" class="ext-link">MATZA — Common Grounds ↗</a>
+    <a href="https://www.edgelands.institute/outcomes/captcha" target="_blank" class="ext-link">Edgelands Institute ↗</a>
+    <a href="https://southamerica.prohelvetia.org/en/supported-projects/matza-edgelands-co/" target="_blank" class="ext-link">Pro Helvetia ↗</a>
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

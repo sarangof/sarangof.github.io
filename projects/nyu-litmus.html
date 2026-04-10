@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYU Marron / Litmus — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding:12px 28px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--muted);
+}
+nav .links a:hover { color:var(--text); }
+.lang-toggle {
+  background:none; border:none; font-family:var(--mono); font-size:0.65rem;
+  text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
+  cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted);
+}
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.08em; color:var(--muted);
+}
+.back:hover { color:var(--text); }
+
+.proj-head {
+  padding:72px 28px 32px;
+  max-width:800px;
+}
+.proj-head h1 {
+  font-family:var(--serif);
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  font-weight:400; line-height:1.1;
+  margin-bottom:8px;
+}
+.proj-meta {
+  font-family:var(--mono); font-size:0.68rem;
+  color:var(--muted); letter-spacing:0.02em;
+  margin-bottom:20px;
+}
+.proj-tags {
+  display:flex; gap:6px; flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.proj-tags span {
+  font-family:var(--mono); font-size:0.55rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--muted);
+  border:1px solid var(--line); padding:2px 10px;
+}
+.proj-desc {
+  font-size:0.95rem; line-height:1.7;
+  max-width:640px;
+  margin-bottom:8px;
+}
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* PROJECT LIST */
+.projects-sec { padding:32px 28px 48px; max-width:800px; }
+.projects-label {
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--muted); margin-bottom:20px;
+}
+
+.project-item {
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+}
+.project-item:last-child { border-bottom:none; }
+
+.project-item h3 {
+  font-family:var(--serif); font-size:1.05rem; font-weight:400; line-height:1.25;
+  margin-bottom:4px;
+}
+.project-meta {
+  font-family:var(--mono); font-size:0.62rem; color:var(--green);
+  margin-bottom:8px;
+}
+.project-desc {
+  font-size:0.88rem; line-height:1.65; color:var(--text);
+  max-width:640px;
+}
+
+/* GALLERY for visual projects */
+.gallery-sec { padding:32px 28px 48px; }
+.gallery-label {
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--muted); margin-bottom:16px;
+}
+.gallery {
+  column-count:3;
+  column-gap:12px;
+}
+.gallery-item {
+  break-inside:avoid;
+  margin-bottom:12px;
+  overflow:hidden;
+  cursor:pointer;
+}
+.gallery-item .placeholder {
+  width:100%;
+  background:var(--card-bg);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.55rem; color:var(--muted);
+}
+.gallery-item .placeholder.wide { aspect-ratio:4/3; }
+.gallery-item .placeholder.tall { aspect-ratio:3/4; }
+.gallery-item .caption {
+  padding:6px 0;
+  font-family:var(--mono); font-size:0.6rem; color:var(--muted);
+  line-height:1.4;
+}
+
+footer {
+  padding:16px 28px; display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
+  border-top:1px solid var(--line);
+}
+
+@media (max-width:768px) {
+  .gallery { column-count:2; }
+  .proj-head, .projects-sec, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">NYU Marron / Litmus</h1>
+
+  <div class="proj-meta">2018–2020 · New York University · Marron Institute of Urban Management</div>
+
+  <div class="proj-tags">
+    <span>research</span>
+    <span>data</span>
+    <span>policy</span>
+  </div>
+
+  <p class="proj-desc lang-en">Research scholar on Angela Hawken's team at the Marron Institute. The Litmus program ran randomized control trials in criminal justice, policing, and education across six US states. My work spanned data analysis, dashboard design, geospatial visualization, and the longitudinal study that became the most substantial research project of my time at NYU.</p>
+  <p class="proj-desc lang-es">Investigadora en el equipo de Angela Hawken en el Marron Institute. El programa Litmus ejecutó ensayos controlados aleatorios en justicia penal, policía y educación en seis estados de EE.UU. Mi trabajo abarcó análisis de datos, diseño de dashboards, visualización geoespacial, y el estudio longitudinal que se convirtió en el proyecto de investigación más sustancial de mi tiempo en NYU.</p>
+</div>
+
+<hr class="sep">
+
+<!-- PROJECTS -->
+<div class="projects-sec">
+  <div class="projects-label"><span class="lang-en-inline">Projects</span><span class="lang-es-inline">Proyectos</span></div>
+
+  <div class="project-item">
+    <h3><span class="lang-en-inline">When Perverse Incentives Align: Overcharging in Wisconsin</span><span class="lang-es-inline">Cuando los incentivos perversos se alinean: sobrecargos en Wisconsin</span></h3>
+    <p class="project-meta">2019–2020</p>
+    <p class="project-desc lang-en">A 20-year longitudinal study of prosecution data in Wisconsin, characterizing perverse incentives for overcharging THC-possession filings and their societal costs. The most substantial research project from my time at NYU — a thesis without a certificate.</p>
+    <p class="project-desc lang-es">Estudio longitudinal de 20 años de datos de acusaciones en Wisconsin, caracterizando incentivos perversos para el sobrecargo de posesión de THC. El proyecto de investigación más sustancial de mi tiempo en NYU — una tesis sin certificado.</p>
+  </div>
+
+  <div class="project-item">
+    <h3><span class="lang-en-inline">COVID-19 Risk Map for US Prisons</span><span class="lang-es-inline">Mapa de riesgo COVID-19 para prisiones de EE.UU.</span></h3>
+    <p class="project-meta">2020</p>
+    <p class="project-desc lang-en">Interactive mapping tool synthesizing daily census and health data for state adult correctional facilities. Used to guide decisions on PPE prioritization and early release protocols during the pandemic.</p>
+    <p class="project-desc lang-es">Herramienta de mapeo interactivo sintetizando datos diarios de censo y salud para instalaciones correccionales. Usada para guiar decisiones sobre PPE y protocolos de liberación temprana durante la pandemia.</p>
+  </div>
+
+  <div class="project-item">
+    <h3><span class="lang-en-inline">Data Science for the Public Sector — RCTs</span><span class="lang-es-inline">Ciencia de datos para el sector público — ECA</span></h3>
+    <p class="project-meta">2018–2020</p>
+    <p class="project-desc lang-en">20+ randomized control trials in corrections across 6 US states. Policing experiments (VR training, cruising lights, use of force). Education research with ReadWorks (~11M students). DA office dashboards (Texas, California). The Graduated Reintegration housing pilot in Illinois. The COVID-19 learning disparities study.</p>
+    <p class="project-desc lang-es">20+ ensayos controlados aleatorios en correcciones en 6 estados de EE.UU. Experimentos de policía (entrenamiento VR, luces, uso de fuerza). Investigación educativa con ReadWorks (~11M estudiantes). Dashboards para fiscalías (Texas, California). El piloto de reintegración en Illinois. El estudio de disparidades de aprendizaje por COVID-19.</p>
+  </div>
+
+  <div class="project-item">
+    <h3><span class="lang-en-inline">Urban Footprint Compactness</span><span class="lang-es-inline">Compacidad de huellas urbanas</span></h3>
+    <p class="project-meta">2018 · <span class="lang-en-inline">w/ S. Angel, Y. Liu, A.M. Blei</span><span class="lang-es-inline">c/ S. Angel, Y. Liu, A.M. Blei</span></p>
+    <p class="project-desc lang-en">Metrics for the shape compactness of urban footprints across global cities. How morphology reveals planning, sprawl, and territorial governance. Published in Progress in Planning.</p>
+    <p class="project-desc lang-es">Métricas de compacidad de huellas urbanas en ciudades del mundo. Cómo la morfología revela planificación, dispersión y gobernanza territorial. Publicada en Progress in Planning.</p>
+  </div>
+
+</div>
+
+<hr class="sep">
+
+<!-- VISUAL OUTPUTS -->
+<div class="gallery-sec">
+  <div class="gallery-label"><span class="lang-en-inline">Visual outputs</span><span class="lang-es-inline">Productos visuales</span></div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="placeholder wide">[ image: COVID prison map screenshot ]</div>
+      <div class="caption lang-en">COVID-19 Prison Risk Map. Interactive dashboard. 2020.</div>
+      <div class="caption lang-es">Mapa de riesgo COVID-19 prisiones. Dashboard interactivo. 2020.</div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder wide">[ image: Wisconsin overcharging visualization ]</div>
+      <div class="caption lang-en">Overcharging in Wisconsin. Data visualization. 2020.</div>
+      <div class="caption lang-es">Sobrecargos en Wisconsin. Visualización de datos. 2020.</div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder wide">[ image: Urban compactness ]</div>
+      <div class="caption lang-en">Urban footprint compactness across global cities. 2018.</div>
+      <div class="caption lang-es">Compacidad de huellas urbanas en ciudades del mundo. 2018.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

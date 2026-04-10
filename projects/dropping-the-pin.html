@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Dropping the Pin on Surveillance — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+.proj-head {
+  padding:72px 28px 16px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; margin-bottom:8px; }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+.gallery-sec { padding:16px 28px 16px; }
+.gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:8px; }
+
+.gallery-item { overflow:hidden; cursor:pointer; }
+.gallery-item img { width:100%; display:block; }
+.gallery-item .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+.ext-link { font-family:var(--mono); font-size:0.65rem; color:var(--muted); border-bottom:1px solid var(--line); }
+.ext-link:hover { color:var(--text); border-color:var(--text); }
+
+.map-frame { width:100%; height:500px; border:1px solid var(--line); border-radius:2px; }
+
+.lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.92); align-items:center; justify-content:center; cursor:pointer; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close { position:fixed; top:20px; right:28px; font-family:var(--mono); font-size:0.75rem; color:#999; cursor:pointer; z-index:201; }
+.lightbox-close:hover { color:#fff; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .proj-head, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+  .map-frame { height:350px; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">Dropping the Pin on Surveillance</h1>
+
+  <div class="proj-meta">2023 · Geneva · Edgelands Institute</div>
+
+  <div class="proj-tags">
+    <span>research</span>
+    <span>data</span>
+    <span>civic</span>
+  </div>
+
+  <p class="proj-desc lang-en">Participatory surveillance camera mapping in Geneva, developed as part of the Edgelands Institute's Participatory Data Interventions program and launched at the Festival d'Innovation Ouverte Open Geneva. We invited residents to photograph, geolocate, and register security cameras across the city, producing a collaborative map of 423 cameras. The project revealed a significant lack of transparency: the majority of cameras lacked proper signage, with no indication of who owns them, who processes the recorded video, or that passersby are being surveilled. Cameras clustered around banks, hospitals, government buildings, and firefighter stations. Cameras dedicated solely to surveilling public streets were rare, except for traffic cameras. The project also included Vox Pop street interviews about surveillance attitudes and generated public debate — including pushback from those who argued transparency would benefit criminals.</p>
+  <p class="proj-desc lang-es">Mapeo participativo de cámaras de vigilancia en Ginebra, desarrollado como parte del programa de Intervenciones Participativas de Datos del Instituto Edgelands y lanzado en el Festival d'Innovation Ouverte Open Geneva. Invitamos a residentes a fotografiar, geolocalizar y registrar cámaras de seguridad en la ciudad, produciendo un mapa colaborativo de 423 cámaras. El proyecto reveló una falta significativa de transparencia: la mayoría de las cámaras carecían de señalización adecuada, sin indicación de quién las posee, quién procesa el video grabado, o de que los transeúntes están siendo vigilados. Las cámaras se concentraban alrededor de bancos, hospitales, edificios gubernamentales y estaciones de bomberos. Las cámaras dedicadas exclusivamente a vigilar calles públicas eran raras, excepto las de tráfico. El proyecto también incluyó entrevistas callejeras Vox Pop sobre actitudes hacia la vigilancia y generó debate público — incluyendo rechazo de quienes argumentaban que la transparencia beneficiaría a los criminales.</p>
+</div>
+
+<hr class="sep">
+
+<!-- COLLABORATOR -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div style="font-family:var(--mono); font-size:0.62rem; color:var(--muted); line-height:1.7;">
+    <span class="lang-en-inline">With</span><span class="lang-es-inline">Con</span> <strong style="color:var(--text); font-weight:400;">Laura García Vargas</strong> · Edgelands Institute
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- LIVE MAP -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Interactive map · 423 cameras</span><span class="lang-es-inline">Mapa interactivo · 423 cámaras</span></div>
+  <iframe class="map-frame" src="https://sarangof.github.io/Security_cameras_Geneva/" title="Dropping the Pin on Surveillance — Geneva camera map" loading="lazy"></iframe>
+  <div style="margin-top:6px;">
+    <a href="https://sarangof.github.io/Security_cameras_Geneva/" target="_blank" class="ext-link"><span class="lang-en-inline">Open full map</span><span class="lang-es-inline">Abrir mapa completo</span> ↗</a>
+    <span style="margin:0 8px; color:var(--line);">·</span>
+    <a href="https://github.com/sarangof/Security_cameras_Geneva" target="_blank" class="ext-link">GitHub ↗</a>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- FINDINGS -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Key findings</span><span class="lang-es-inline">Hallazgos principales</span></div>
+
+  <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text);">Cameras are typically positioned around significant structures: banks, hospitals, government buildings, firefighter stations. With few exceptions, the majority lacked proper signage. There were no indications informing individuals of being under surveillance, nor information about the entity processing the recorded videos. Determining whether a camera's recordings were under the purview of the police, a public institution, a private security company, or an individual remained unclear. These observations point toward a lack of transparency that raises concerns about accountability and the right to information in public space.</p>
+  <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text);">Las cámaras se posicionan típicamente alrededor de estructuras significativas: bancos, hospitales, edificios gubernamentales, estaciones de bomberos. Con pocas excepciones, la mayoría carecía de señalización adecuada. No había indicaciones informando a las personas de que estaban siendo vigiladas, ni información sobre la entidad que procesa los videos grabados. Determinar si las grabaciones de una cámara estaban bajo la jurisdicción de la policía, una institución pública, una empresa de seguridad privada o un individuo resultaba imposible. Estas observaciones apuntan a una falta de transparencia que genera preocupaciones sobre la rendición de cuentas y el derecho a la información en el espacio público.</p>
+
+  <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">The map does not offer comprehensive coverage — the areas represented primarily reflect the regions frequented by participants in their daily lives. Some participants shared feelings of discomfort while photographing cameras, especially near certain buildings or when encountering police officers or security guards. They experienced a sense of wrongdoing in situations where they were, in fact, simply documenting public infrastructure.</p>
+  <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">El mapa no ofrece cobertura exhaustiva — las áreas representadas reflejan principalmente las regiones frecuentadas por los participantes en su vida cotidiana. Algunos participantes compartieron sentimientos de incomodidad al fotografiar cámaras, especialmente cerca de ciertos edificios o al encontrarse con policías o guardias de seguridad. Experimentaron una sensación de estar haciendo algo malo en situaciones donde, de hecho, simplemente estaban documentando infraestructura pública.</p>
+</div>
+
+<hr class="sep">
+
+<!-- GALLERY -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Documentation</span><span class="lang-es-inline">Documentación</span></div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px;">
+    <div class="gallery-item">
+      <img src="../images/dropping-pin/dtp-01.jpg" alt="Dropping the Pin — fieldwork Geneva">
+      <div class="caption lang-en">Fieldwork, Geneva.</div>
+      <div class="caption lang-es">Trabajo de campo, Ginebra.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/dropping-pin/dtp-02.jpg" alt="Dropping the Pin — camera documentation">
+      <div class="caption lang-en">Camera documentation.</div>
+      <div class="caption lang-es">Documentación de cámaras.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/dropping-pin/dtp-03.jpg" alt="Dropping the Pin — Open Geneva festival">
+      <div class="caption lang-en">Open Geneva festival.</div>
+      <div class="caption lang-es">Festival Open Geneva.</div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/dropping-pin/dtp-04.jpg" alt="Dropping the Pin — discussion">
+      <div class="caption lang-en">Public discussion.</div>
+      <div class="caption lang-es">Discusión pública.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- LINKS -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div class="gallery-label">Links</div>
+  <div style="display:flex; gap:20px; flex-wrap:wrap;">
+    <a href="https://www.edgelands.institute/portfolio/dropping-the-pin-on-surveillance-capturing-cameras-in-geneva" target="_blank" class="ext-link">Edgelands — Full report ↗</a>
+    <a href="https://www.edgelands.institute/blog/unveiling-geneva-attitudes-towards-security-cameras" target="_blank" class="ext-link">Vox Pop reflections ↗</a>
+    <a href="https://github.com/sarangof/Security_cameras_Geneva" target="_blank" class="ext-link">GitHub repository ↗</a>
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Collage — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding:12px 28px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--muted);
+}
+nav .links a:hover { color:var(--text); }
+.lang-toggle {
+  background:none; border:none; font-family:var(--mono); font-size:0.65rem;
+  text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
+  cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted);
+}
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.08em; color:var(--muted);
+}
+.back:hover { color:var(--text); }
+
+.proj-head {
+  padding:72px 28px 24px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 {
+  font-family:var(--serif);
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  font-weight:400; line-height:1.1;
+  margin-bottom:8px;
+}
+.proj-meta {
+  font-family:var(--mono); font-size:0.68rem;
+  color:var(--muted); letter-spacing:0.02em;
+  margin-bottom:20px;
+}
+.proj-tags {
+  display:flex; gap:6px; flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.proj-tags span {
+  font-family:var(--mono); font-size:0.55rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--muted);
+  border:1px solid var(--line); padding:2px 10px;
+}
+.proj-desc {
+  font-size:0.95rem; line-height:1.7;
+  max-width:640px;
+  margin-bottom:8px;
+}
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+.gallery-sec { padding:32px 28px 48px; }
+.gallery-label {
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--muted); margin-bottom:16px;
+}
+
+.gallery {
+  column-count:3;
+  column-gap:12px;
+}
+.gallery-item {
+  break-inside:avoid;
+  margin-bottom:12px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+.gallery-item img { width:100%; display:block; }
+.gallery-item .placeholder {
+  width:100%;
+  background:var(--card-bg);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.55rem; color:var(--muted);
+}
+.gallery-item .placeholder.tall { aspect-ratio:3/4; }
+.gallery-item .placeholder.wide { aspect-ratio:4/3; }
+.gallery-item .placeholder.square { aspect-ratio:1/1; }
+.gallery-item .caption {
+  padding:6px 0;
+  font-family:var(--mono); font-size:0.6rem; color:var(--muted);
+  line-height:1.4;
+}
+
+.proj-text {
+  padding:32px 28px 48px;
+  max-width:640px;
+}
+.proj-text h2 {
+  font-family:var(--serif); font-size:1.4rem; font-weight:400;
+  margin-bottom:12px;
+}
+.proj-text p {
+  font-size:0.9rem; line-height:1.7;
+  margin-bottom:12px;
+  color:var(--text);
+}
+.proj-text blockquote {
+  border-left:2px solid var(--accent);
+  padding-left:16px;
+  margin:20px 0;
+  font-family:var(--serif);
+  font-size:1rem;
+  font-style:italic;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.lightbox {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:rgba(10,10,10,0.92);
+  align-items:center; justify-content:center; cursor:pointer;
+}
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close {
+  position:fixed; top:20px; right:28px;
+  font-family:var(--mono); font-size:0.75rem;
+  color:#999; cursor:pointer; z-index:201;
+}
+.lightbox-close:hover { color:#fff; }
+
+footer {
+  padding:16px 28px; display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
+  border-top:1px solid var(--line);
+}
+
+@media (max-width:768px) {
+  .gallery { column-count:2; }
+  .proj-head, .gallery-sec, .proj-text { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+@media (max-width:480px) {
+  .gallery { column-count:1; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">Data collage</h1>
+
+  <div class="proj-meta">2020 — ongoing</div>
+
+  <div class="proj-tags">
+    <span>art</span>
+    <span>data</span>
+  </div>
+
+  <p class="proj-desc lang-en">Images processed as numerical matrices in Python — randomization, interpolation, spectral decomposition. The computer's operations on images as analogues to the processes of memory: what happens when you treat a photograph not as a picture but as data, and apply the transformations that belong to mathematics rather than to vision.</p>
+  <p class="proj-desc lang-es">Imágenes procesadas como matrices numéricas en Python — aleatorización, interpolación, descomposición espectral. Las operaciones del computador sobre la imagen como análogos a los procesos de la memoria: qué sucede cuando se trata una fotografía no como imagen sino como dato, y se aplican las transformaciones que pertenecen a las matemáticas y no a la visión.</p>
+</div>
+
+<hr class="sep">
+
+<!-- MAIN WORKS -->
+<div class="gallery-sec">
+  <div class="gallery-label"><span class="lang-en-inline">Computational works</span><span class="lang-es-inline">Obras computacionales</span></div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="placeholder tall"><img src="../images/random_permutation_unflattened_axis_off.png" alt="Somos fantasmas" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="caption lang-en">Somos fantasmas. 2021. 133 × 100 cm. Giclée print on aluminum. Randomization of a photograph whose original content cannot be shown. Made in Python.</div>
+      <div class="caption lang-es">Somos fantasmas. 2021. 133 × 100 cm. Impresión giclée sobre aluminio. Aleatorización de una fotografía cuyo contenido original sería incorrecto mostrar. Hecho en Python.</div>
+    </div>
+
+  <div class="gallery-item">
+      <div style="display:flex; flex-direction:column; gap:2px; overflow:hidden;">
+        <div style="overflow:hidden;"><img src="../images/sum_1.png" alt="Triptych 1" style="width:120%; margin:-10% 0 -10% -10%; display:block;"></div>
+        <div style="overflow:hidden;"><img src="../images/suma de sumas.png" alt="Triptych 2" style="width:120%; margin:-10% 0 -10% -10%; display:block;"></div>
+        <div style="overflow:hidden;"><img src="../images/suma cuadrado.png" alt="Triptych 3" style="width:120%; margin:-10% 0 -10% -10%; display:block;"></div>
+      </div>
+      <div class="caption lang-en">Digital triptych. 2020. 70 × 75 cm. Giclée print on aluminum. During lockdown, someone sent me photos of the view from their window in Bogotá. I extracted all the images and processed them numerically — as one processes matrices that are not images.</div>
+      <div class="caption lang-es">Tríptico digital. 2020. 70 × 75 cm. Impresión giclée sobre aluminio. Durante el encierro, alguien me enviaba fotos de la vista desde su ventana en Bogotá. Extraje todas las fotos y las procesé numéricamente — como se procesan las matrices que no son imágenes.</div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/suma_bw.png"></div>
+      <div class="caption lang-en">Digital. 2020. 110 × 110 cm. Giclée print on aluminum.</div>
+      <div class="caption lang-es">Digital. 2020. 110 × 110 cm. Impresión giclée sobre aluminio.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- PÉRDIDAS -->
+<div class="gallery-sec">
+  <div class="gallery-label">Pérdidas — <span class="lang-en-inline">spectra of information</span><span class="lang-es-inline">espectros de información</span></div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="placeholder tall">[ image ]</div>
+      <div class="caption lang-en">From the series Pérdidas — espectros de información. 2022. Produced during the MATZA × Edgelands residency.</div>
+      <div class="caption lang-es">De la serie Pérdidas — espectros de información. 2022. Producida durante la residencia MATZA × Edgelands.</div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder wide"><img src="../images/postales_Sara_comp-1.jpg"></div>
+      <div class="caption lang-en">Pérdidas — espectros de información. 2022.</div>
+      <div class="caption lang-es">Pérdidas — espectros de información. 2022.</div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder square">[ image ]</div>
+      <div class="caption lang-en">Pérdidas — espectros de información. 2022.</div>
+      <div class="caption lang-es">Pérdidas — espectros de información. 2022.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- PROCESS -->
+<div class="proj-text">
+  <h2 class="lang-en">Process</h2>
+  <h2 class="lang-es">Proceso</h2>
+
+  <p class="lang-en">The work begins with a photograph — often one that carries personal weight, sometimes one that cannot be shown in its original form. The image is loaded into Python as a numerical matrix. From there, mathematical operations replace the editorial decisions of traditional image-making: randomization scrambles the pixel order, interpolation blends frames that were never meant to coexist, spectral decomposition separates the image into frequency components that reveal structure invisible to the eye.</p>
+  <p class="lang-es">El trabajo comienza con una fotografía — a menudo una que carga peso personal, a veces una que no puede mostrarse en su forma original. La imagen se carga en Python como una matriz numérica. Desde allí, las operaciones matemáticas reemplazan las decisiones editoriales de la imagen tradicional: la aleatorización desordena los píxeles, la interpolación mezcla cuadros que nunca debieron coexistir, la descomposición espectral separa la imagen en componentes de frecuencia que revelan estructura invisible al ojo.</p>
+
+  <p class="lang-en">The output is printed at large scale on aluminum — material that resists, that reflects light, that refuses the intimacy of paper. The work asks: what does an image become when its content is made illegible but its structure is preserved? What is left of a photograph after the mathematics of forgetting?</p>
+  <p class="lang-es">El resultado se imprime a gran escala sobre aluminio — material que resiste, que refleja la luz, que rechaza la intimidad del papel. La obra pregunta: ¿en qué se convierte una imagen cuando su contenido se hace ilegible pero su estructura se preserva? ¿Qué queda de una fotografía después de las matemáticas del olvido?</p>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

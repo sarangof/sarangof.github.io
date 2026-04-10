@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Edgelands Network Visualization — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; background:var(--bg); border-bottom:1px solid var(--line); padding:12px 28px; display:flex; justify-content:space-between; align-items:center; }
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+nav .links a:hover { color:var(--text); }
+.lang-toggle { background:none; border:none; font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted); }
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back { font-family:var(--mono); font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.back:hover { color:var(--text); }
+
+.proj-head {
+  padding:72px 28px 16px;
+  display:grid; grid-template-columns:auto 1fr; gap:8px 32px; align-items:start;
+}
+.proj-head .back { grid-column:1 / -1; }
+.proj-head h1 { grid-column:1 / -1; }
+.proj-head .proj-meta { grid-column:1; }
+.proj-head .proj-tags { grid-column:1; margin-bottom:0; }
+.proj-head .proj-desc { grid-column:2; grid-row:3 / 5; max-width:none; }
+
+.proj-head h1 { font-family:var(--serif); font-size:clamp(1.8rem, 4vw, 2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px; }
+.proj-meta { font-family:var(--mono); font-size:0.68rem; color:var(--muted); letter-spacing:0.02em; margin-bottom:8px; }
+.proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.proj-tags span { font-family:var(--mono); font-size:0.55rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); border:1px solid var(--line); padding:2px 10px; }
+.proj-desc { font-size:0.95rem; line-height:1.7; margin-bottom:8px; }
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+.gallery-sec { padding:16px 28px 16px; }
+.gallery-label { font-family:var(--mono); font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:8px; }
+
+.gallery-item { overflow:hidden; cursor:pointer; }
+.gallery-item img { width:100%; display:block; }
+.gallery-item .caption { padding:6px 0; font-family:var(--mono); font-size:0.6rem; color:var(--muted); line-height:1.4; }
+
+.ext-link { font-family:var(--mono); font-size:0.65rem; color:var(--muted); border-bottom:1px solid var(--line); }
+.ext-link:hover { color:var(--text); border-color:var(--text); }
+
+.lightbox { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,10,10,0.92); align-items:center; justify-content:center; cursor:pointer; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lightbox-close { position:fixed; top:20px; right:28px; font-family:var(--mono); font-size:0.75rem; color:#999; cursor:pointer; z-index:201; }
+.lightbox-close:hover { color:#fff; }
+
+footer { padding:16px 28px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.58rem; color:var(--muted); border-top:1px solid var(--line); }
+
+@media (max-width:768px) {
+  .proj-head { grid-template-columns:1fr; }
+  .proj-head .proj-desc { grid-column:1; grid-row:auto; }
+  .proj-head, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">Edgelands Network Visualization</h1>
+
+  <div class="proj-meta">2024–2026 · Edgelands Institute</div>
+
+  <div class="proj-tags">
+    <span>data</span>
+    <span>research</span>
+  </div>
+
+  <p class="proj-desc lang-en">A visualization of the Edgelands network: not only to allow people to see the network and how it relates to them, but to act as a directory for finding people based on expertise and location. At its heart, Edgelands is a collective of individuals who have come together to form a community. Everything has been possible because of the people. As the institute pops down, one of the challenges is to ensure that these connections endure. The Network team reflected on how to keep the network alive by creating a space where people can exchange information, knowledge, and ideas, considering that a key element of this space is about people's willingness to share with others. The design process itself raised questions fundamental to Edgelands and its pop-down: how do we guarantee the privacy of people and their data? Can this be a 'harmless' type of surveillance? How can this be a way to strengthen our common grounds?</p>
+  <p class="proj-desc lang-es">Una visualización de la red Edgelands: no solo para permitir que las personas vean la red y cómo se relaciona con ellas, sino para funcionar como un directorio para encontrar personas según su experticia y ubicación. En su esencia, Edgelands es un colectivo de individuos que se unieron para formar una comunidad. Todo ha sido posible gracias a las personas. A medida que el instituto se cierra, uno de los desafíos es asegurar que estas conexiones perduren. El equipo de Red reflexionó sobre cómo mantener la red viva creando un espacio donde las personas puedan intercambiar información, conocimiento e ideas, considerando que un elemento clave de este espacio es la disposición de las personas a compartir con otros. El proceso de diseño en sí planteó preguntas fundamentales para Edgelands y su proceso de cierre: ¿cómo garantizamos la privacidad de las personas y sus datos? ¿Puede esto ser un tipo de vigilancia 'inofensiva'? ¿Cómo puede esto ser una manera de fortalecer nuestros terrenos comunes?</p>
+</div>
+
+<hr class="sep">
+
+<!-- COLLABORATORS -->
+<div class="gallery-sec" style="padding-top:12px; padding-bottom:12px;">
+  <div style="font-family:var(--mono); font-size:0.62rem; color:var(--muted); line-height:1.7;">
+    <span class="lang-en-inline">With</span><span class="lang-es-inline">Con</span>
+    <strong style="color:var(--text); font-weight:400;">Dario Rodighiero</strong> &amp;
+    <strong style="color:var(--text); font-weight:400;">Laura García Vargas</strong> · Edgelands Institute
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- IMAGE + TEXT -->
+<div class="gallery-sec" style="padding-top:16px; padding-bottom:16px;">
+  <div class="gallery-label"><span class="lang-en-inline">Networks and imagination</span><span class="lang-es-inline">Redes e imaginación</span></div>
+
+  <div style="display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start;">
+
+    <div class="gallery-item">
+      <img src="../images/edgelands-network/preview_network.jpg" alt="Edgelands Network Visualization" style="max-width:600px;">
+    </div>
+
+    <div>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text);">Let's move through the obvious: networks are representations, or at least resemble, or can be pictured, by knitting. Networks are (representations of) configurations for information to travel, mutate and evolve; possibly transforming the networks themselves along with the journey of such information. What I like about how networks resemble fabrics is that fabrics hold themselves, and serve to hold other entities.</p>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">I picture life itself as a network, a tablecloth where newborns are new stitches added to the center; the cloth regenerating at the middle. And as we get older we move farther from it, still surrounded by others, as social beings that we are. Elders live at the boundary. Sometimes a tragic death will undo a stitch somewhere between the center and the edge. In a generous approach, departed ones feed the substrate that implicitly sustains such network. From a nihilist perspective, they disappear into the vacuum. Reality (?) is likely somewhere in between.</p>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">The image of a knitted fabric also brings about the image of traces.<br>Traces themselves evoke projections, collapsing of realities into simpler objects.<br>Probing.<br>Fishing nets for perspectives.</p>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:20px;">Here's an ethical conundrum: I made use of a semantic network, a probabilistic network, to aid the technical development of the visualization of the Edgelands community and network. I am not happy about the sociopolitical implications of my current relationship with AI. The way we think is under threat of a greater homogenization. Will most of human thinking turn into shallow, frequentist associations based on mere proximity in probabilistic semantic networks?</p>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">We are currently (and yet again?) at the edge of humanity, asking what it means to be human, through an accelerating amount of contrast tests, through as many simultaneous lenses as there have ever been, and through increasing fragmentation, which takes humanity to a limit where we ask: what is the most irreducible human feature? All of this happens in forms and speeds that make this boundary impossible to keep track of.</p>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">Images are gateways towards expansion because they live at the boundary of experience (giving imagination its name). Maybe approaching networks through image thinking can give us a glimpse to understanding our current moment.</p>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">This way, the concept that is today helping us portray our Edgelands experience, which is also so far the most natural language for Complexity (and Complexity thinking is a possible antidote to the multiple fallbacks of our era), is also at the center of what is threatening us, or at least challenging us at the edges of our experience.</p>
+      <p class="lang-en" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">Creating this network representation with Dario and Laura made me wonder, of course, about common grounds, which are the opposite of this seemingly unavoidable fragmentation, and the questions posited by our collages resonate: How to use the network to go beyond the network? How to bring this network to life?</p>
+
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text);">Avancemos por lo obvio: las redes son representaciones, o al menos se parecen, o pueden ser imaginadas, como tejidos. Las redes son (representaciones de) configuraciones para que la información viaje, mute y evolucione; posiblemente transformando las redes mismas junto con el viaje de dicha información. Lo que me gusta de cómo las redes se parecen a las telas es que las telas se sostienen a sí mismas, y sirven para sostener otras entidades.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">Imagino la vida misma como una red, un mantel donde los recién nacidos son puntadas nuevas añadidas al centro; la tela regenerándose en el medio. Y a medida que envejecemos nos alejamos de él, aún rodeados de otros, como seres sociales que somos. Los ancianos viven en el borde. A veces una muerte trágica deshará una puntada en algún lugar entre el centro y el borde. En un enfoque generoso, los que parten alimentan el sustrato que implícitamente sostiene dicha red. Desde una perspectiva nihilista, desaparecen en el vacío. La realidad (?) probablemente está en algún punto intermedio.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">La imagen de una tela tejida también trae consigo la imagen de trazas.<br>Las trazas mismas evocan proyecciones, colapsos de realidades en objetos más simples.<br>Sondear.<br>Redes de pesca para perspectivas.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:20px;">Un dilema ético: hice uso de una red semántica, una red probabilística, para ayudar en el desarrollo técnico de la visualización de la comunidad y red de Edgelands. No estoy contenta con las implicaciones sociopolíticas de mi relación actual con la IA. La forma en que pensamos está bajo amenaza de una mayor homogeneización. ¿Se convertirá la mayor parte del pensamiento humano en asociaciones superficiales y frecuentistas basadas en mera proximidad en redes semánticas probabilísticas?</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">Estamos actualmente (¿y otra vez?) al borde de la humanidad, preguntándonos qué significa ser humano, a través de una cantidad acelerada de pruebas de contraste, a través de tantos lentes simultáneos como nunca antes ha habido, y a través de una fragmentación creciente, que lleva a la humanidad a un límite donde preguntamos: ¿cuál es la característica humana más irreducible? Todo esto sucede en formas y velocidades que hacen imposible seguirle el rastro a este borde.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">Las imágenes son puertas hacia la expansión porque viven en el borde de la experiencia (dándole a la imaginación su nombre). Quizás acercarse a las redes a través del pensamiento en imágenes pueda darnos un atisbo para entender nuestro momento actual.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">De esta manera, el concepto que hoy nos ayuda a retratar nuestra experiencia Edgelands, que es también hasta ahora el lenguaje más natural para la Complejidad (y el pensamiento de Complejidad es un posible antídoto para las múltiples recaídas de nuestra era), está también en el centro de lo que nos amenaza, o al menos nos desafía en los bordes de nuestra experiencia.</p>
+      <p class="lang-es" style="font-size:0.88rem; line-height:1.6; color:var(--text); margin-top:12px;">Crear esta representación de red con Dario y Laura me hizo preguntarme, por supuesto, sobre los terrenos comunes, que son lo opuesto a esta fragmentación aparentemente inevitable, y las preguntas planteadas por nuestros collages resuenan: ¿Cómo usar la red para ir más allá de la red? ¿Cómo traer esta red a la vida?</p>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  });
+});
+</script>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

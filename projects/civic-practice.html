@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civic Practice — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding:12px 28px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--muted);
+}
+nav .links a:hover { color:var(--text); }
+.lang-toggle {
+  background:none; border:none; font-family:var(--mono); font-size:0.65rem;
+  text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
+  cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted);
+}
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.08em; color:var(--muted);
+}
+.back:hover { color:var(--text); }
+
+.proj-head {
+  padding:72px 28px 32px;
+  max-width:800px;
+}
+.proj-head h1 {
+  font-family:var(--serif);
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  font-weight:400; line-height:1.1;
+  margin-bottom:8px;
+}
+.proj-meta {
+  font-family:var(--mono); font-size:0.68rem;
+  color:var(--muted); letter-spacing:0.02em;
+  margin-bottom:20px;
+}
+.proj-tags {
+  display:flex; gap:6px; flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.proj-tags span {
+  font-family:var(--mono); font-size:0.55rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--muted);
+  border:1px solid var(--line); padding:2px 10px;
+}
+.proj-desc {
+  font-size:0.95rem; line-height:1.7;
+  max-width:640px;
+  margin-bottom:8px;
+}
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* INITIATIVE CARDS */
+.initiatives-sec { padding:32px 28px 48px; max-width:800px; }
+.initiatives-label {
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--muted); margin-bottom:20px;
+}
+
+.initiative {
+  padding:28px 0;
+  border-bottom:1px solid var(--line);
+}
+.initiative:last-child { border-bottom:none; }
+
+.initiative h3 {
+  font-family:var(--serif); font-size:1.2rem; font-weight:400; line-height:1.25;
+  margin-bottom:4px;
+}
+.initiative h3 a { text-decoration:none; }
+.initiative h3 a:hover { color:var(--accent); }
+.initiative-meta {
+  font-family:var(--mono); font-size:0.62rem; color:var(--green);
+  margin-bottom:4px;
+}
+.initiative-role {
+  font-family:var(--mono); font-size:0.62rem; color:var(--muted);
+  margin-bottom:10px;
+}
+.initiative-desc {
+  font-size:0.9rem; line-height:1.7; color:var(--text);
+  max-width:640px;
+  margin-bottom:8px;
+}
+.initiative-link {
+  display:inline-block; margin-top:6px;
+  font-family:var(--mono); font-size:0.58rem; color:var(--green);
+}
+.initiative-link:hover { color:var(--accent); }
+
+/* GALLERY for documentation */
+.gallery-sec { padding:32px 28px 48px; }
+.gallery-label {
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--muted); margin-bottom:16px;
+}
+.gallery {
+  column-count:3;
+  column-gap:12px;
+}
+.gallery-item {
+  break-inside:avoid;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+.gallery-item .placeholder {
+  width:100%;
+  background:var(--card-bg);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:0.55rem; color:var(--muted);
+}
+.gallery-item .placeholder.tall { aspect-ratio:3/4; }
+.gallery-item .placeholder.wide { aspect-ratio:4/3; }
+.gallery-item .placeholder.square { aspect-ratio:1/1; }
+.gallery-item .caption {
+  padding:6px 0;
+  font-family:var(--mono); font-size:0.6rem; color:var(--muted);
+  line-height:1.4;
+}
+
+footer {
+  padding:16px 28px; display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
+  border-top:1px solid var(--line);
+}
+
+@media (max-width:768px) {
+  .gallery { column-count:2; }
+  .proj-head, .initiatives-sec, .gallery-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;"><span class="lang-en-inline">Cities & Civic Practice</span><span class="lang-es-inline">Ciudades y práctica cívica</span></h1>
+
+  <div class="proj-meta">2012 — ongoing · Medellín</div>
+
+  <div class="proj-tags">
+    <span>civic</span>
+    <span>policy</span>
+  </div>
+
+  <p class="proj-desc lang-en">Thirteen years of citizen-led urban practice — co-founding public conversations, organizing tactical urbanism interventions, sitting on climate boards, and building platforms that connect civic participation with environmental data. The through-line: cities are made by the people who show up.</p>
+  <p class="proj-desc lang-es">Trece años de práctica urbana ciudadana — co-fundando conversaciones públicas, organizando intervenciones de urbanismo táctico, participando en juntas climáticas, y construyendo plataformas que conectan la participación cívica con datos ambientales. El hilo conductor: las ciudades las hacen quienes se presentan.</p>
+</div>
+
+<hr class="sep">
+
+<!-- INITIATIVES -->
+<div class="initiatives-sec">
+  <div class="initiatives-label"><span class="lang-en-inline">Initiatives</span><span class="lang-es-inline">Iniciativas</span></div>
+
+  <div class="initiative">
+    <h3><a href="https://lunesdeciudad.org/" target="_blank">Lunes de Ciudad ↗</a></h3>
+    <p class="initiative-meta">2013 — ongoing · 16+ <span class="lang-en-inline">cities</span><span class="lang-es-inline">ciudades</span>, 6 <span class="lang-en-inline">countries</span><span class="lang-es-inline">países</span></p>
+    <p class="initiative-role"><span class="lang-en-inline">Co-founder</span><span class="lang-es-inline">Co-fundadora</span></p>
+    <p class="initiative-desc lang-en">Citizen-led public conversation. Every Monday, diverse actors gather in public space to debate urban issues — planning, mobility, environment, governance, public life. Born in Medellín, now replicated in cities across Colombia, Mexico, Ecuador, Chile, Argentina, and Spain. Thirteen years of horizontal dialogue with no institutional affiliation, no funding requirement, no gatekeeping. The format is the politics: anyone can convene, anyone can speak.</p>
+    <p class="initiative-desc lang-es">Conversación pública ciudadana. Cada lunes, actores diversos se reúnen en espacio público para debatir temas urbanos — planificación, movilidad, medio ambiente, gobernanza, vida pública. Nacida en Medellín, ahora replicada en ciudades de Colombia, México, Ecuador, Chile, Argentina y España. Trece años de diálogo horizontal sin afiliación institucional, sin requisito de financiación, sin intermediación. El formato es la política: cualquiera puede convocar, cualquiera puede hablar.</p>
+    <a class="initiative-link" href="https://lunesdeciudad.org/" target="_blank">lunesdeciudad.org ↗</a>
+  </div>
+
+  <div class="initiative">
+    <h3>Low Carbon City</h3>
+    <p class="initiative-meta">2022 — ongoing</p>
+    <p class="initiative-role"><span class="lang-en-inline">Board member</span><span class="lang-es-inline">Junta directiva</span></p>
+    <p class="initiative-desc lang-en">Citizen-led climate initiative connecting civic, academic, and institutional actors. 132,400+ citizens, 667 interventions, 987 experts from 78 countries. Developed "Aquí Cabe un Árbol," a citizen platform prototype connecting geolocated environmental data, public participation, and urban decision-making.</p>
+    <p class="initiative-desc lang-es">Iniciativa ciudadana climática conectando actores cívicos, académicos e institucionales. 132.400+ ciudadanos, 667 intervenciones, 987 expertos de 78 países. Desarrollé "Aquí Cabe un Árbol," prototipo de plataforma ciudadana que conecta datos ambientales geolocalizados, participación pública y toma de decisiones urbanas.</p>
+  </div>
+
+  <div class="initiative">
+    <h3>La Ciudad Verde</h3>
+    <p class="initiative-meta">2012–2016 · Medellín</p>
+    <p class="initiative-role"><span class="lang-en-inline">Member</span><span class="lang-es-inline">Miembro</span></p>
+    <p class="initiative-desc lang-en">Activism and policy advocacy through this Medellín-based collective focused on sustainable urban policy. Led citizen debates and tactical urbanism interventions — combining political action with the physical transformation of public space. Parking lanes became parks for a day; intersections became plazas; the city became a classroom.</p>
+    <p class="initiative-desc lang-es">Activismo e incidencia en política pública a través de este colectivo de Medellín enfocado en política urbana sostenible. Lideré debates ciudadanos e intervenciones de urbanismo táctico — combinando acción política con transformación física del espacio público. Carriles de parqueo se convirtieron en parques por un día; intersecciones en plazas; la ciudad en salón de clase.</p>
+  </div>
+
+  <div class="initiative">
+    <h3>Foro Mundial de la Bicicleta</h3>
+    <p class="initiative-meta">2015 · Medellín</p>
+    <p class="initiative-role"><span class="lang-en-inline">Organizing team</span><span class="lang-es-inline">Equipo organizador</span></p>
+    <p class="initiative-desc lang-en">World Bicycle Forum — international gathering of cycling advocates, urban planners, and civic activists. Medellín edition.</p>
+    <p class="initiative-desc lang-es">Foro Mundial de la Bicicleta — encuentro internacional de promotores del ciclismo, urbanistas y activistas cívicos. Edición Medellín.</p>
+  </div>
+
+  <div class="initiative">
+    <h3>Premio Joven Destacada de Medellín</h3>
+    <p class="initiative-meta">2014</p>
+    <p class="initiative-role"><span class="lang-en-inline">Mayor's Office — Ecology & Sustainability</span><span class="lang-es-inline">Alcaldía de Medellín — Ecología y Sostenibilidad</span></p>
+    <p class="initiative-desc lang-en">Municipal recognition for contributions to ecology and urban sustainability.</p>
+    <p class="initiative-desc lang-es">Reconocimiento municipal por contribuciones a la ecología y sostenibilidad urbana.</p>
+  </div>
+
+</div>
+
+<hr class="sep">
+
+<!-- DOCUMENTATION -->
+<div class="gallery-sec">
+  <div class="gallery-label"><span class="lang-en-inline">Documentation</span><span class="lang-es-inline">Documentación</span></div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="placeholder wide">[ image: Lunes de Ciudad session ]</div>
+      <div class="caption">Lunes de Ciudad, Medellín.</div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder tall">[ image: tactical urbanism ]</div>
+      <div class="caption lang-en">La Ciudad Verde — tactical urbanism intervention.</div>
+      <div class="caption lang-es">La Ciudad Verde — intervención de urbanismo táctico.</div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder wide">[ image: Foro Mundial ]</div>
+      <div class="caption">Foro Mundial de la Bicicleta, 2015.</div>
+    </div>
+    <div class="gallery-item">
+      <div class="placeholder square">[ image: Low Carbon City ]</div>
+      <div class="caption">Low Carbon City.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>

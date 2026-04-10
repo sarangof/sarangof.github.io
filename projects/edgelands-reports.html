@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edgelands — Reports & Research — Sara Arango Franco</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #EFEBE4;
+  --card-bg: #E4DFD7;
+  --text: #1C1917;
+  --muted: #78716C;
+  --line: #D1CBC2;
+  --accent: #B91C1C;
+  --green: #365E4C;
+  --serif: 'EB Garamond', Georgia, serif;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
+::selection { background:var(--accent); color:#fff; }
+a { color:var(--text); text-decoration:none; }
+a:hover { color:var(--accent); }
+
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding:12px 28px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .links { display:flex; gap:20px; align-items:center; }
+nav .links a {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.1em; color:var(--muted);
+}
+nav .links a:hover { color:var(--text); }
+.lang-toggle {
+  background:none; border:none; font-family:var(--mono); font-size:0.65rem;
+  text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
+  cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted);
+}
+.lang-toggle:hover { color:var(--text); border-color:var(--text); }
+
+.back {
+  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
+  letter-spacing:0.08em; color:var(--muted);
+}
+.back:hover { color:var(--text); }
+
+.proj-head {
+  padding:72px 28px 32px;
+  max-width:800px;
+}
+.proj-head h1 {
+  font-family:var(--serif);
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+  font-weight:400; line-height:1.1;
+  margin-bottom:8px;
+}
+.proj-meta {
+  font-family:var(--mono); font-size:0.68rem;
+  color:var(--muted); letter-spacing:0.02em;
+  margin-bottom:20px;
+}
+.proj-tags {
+  display:flex; gap:6px; flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.proj-tags span {
+  font-family:var(--mono); font-size:0.55rem; text-transform:uppercase;
+  letter-spacing:0.06em; color:var(--muted);
+  border:1px solid var(--line); padding:2px 10px;
+}
+.proj-desc {
+  font-size:0.95rem; line-height:1.7;
+  max-width:640px;
+  margin-bottom:8px;
+}
+
+.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
+
+/* REPORT LIST */
+.reports-sec { padding:32px 28px 48px; max-width:800px; }
+.reports-label {
+  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--muted); margin-bottom:20px;
+}
+
+.report-item {
+  padding:20px 0;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:60px 1fr;
+  gap:16px;
+}
+.report-item:last-child { border-bottom:none; }
+
+.report-year {
+  font-family:var(--mono); font-size:0.65rem; color:var(--muted); padding-top:3px;
+}
+.report-item h3 {
+  font-family:var(--serif); font-size:1.05rem; font-weight:400; line-height:1.25;
+  margin-bottom:4px;
+}
+.report-item h3 a { text-decoration:none; }
+.report-item h3 a:hover { color:var(--accent); }
+.report-org {
+  font-family:var(--mono); font-size:0.62rem; color:var(--green);
+  margin-bottom:6px;
+}
+.report-desc {
+  font-size:0.85rem; line-height:1.6; color:var(--muted);
+}
+.report-link {
+  display:inline-block; margin-top:8px;
+  font-family:var(--mono); font-size:0.58rem; color:var(--green);
+}
+.report-link:hover { color:var(--accent); }
+
+footer {
+  padding:16px 28px; display:flex; justify-content:space-between;
+  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
+  border-top:1px solid var(--line);
+}
+
+@media (max-width:768px) {
+  .report-item { grid-template-columns:1fr; gap:2px; }
+  .proj-head, .reports-sec { padding-left:16px; padding-right:16px; }
+  .sep { margin-left:16px; margin-right:16px; }
+}
+
+.lang-es { display:none; }
+body.es .lang-en { display:none; }
+body.es .lang-es { display:block; }
+body.es .lang-es-inline { display:inline; }
+body.es .lang-en-inline { display:none; }
+body:not(.es) .lang-es-inline { display:none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="proj-head">
+  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+
+  <h1 style="margin-top:20px;">Edgelands — <span class="lang-en-inline">Reports & Research</span><span class="lang-es-inline">Informes e investigación</span></h1>
+
+  <div class="proj-meta">2021 — 2026 · Edgelands Institute</div>
+
+  <div class="proj-tags">
+    <span>research</span>
+    <span>data</span>
+    <span>civic</span>
+    <span>policy</span>
+  </div>
+
+  <p class="proj-desc lang-en">Five years of research at the Edgelands Institute — data analysis, co-authored reports, citizen surveys, data workshops, network visualizations, and interactive maps. The work examined how surveillance and security technologies reshape urban life, civic participation, and the social contract in cities including Medellín and Geneva.</p>
+  <p class="proj-desc lang-es">Cinco años de investigación en el Instituto Edgelands — análisis de datos, informes co-autorados, encuestas ciudadanas, talleres de datos, visualizaciones de red y mapas interactivos. El trabajo examinó cómo las tecnologías de vigilancia y seguridad reconfiguran la vida urbana, la participación cívica y el contrato social en ciudades como Medellín y Ginebra.</p>
+</div>
+
+<hr class="sep">
+
+<!-- REPORTS -->
+<div class="reports-sec">
+  <div class="reports-label"><span class="lang-en-inline">Reports & outputs</span><span class="lang-es-inline">Informes y productos</span></div>
+
+  <div class="report-item">
+    <span class="report-year">2026</span>
+    <div>
+      <h3>Edgelands Network Visualization</h3>
+      <p class="report-org">Edgelands Institute</p>
+      <p class="report-desc lang-en">Interactive 3D network visualization of the Edgelands community — mapping expertise, geography, and connections across the global network. Built as both a directory and a coordination tool.</p>
+      <p class="report-desc lang-es">Visualización interactiva 3D de la red del Instituto Edgelands — mapeando experticia, geografía y conexiones.</p>
+    </div>
+  </div>
+
+  <div class="report-item">
+    <span class="report-year">2024</span>
+    <div>
+      <h3><a href="https://www.edgelands.institute/outcomes/medellin-reflections-on-the-intensive-use-of-technology-on-urban-security" target="_blank"><span class="lang-en-inline">Medellín: Reflections on the intensive use of technology on urban security</span><span class="lang-es-inline">Medellín: Reflexiones sobre el uso intensivo de tecnologías para la seguridad urbana</span> ↗</a></h3>
+      <p class="report-org"><span class="lang-en-inline">w/ Roldán, González, Aristizábal</span><span class="lang-es-inline">c/ Roldán, González, Aristizábal</span></p>
+      <p class="report-desc lang-en">A critical examination of Medellín's extensive deployment of surveillance infrastructure — its governance gaps, institutional logic, and civic implications.</p>
+      <p class="report-desc lang-es">Un examen crítico del despliegue extensivo de infraestructura de vigilancia en Medellín — sus vacíos de gobernanza, lógica institucional e implicaciones cívicas.</p>
+      <a class="report-link" href="https://www.edgelands.institute/outcomes/medellin-reflections-on-the-intensive-use-of-technology-on-urban-security" target="_blank">read report ↗</a>
+    </div>
+  </div>
+
+  <div class="report-item">
+    <span class="report-year">2024</span>
+    <div>
+      <h3><a href="https://www.edgelands.institute/outcomes/como-se-gobiernan-las-tecnologias-de-seguridad-y-vigilancia-en-medellin" target="_blank"><span class="lang-en-inline">Governance of Security Technologies in Medellín</span><span class="lang-es-inline">Gobernanza de tecnologías de seguridad en Medellín</span> ↗</a></h3>
+      <p class="report-org"><span class="lang-en-inline">w/ Uribe, Roldán</span><span class="lang-es-inline">c/ Uribe, Roldán</span></p>
+      <p class="report-desc lang-en">Policy report on how surveillance and security technologies are governed in Medellín — local ordinances, regulatory gaps, and the rapid advance of AI in urban security operations.</p>
+      <p class="report-desc lang-es">Informe de política sobre cómo se gobiernan las tecnologías de vigilancia y seguridad en Medellín.</p>
+      <a class="report-link" href="https://www.edgelands.institute/outcomes/como-se-gobiernan-las-tecnologias-de-seguridad-y-vigilancia-en-medellin" target="_blank">read report ↗</a>
+    </div>
+  </div>
+
+  <div class="report-item">
+    <span class="report-year">2024</span>
+    <div>
+      <h3>Hablemos de la Digitalización de la Seguridad</h3>
+      <p class="report-org">Edgelands + Hablemos Medellín</p>
+      <p class="report-desc lang-en">Citizen survey on perceptions of security and digital surveillance in Medellín. Report presenting citizen perspectives on how the digitalization of security affects daily life and the social contract.</p>
+      <p class="report-desc lang-es">Encuesta ciudadana sobre percepciones de seguridad y vigilancia digital en Medellín. Perspectivas ciudadanas sobre la digitalización de la seguridad.</p>
+    </div>
+  </div>
+
+  <div class="report-item">
+    <span class="report-year">2023</span>
+    <div>
+      <h3><a href="https://sarangof.github.io/Security_cameras_Geneva/" target="_blank">Dropping the Pin on Surveillance ↗</a></h3>
+      <p class="report-org">Edgelands · Geneva</p>
+      <p class="report-desc lang-en">Participatory surveillance camera mapping in Geneva. 423 cameras identified through citizen volunteers, geolocated and photographed. An interactive map and public conversation about transparency, visibility, and the right to know what watches us.</p>
+      <p class="report-desc lang-es">Mapeo participativo de cámaras de vigilancia en Ginebra. 423 cámaras identificadas por voluntarios ciudadanos, geolocalizadas y fotografiadas.</p>
+      <a class="report-link" href="https://sarangof.github.io/Security_cameras_Geneva/" target="_blank">view map ↗</a>
+    </div>
+  </div>
+
+  <div class="report-item">
+    <span class="report-year">2023</span>
+    <div>
+      <h3><a href="https://www.edgelands.institute/outcomes/decoding-security-coexistence-and-surveillance-in-medellin" target="_blank">Decodificando la Convivencia y Vigilancia ↗</a></h3>
+      <p class="report-org"><span class="lang-en-inline">Edgelands + EAFIT · w/ Roldán, González, Aristizábal</span><span class="lang-es-inline">Edgelands + EAFIT · c/ Roldán, González, Aristizábal</span></p>
+      <p class="report-desc lang-en">Eight-week data workshops with young people in Medellín. Participants analyzed surveillance data to contribute to local conversations on security and coexistence.</p>
+      <p class="report-desc lang-es">Talleres de datos de ocho semanas con jóvenes en Medellín. Los participantes analizaron datos de vigilancia para contribuir a conversaciones sobre seguridad y convivencia.</p>
+      <a class="report-link" href="https://www.edgelands.institute/outcomes/decoding-security-coexistence-and-surveillance-in-medellin" target="_blank">read report ↗</a>
+    </div>
+  </div>
+
+  <div class="report-item">
+    <span class="report-year">2024</span>
+    <div>
+      <h3><a href="https://sarangof.github.io/Virgenes_MDE/?v=2" target="_blank">Las Vírgenes del Metro ↗</a></h3>
+      <p class="report-org">Edgelands</p>
+      <p class="report-desc lang-en">Interactive map of 23 artistic representations of the Virgin Mary across the Medellín Metro. How public art became social protection during the narcotrafficking crisis — not supernaturally, but through communal respect for the image.</p>
+      <p class="report-desc lang-es">Mapa interactivo de 23 representaciones artísticas de la Virgen María en el Metro de Medellín.</p>
+      <a class="report-link" href="https://sarangof.github.io/Virgenes_MDE/?v=2" target="_blank">view map ↗</a>
+    </div>
+  </div>
+
+</div>
+
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
+
+</body>
+</html>
