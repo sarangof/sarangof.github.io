@@ -3,170 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
 <title>NYU Marron / Litmus — Sara Arango Franco</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --bg: #EFEBE4;
-  --card-bg: #E4DFD7;
-  --text: #1C1917;
-  --muted: #78716C;
-  --line: #D1CBC2;
-  --accent: #B91C1C;
-  --green: #365E4C;
-  --serif: 'EB Garamond', Georgia, serif;
-  --mono: 'Space Mono', monospace;
-  --sans: 'Outfit', system-ui, sans-serif;
-}
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:16px; scroll-behavior:smooth; }
-body { font-family:var(--sans); font-weight:400; line-height:1.6; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased; }
-::selection { background:var(--accent); color:#fff; }
-a { color:var(--text); text-decoration:none; }
-a:hover { color:var(--accent); }
-
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  background:var(--bg);
-  border-bottom:1px solid var(--line);
-  padding:12px 28px;
-  display:flex; justify-content:space-between; align-items:center;
-}
-nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
-nav .links { display:flex; gap:20px; align-items:center; }
-nav .links a {
-  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
-  letter-spacing:0.1em; color:var(--muted);
-}
-nav .links a:hover { color:var(--text); }
-.lang-toggle {
-  background:none; border:none; font-family:var(--mono); font-size:0.65rem;
-  text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
-  cursor:pointer; padding:2px 0; border-bottom:1px dotted var(--muted);
-}
-.lang-toggle:hover { color:var(--text); border-color:var(--text); }
-
-.back {
-  font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
-  letter-spacing:0.08em; color:var(--muted);
-}
-.back:hover { color:var(--text); }
-
-.proj-head {
-  padding:72px 28px 32px;
-  max-width:800px;
-}
-.proj-head h1 {
-  font-family:var(--serif);
-  font-size:clamp(1.8rem, 4vw, 2.8rem);
-  font-weight:400; line-height:1.1;
-  margin-bottom:8px;
-}
-.proj-meta {
-  font-family:var(--mono); font-size:0.68rem;
-  color:var(--muted); letter-spacing:0.02em;
-  margin-bottom:20px;
-}
-.proj-tags {
-  display:flex; gap:6px; flex-wrap:wrap;
-  margin-bottom:24px;
-}
-.proj-tags span {
-  font-family:var(--mono); font-size:0.55rem; text-transform:uppercase;
-  letter-spacing:0.06em; color:var(--muted);
-  border:1px solid var(--line); padding:2px 10px;
-}
-.proj-desc {
-  font-size:0.95rem; line-height:1.7;
-  max-width:640px;
-  margin-bottom:8px;
-}
-
-.sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
-
-/* PROJECT LIST */
-.projects-sec { padding:32px 28px 48px; max-width:800px; }
-.projects-label {
-  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
-  letter-spacing:0.14em; color:var(--muted); margin-bottom:20px;
-}
-
-.project-item {
-  padding:24px 0;
-  border-bottom:1px solid var(--line);
-}
-.project-item:last-child { border-bottom:none; }
-
-.project-item h3 {
-  font-family:var(--serif); font-size:1.05rem; font-weight:400; line-height:1.25;
-  margin-bottom:4px;
-}
-.project-meta {
-  font-family:var(--mono); font-size:0.62rem; color:var(--green);
-  margin-bottom:8px;
-}
-.project-desc {
-  font-size:0.88rem; line-height:1.65; color:var(--text);
-  max-width:640px;
-}
-
-/* GALLERY for visual projects */
-.gallery-sec { padding:32px 28px 48px; }
-.gallery-label {
-  font-family:var(--mono); font-size:0.58rem; text-transform:uppercase;
-  letter-spacing:0.14em; color:var(--muted); margin-bottom:16px;
-}
-.gallery {
-  column-count:3;
-  column-gap:12px;
-}
-.gallery-item {
-  break-inside:avoid;
-  margin-bottom:12px;
-  overflow:hidden;
-  cursor:pointer;
-}
-.gallery-item .placeholder {
-  width:100%;
-  background:var(--card-bg);
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--mono); font-size:0.55rem; color:var(--muted);
-}
-.gallery-item .placeholder.wide { aspect-ratio:4/3; }
-.gallery-item .placeholder.tall { aspect-ratio:3/4; }
-.gallery-item .caption {
-  padding:6px 0;
-  font-family:var(--mono); font-size:0.6rem; color:var(--muted);
-  line-height:1.4;
-}
-
-footer {
-  padding:16px 28px; display:flex; justify-content:space-between;
-  font-family:var(--mono); font-size:0.58rem; color:var(--muted);
-  border-top:1px solid var(--line);
-}
-
-@media (max-width:768px) {
-  .gallery { column-count:2; }
-  .proj-head, .projects-sec, .gallery-sec { padding-left:16px; padding-right:16px; }
-  .sep { margin-left:16px; margin-right:16px; }
-}
-
-.lang-es { display:none; }
-body.es .lang-en { display:none; }
-body.es .lang-es { display:block; }
-body.es .lang-es-inline { display:inline; }
-body.es .lang-en-inline { display:none; }
-body:not(.es) .lang-es-inline { display:none; }
+:root{--bg:#EFEBE4;--card-bg:#E4DFD7;--text:#1C1917;--muted:#78716C;--line:#D1CBC2;--accent:#B91C1C;--green:#365E4C;--serif:'EB Garamond',Georgia,serif;--mono:'Space Mono',monospace;--sans:'Outfit',system-ui,sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:400;line-height:1.6;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:#fff}
+a{color:var(--text);text-decoration:none}a:hover{color:var(--accent)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 28px;display:flex;justify-content:space-between;align-items:center}
+nav .name{font-family:var(--serif);font-size:1.05rem;font-weight:400}
+nav .links{display:flex;gap:20px;align-items:center}
+nav .links a{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+nav .links a:hover{color:var(--text)}
+.lang-toggle{background:none;border:none;font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);cursor:pointer;padding:2px 0;border-bottom:1px dotted var(--muted)}
+.lang-toggle:hover{color:var(--text);border-color:var(--text)}
+.back{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.back:hover{color:var(--text)}
+.proj-head{padding:72px 28px 16px;display:grid;grid-template-columns:auto 1fr;gap:8px 32px;align-items:start}
+.proj-head .back{grid-column:1/-1}.proj-head h1{grid-column:1/-1}.proj-head .proj-meta{grid-column:1}.proj-head .proj-tags{grid-column:1;margin-bottom:0}.proj-head .proj-desc{grid-column:2;grid-row:3/5;max-width:none}
+.proj-head h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:8px}
+.proj-meta{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.02em;margin-bottom:8px}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.proj-tags span{font-family:var(--mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:2px 10px}
+.proj-desc{font-size:.95rem;line-height:1.7;margin-bottom:8px}
+.sep{border:none;border-top:1px solid var(--line);margin:0 28px}
+.gallery-sec{padding:16px 28px 16px}
+.gallery-label{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
+.cat-sec{padding:16px 28px}
+.cat-label{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px;font-weight:500}
+.cat-corrections{color:#534AB7}.cat-prosecution{color:#D85A30}.cat-policing{color:#1D9E75}.cat-education{color:#378ADD}.cat-opioids{color:#E24B4A}.cat-intl{color:#888780}
+.cat-grid{display:grid;gap:16px;align-items:start}
+.cat-grid.img-left{grid-template-columns:1fr 2fr}.cat-grid.img-right{grid-template-columns:2fr 1fr}
+.cat-img{width:100%;height:100%;object-fit:cover;border-radius:2px}
+.proj-item{padding:8px 0;border-bottom:1px solid var(--line)}.proj-item:last-child{border-bottom:none}
+.proj-item h3{font-family:var(--serif);font-size:.95rem;font-weight:400;line-height:1.25;margin-bottom:2px}
+.proj-item .pm{font-family:var(--mono);font-size:.58rem;color:var(--green);margin-bottom:3px}
+.proj-item p{font-size:.82rem;line-height:1.55;color:var(--text)}
+.proj-item .highlight{background:var(--card-bg);padding:8px 12px;margin-top:4px;font-size:.82rem;line-height:1.55}
+.ext-link{font-family:var(--mono);font-size:.62rem;color:var(--muted);border-bottom:1px solid var(--line)}.ext-link:hover{color:var(--text);border-color:var(--text)}
+footer{padding:16px 28px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.58rem;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:768px){.proj-head{grid-template-columns:1fr}.proj-head .proj-desc{grid-column:1;grid-row:auto}.proj-head,.gallery-sec,.cat-sec{padding-left:16px;padding-right:16px}.sep{margin-left:16px;margin-right:16px}.cat-grid.img-left,.cat-grid.img-right{grid-template-columns:1fr}.header-grid{grid-template-columns:1fr !important}}
+.lang-es{display:none}body.es .lang-en{display:none}body.es .lang-es{display:block}body.es .lang-es-inline{display:inline}body.es .lang-en-inline{display:none}body:not(.es) .lang-es-inline{display:none}
 </style>
 </head>
 <body>
-
 <nav>
   <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
   <div class="links">
@@ -178,100 +62,224 @@ body:not(.es) .lang-es-inline { display:none; }
   </div>
 </nav>
 
-<!-- HEADER -->
-<div class="proj-head">
-  <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
-
-  <h1 style="margin-top:20px;">NYU Marron / Litmus</h1>
-
-  <div class="proj-meta">2018–2020 · New York University · Marron Institute of Urban Management</div>
-
-  <div class="proj-tags">
-    <span>research</span>
-    <span>data</span>
-    <span>policy</span>
-  </div>
-
-  <p class="proj-desc lang-en">Research scholar on Angela Hawken's team at the Marron Institute. The Litmus program ran randomized control trials in criminal justice, policing, and education across six US states. My work spanned data analysis, dashboard design, geospatial visualization, and the longitudinal study that became the most substantial research project of my time at NYU.</p>
-  <p class="proj-desc lang-es">Investigadora en el equipo de Angela Hawken en el Marron Institute. El programa Litmus ejecutó ensayos controlados aleatorios en justicia penal, policía y educación en seis estados de EE.UU. Mi trabajo abarcó análisis de datos, diseño de dashboards, visualización geoespacial, y el estudio longitudinal que se convirtió en el proyecto de investigación más sustancial de mi tiempo en NYU.</p>
+<!-- HEADER + MAP side by side -->
+<div style="padding:72px 28px 16px; display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+  <div>
+    <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+    <h1 style="margin-top:20px; font-family:var(--serif); font-size:clamp(1.8rem,4vw,2.8rem); font-weight:400; line-height:1.1; margin-bottom:8px;">NYU Marron / Litmus</h1>
+    <div class="proj-meta">2017–2022 · New York University · Marron Institute of Urban Management</div>
+    <div class="proj-tags"><span>research</span><span>data</span><span>policy</span><span>cities</span></div>
+    <p class="proj-desc lang-en" style="font-size:0.9rem;">Research scholar and data scientist on Angela Hawken's Litmus team at the Marron Institute, bajo la supervisión de ella y de Jonathan Kulick. Litmus worked with public agencies and the people they serve to develop and rigorously test new ideas for improving the performance of the public sector. My work spanned designing and analyzing randomized control trials, developing dashboards and data tools, building statistical and machine learning models, creating data visualizations and maps, and working directly with agencies on their data collection and management practices. The work touched corrections, prosecution, policing, education, opioid policy, and COVID-19 response across 14 US states and 6 countries. I led or contributed to the data side of every project listed here, always with collaborators.</p>
+    <p class="proj-desc lang-es" style="font-size:0.9rem;">Investigadora y científica de datos en el equipo Litmus de Angela Hawken en el Marron Institute, under her supervision and Jonathan Kulick's. Litmus trabajaba con agencias públicas para desarrollar y probar rigurosamente ideas para mejorar el sector público. Mi trabajo abarcó ECAs, dashboards, modelos estadísticos, visualizaciones y trabajo directo con agencias. Correcciones, acusaciones, policía, educación, opioides y COVID-19 en 14 estados de EE.UU. y 6 países. Lideré o contribuí el componente de datos de cada proyecto, siempre con colaboradores.</p>
+    <div style="font-family:var(--mono);font-size:.62rem;color:var(--muted);line-height:1.7;margin-top:10px;">
+    <span class="lang-en-inline">With</span><span class="lang-es-inline">Con</span>
+      <strong style="color:var(--text);font-weight:400;">Angela Hawken</strong>,
+      <strong style="color:var(--text);font-weight:400;">Jonathan Kulick</strong>,
+      <strong style="color:var(--text);font-weight:400;">Sarah Henao</strong>,
+      <strong style="color:var(--text);font-weight:400;">Camilo Londoño</strong>,
+      <strong style="color:var(--text);font-weight:400;">Sandy Mullins</strong>,
+      <strong style="color:var(--text);font-weight:400;">Maureen Hillhouse</strong>,
+      <strong style="color:var(--text);font-weight:400;">Kelly Smith</strong>,
+      <span class="lang-en-inline">and others</span><span class="lang-es-inline">y otros
+    </span>
 </div>
-
+  </div>
+  <div>
+    <div id="litmus-map" style="width:100%;"></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0;font-size:.55rem;font-family:var(--mono);color:var(--muted);">
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:1px;background:#534AB7;"></span>Corrections</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:1px;background:#D85A30;"></span>Prosecution</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:1px;background:#1D9E75;"></span>Policing</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:1px;background:#378ADD;"></span>Education</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:1px;background:#E24B4A;"></span>Opioids</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:7px;height:7px;border-radius:1px;background:#888780;"></span>International</span>
+    </div>
+  </div>
+</div>
 <hr class="sep">
 
-<!-- PROJECTS -->
-<div class="projects-sec">
-  <div class="projects-label"><span class="lang-en-inline">Projects</span><span class="lang-es-inline">Proyectos</span></div>
-
-  <div class="project-item">
-    <h3><span class="lang-en-inline">When Perverse Incentives Align: Overcharging in Wisconsin</span><span class="lang-es-inline">Cuando los incentivos perversos se alinean: sobrecargos en Wisconsin</span></h3>
-    <p class="project-meta">2019–2020</p>
-    <p class="project-desc lang-en">A 20-year longitudinal study of prosecution data in Wisconsin, characterizing perverse incentives for overcharging THC-possession filings and their societal costs. The most substantial research project from my time at NYU — a thesis without a certificate.</p>
-    <p class="project-desc lang-es">Estudio longitudinal de 20 años de datos de acusaciones en Wisconsin, caracterizando incentivos perversos para el sobrecargo de posesión de THC. El proyecto de investigación más sustancial de mi tiempo en NYU — una tesis sin certificado.</p>
+<!-- PROSECUTION — image left -->
+<div class="cat-sec">
+  <div class="cat-label cat-prosecution"><span class="lang-en-inline">Prosecution — 8 projects, 5 states</span><span class="lang-es-inline">Acusación — 8 proyectos, 5 estados</span></div>
+  <div class="cat-grid img-left">
+    <div><img class="cat-img" src="../images/nyu/prosecution.png" alt="Prosecution work"></div>
+    <div>
+      <div class="proj-item">
+        <h3>When Perverse Incentives Align: Overcharging in Wisconsin</h3>
+        <div class="pm">2019–2020 · Wisconsin · w/ Hawken, Nerurkar, Kay, Liu, Khosla, Kulick</div>
+        <p class="lang-en">20-year study of 2.7 million court cases (843,540 defendants). Prosecutors get more staff for felony filings (2.92:1); judges 5.10:1; public defenders 2.67:1. Perverse incentive for all parties except the defendant. 9% of wobbler cases overcharged, unevenly distributed by race, age, gender. Overcharged defendants more likely to be incarcerated even when disposed as misdemeanors. Funded by CZI and Charles Koch Foundation.</p>
+        <p class="lang-es">Estudio de 20 años de 2,7M casos (843.540 acusados). Fiscales reciben más personal por delitos graves (2,92:1); jueces 5,10:1; defensores 2,67:1. Incentivo perverso para todos excepto el acusado. 9% sobrecargados, distribuido desigualmente por raza, edad, género. Una tesis sin certificado.</p>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Prostitution referral analysis</span><span class="lang-es-inline">Análisis de referidos de prostitución</span></h3>
+        <div class="pm">2017–2018 · Wisconsin</div>
+        <p class="lang-en">One of the simplest analyses I did at NYU, one with outsized policy impact. We identified a pattern in referral data. Once communicated, the office began consistently diverting prostitution cases, preempting an ACLU demand. No RCT, no ML, no dashboard. Just looking at the data and telling someone what it said.</p>
+        <p class="lang-es">Uno de los análisis más simples que hice en NYU, con impacto de política desproporcionado. Identificamos un patrón en los datos. La oficina comenzó a desviar casos de prostitución, preemptando una demanda de la ACLU. Sin ECA, sin ML, sin dashboard.</p>
+        <div class="highlight lang-en">Ever since we communicated a pattern we noted, this office kept always diverting prostitution cases, and this way the police department avoided a demand from the ACLU that was coming their way.</div>
+        <div class="highlight lang-es">Desde que comunicamos un patrón que notamos, esta oficina empezó a desviar siempre los casos de prostitución, y así el departamento de policía evitó una demanda de la ACLU que venía en camino.</div>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">DA dashboards</span><span class="lang-es-inline">Dashboards para fiscalías</span></h3>
+        <div class="pm">2017–2020 · Wisconsin, Fort Bend TX, Santa Clara CA</div>
+        <p class="lang-en">Custom software for DA's offices. Scaled to three states. Led two CUSP capstones with Bianco and Dobler.</p>
+        <p class="lang-es">Software personalizado para fiscalías. Escalado a tres estados. Lideré dos proyectos de capstone CUSP.</p>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Race-blind charging · Diversion RCT · Youth gun diversion</span><span class="lang-es-inline">Cargos ciegos a raza · ECA de desviación · Desviación juvenil</span></h3>
+        <div class="pm">Santa Clara CA · Winnebago WI · Kings County NY</div>
+        <p class="lang-en">RCT erasing race descriptors (Santa Clara). Different diversion lengths (Winnebago). Youth gun diversion evaluation (Kings County).</p>
+        <p class="lang-es">ECA sin descriptores raciales (Santa Clara). Duraciones de desviación (Winnebago). Desviación juvenil por armas (Kings County).</p>
+      </div>
+    </div>
   </div>
-
-  <div class="project-item">
-    <h3><span class="lang-en-inline">COVID-19 Risk Map for US Prisons</span><span class="lang-es-inline">Mapa de riesgo COVID-19 para prisiones de EE.UU.</span></h3>
-    <p class="project-meta">2020</p>
-    <p class="project-desc lang-en">Interactive mapping tool synthesizing daily census and health data for state adult correctional facilities. Used to guide decisions on PPE prioritization and early release protocols during the pandemic.</p>
-    <p class="project-desc lang-es">Herramienta de mapeo interactivo sintetizando datos diarios de censo y salud para instalaciones correccionales. Usada para guiar decisiones sobre PPE y protocolos de liberación temprana durante la pandemia.</p>
-  </div>
-
-  <div class="project-item">
-    <h3><span class="lang-en-inline">Data Science for the Public Sector — RCTs</span><span class="lang-es-inline">Ciencia de datos para el sector público — ECA</span></h3>
-    <p class="project-meta">2018–2020</p>
-    <p class="project-desc lang-en">20+ randomized control trials in corrections across 6 US states. Policing experiments (VR training, cruising lights, use of force). Education research with ReadWorks (~11M students). DA office dashboards (Texas, California). The Graduated Reintegration housing pilot in Illinois. The COVID-19 learning disparities study.</p>
-    <p class="project-desc lang-es">20+ ensayos controlados aleatorios en correcciones en 6 estados de EE.UU. Experimentos de policía (entrenamiento VR, luces, uso de fuerza). Investigación educativa con ReadWorks (~11M estudiantes). Dashboards para fiscalías (Texas, California). El piloto de reintegración en Illinois. El estudio de disparidades de aprendizaje por COVID-19.</p>
-  </div>
-
-  <div class="project-item">
-    <h3><span class="lang-en-inline">Urban Footprint Compactness</span><span class="lang-es-inline">Compacidad de huellas urbanas</span></h3>
-    <p class="project-meta">2018 · <span class="lang-en-inline">w/ S. Angel, Y. Liu, A.M. Blei</span><span class="lang-es-inline">c/ S. Angel, Y. Liu, A.M. Blei</span></p>
-    <p class="project-desc lang-en">Metrics for the shape compactness of urban footprints across global cities. How morphology reveals planning, sprawl, and territorial governance. Published in Progress in Planning.</p>
-    <p class="project-desc lang-es">Métricas de compacidad de huellas urbanas en ciudades del mundo. Cómo la morfología revela planificación, dispersión y gobernanza territorial. Publicada en Progress in Planning.</p>
-  </div>
-
 </div>
-
 <hr class="sep">
 
-<!-- VISUAL OUTPUTS -->
-<div class="gallery-sec">
-  <div class="gallery-label"><span class="lang-en-inline">Visual outputs</span><span class="lang-es-inline">Productos visuales</span></div>
+<!-- CORRECTIONS — image right -->
+<div class="cat-sec">
+  <div class="cat-label cat-corrections"><span class="lang-en-inline">Corrections — 20+ projects, 6 states</span><span class="lang-es-inline">Correcciones — 20+ proyectos, 6 estados</span></div>
+  <div class="cat-grid img-right">
+    <div>
+      <div class="proj-item">
+        <h3>Graduated Reintegration</h3>
+        <div class="pm">2018–2019 · Illinois</div>
+        <p class="lang-en">Built the data platform for the early release and transitional housing pilot with Illinois DOC, IHDA, and HUD. Positive outcomes. Statewide expansion. Led to $4M from the US Department of Labor.</p>
+        <p class="lang-es">Construí la plataforma de datos para el piloto de liberación anticipada y vivienda de transición. Resultados positivos. Expansión estatal. Llevó a $4M del Departamento de Trabajo.</p>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Sentence credit legislation</span><span class="lang-es-inline">Legislación de créditos de sentencia</span></h3>
+        <div class="pm">2020–2021 · Illinois</div>
+        <p class="lang-en">Resulted in H.B. 3653, increasing eligibility for sentence credits. A direct policy outcome.</p>
+        <p class="lang-es">Resultó en H.B. 3653. Un resultado de política directo.</p>
+      </div>
+      <div class="proj-item">
+        <h3>COVID-19 Risk Map for US Prisons</h3>
+        <div class="pm">2020</div>
+        <p class="lang-en">Interactive map synthesizing daily census and health data for state correctional facilities. Used for PPE, testing, early release. Noted in Sentencing Law and Policy and The Crime Report.</p>
+        <p class="lang-es">Mapa interactivo sintetizando datos diarios de censo y salud para instalaciones correccionales. Usado para PPE, pruebas, liberación anticipada.</p>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Pennsylvania DOC — RCTs</span><span class="lang-es-inline">DOC de Pensilvania — ECAs</span></h3>
+        <div class="pm">2017–2020</div>
+        <p class="lang-en">Vitamin D, theater, mindfulness, financial education, Aggression Replacement Therapy, VR for staff, use of force reduction, suicide prevention. Highlighted by NIJ.</p>
+        <p class="lang-es">Vitamina D, teatro, mindfulness, educación financiera, VR para personal, reducción de uso de fuerza. Destacado por NIJ.</p>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Women's reform · IF Project · Other corrections</span><span class="lang-es-inline">Reforma de mujeres · IF Project · Otros</span></h3>
+        <div class="pm">IL, ID, NE, AL, OH, CA, TN, NY</div>
+        <p class="lang-en">Women's incarceration reform (Pritzker / Women's Justice Institute). IF Project writing program (Alabama). Graduated Response Matrix for juveniles (Monterey). Text reminders (Santa Barbara, Monterey, Nashville). Randomization tool used 4+ years across DOJ SCF projects.</p>
+        <p class="lang-es">Reforma de mujeres (Pritzker). IF Project (Alabama). Matriz de Respuesta Graduada juvenil (Monterey). Recordatorios por texto. Herramienta de aleatorización usada 4+ años.</p>
+      </div>
+    </div>
+    <div><img class="cat-img" src="../images/nyu/corrections.png" alt="Corrections work"></div>
+  </div>
+</div>
+<hr class="sep">
 
-  <div class="gallery">
-    <div class="gallery-item">
-      <div class="placeholder wide">[ image: COVID prison map screenshot ]</div>
-      <div class="caption lang-en">COVID-19 Prison Risk Map. Interactive dashboard. 2020.</div>
-      <div class="caption lang-es">Mapa de riesgo COVID-19 prisiones. Dashboard interactivo. 2020.</div>
-    </div>
-    <div class="gallery-item">
-      <div class="placeholder wide">[ image: Wisconsin overcharging visualization ]</div>
-      <div class="caption lang-en">Overcharging in Wisconsin. Data visualization. 2020.</div>
-      <div class="caption lang-es">Sobrecargos en Wisconsin. Visualización de datos. 2020.</div>
-    </div>
-    <div class="gallery-item">
-      <div class="placeholder wide">[ image: Urban compactness ]</div>
-      <div class="caption lang-en">Urban footprint compactness across global cities. 2018.</div>
-      <div class="caption lang-es">Compacidad de huellas urbanas en ciudades del mundo. 2018.</div>
+<!-- POLICING — image left -->
+<div class="cat-sec">
+  <div class="cat-label cat-policing"><span class="lang-en-inline">Policing — 13 projects, 7 US states + international</span><span class="lang-es-inline">Policía — 13 proyectos, 7 estados + internacional</span></div>
+  <div class="cat-grid img-left">
+    <div><img class="cat-img" src="../images/nyu/policing.png" alt="Policing work"></div>
+    <div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Evidence-Based Policing — Mexico</span><span class="lang-es-inline">Policía Basada en Evidencia — México</span></h3>
+        <div class="pm">2017–2019 · Irapuato · Mexican Federal Government</div>
+        <p class="lang-en">Design, implementation, and evaluation of the national Evidence-Based Policing policy. RCT on batch and community policing for business theft. Irapuato earned the national award in 2019.</p>
+        <p class="lang-es">Diseño, implementación y evaluación de la política nacional de Policía Basada en Evidencia. ECA sobre patrullaje. Irapuato ganó el premio nacional en 2019.</p>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Lunar hypothesis</span><span class="lang-es-inline">Hipótesis lunar</span></h3>
+        <div class="pm">2019 · Irapuato, Vallejo CA, Barrie ON</div>
+        <p class="lang-en">Multi-site analysis: full moon and criminal activity. Our shortest exercise. By far the most international press: Norway, Greece, Spain, Poland, Brazil, Vietnam, Costa Rica, Argentina, Italy, and more.</p>
+        <p class="lang-es">Análisis multi-sitio: luna llena y actividad criminal. Nuestro ejercicio más corto. El de más prensa internacional: Noruega, Grecia, España, Polonia, Brasil, Vietnam, Costa Rica, Argentina, Italia y más.</p>
+      </div>
+      <div class="proj-item">
+        <h3><span class="lang-en-inline">Cruising lights · Other policing</span><span class="lang-es-inline">Luces de patrullaje · Otros</span></h3>
+        <div class="pm">CT, NH, VA, CA, NY, TX, OR, SC</div>
+        <p class="lang-en">Cruising lights across 4 cities (Vallejo highlighted by NIJ). CT consent search policy (post-Floyd). Use of force / mental health (Glen Cove). Street-segment patrolling (Grand Prairie). Peace officer decals, uniforms. Peer support. VR for police training at 2019 ASEBP.</p>
+        <p class="lang-es">Luces de patrullaje en 4 ciudades (Vallejo por NIJ). Política de registros CT (post Floyd). Uso de fuerza / salud mental. Patrullaje por segmentos. Calcomanías, uniformes. VR para entrenamiento policial.</p>
+      </div>
     </div>
   </div>
 </div>
+<hr class="sep">
 
+<!-- EDUCATION — image right -->
+<!-- EDUCATION — image right -->
+<div class="cat-sec">
+  <div class="cat-label cat-education"><span class="lang-en-inline">Education</span><span class="lang-es-inline">Educación</span></div>
+  <div class="cat-grid img-right">
+    <div>
+      <div class="proj-item">
+        <h3>ReadWorks</h3>
+        <div class="pm">2018–2021 · ~11 million students</div>
+        <p class="lang-en">Three-year partnership with the US's largest EdTech provider. RCT on picture placement and performance. COVID-19 learning disparities study. Parent engagement experiments. NYU press release.</p>
+        <p class="lang-es">Asociación de tres años con el mayor proveedor de EdTech de EE.UU. ECA sobre ubicación de imágenes. Estudio de disparidades COVID-19. Experimentos de involucramiento de padres.</p>
+      </div>
+    </div>
+    <div>
+      <img class="cat-img" src="../images/nyu/education.png" alt="Education work" style="max-height:200px; object-fit:contain; object-position:top; height:auto;">
+    </div>
+  </div>
+</div>
+<hr class="sep">
+
+<!-- SUBSTANCE ABUSE -->
+<div class="cat-sec">
+  <div class="cat-label cat-opioids"><span class="lang-en-inline">Substance abuse — COSSAP</span><span class="lang-es-inline">Abuso de sustancias — COSSAP</span></div>
+  <div class="proj-item">
+    <h3><span class="lang-en-inline">7 awards under DOJ's Comprehensive Opioid Abuse Program</span><span class="lang-es-inline">7 adjudicaciones bajo el Programa de Opioides del DOJ</span></h3>
+    <div class="pm">Harris Co TX, Bronx NY, Pennsylvania, Ohio</div>
+    <p class="lang-en">OUD detection and rapid-referral. Naloxone distribution evaluation (PA). VR modules for OUD treatment (OH). Data infrastructure for community supervision. The NYU COSSAP Collaborative as community of practice.</p>
+    <p class="lang-es">Detección de OUD y derivación rápida. Evaluación de naloxona (PA). VR para tratamiento (OH). Infraestructura de datos. NYU COSSAP Collaborative como comunidad de práctica.</p>
+  </div>
+</div>
+<hr class="sep">
+
+<!-- INTERNATIONAL -->
+<div class="cat-sec">
+  <div class="cat-label cat-intl"><span class="lang-en-inline">International</span><span class="lang-es-inline">Internacional</span></div>
+  <div class="proj-item">
+    <h3><span class="lang-en-inline">Canada, Colombia, Nigeria, Australia, South Africa</span><span class="lang-es-inline">Canadá, Colombia, Nigeria, Australia, Sudáfrica</span></h3>
+    <div class="pm">2017–2022</div>
+    <p class="lang-en">Canada: Barrie Police (Situation Table, youth camp, COVID IPV, weather/vehicle thefts). Colombia: Bogotá Citizen Participation Secretariat; data practices at Red Cómo Vamos. Nigeria: Joy Bringers at Lagos Maximum-Security Prison. Australia: Victoria DJCS crime prevention dashboards. South Africa: Lionesses of Africa women entrepreneurs survey.</p>
+    <p class="lang-es">Canadá: Policía de Barrie (Mesa de Situación, campamento juvenil, VPI por COVID). Colombia: Secretaría de Participación Ciudadana de Bogotá; Red Cómo Vamos. Nigeria: Joy Bringers en Lagos. Australia: dashboards Victoria. Sudáfrica: Lionesses of Africa.</p>
+  </div>
+</div>
+<hr class="sep">
+
+<!-- TOOLS -->
+<div class="cat-sec" style="padding-bottom:8px;">
+  <div class="gallery-label"><span class="lang-en-inline">Tools I built</span><span class="lang-es-inline">Herramientas que construí</span></div>
+  <p style="font-size:.82rem;line-height:1.55;color:var(--text);" class="lang-en">Stratified randomization tool for RCTs (used 4+ years, DOJ-funded, <a href="https://www.betagov.org/html/tools.html" target="_blank" class="ext-link">downloadable ↗</a>). COVID-19 Prison Risk Map. DA dashboards (WI, TX, CA). Graduated Reintegration data platform (IL). Web randomizer (<a href="https://github.com/sarangof/beta-randomizer_web" target="_blank" class="ext-link">GitHub ↗</a>).</p>
+  <p style="font-size:.82rem;line-height:1.55;color:var(--text);" class="lang-es">Herramienta de aleatorización (4+ años, DOJ, <a href="https://www.betagov.org/html/tools.html" target="_blank" class="ext-link">descargable ↗</a>). Mapa COVID-19. Dashboards (WI, TX, CA). Plataforma Reintegración Graduada (IL). Randomizador web (<a href="https://github.com/sarangof/beta-randomizer_web" target="_blank" class="ext-link">GitHub ↗</a>).</p>
+</div>
 <hr class="sep">
 
 <footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
-if(localStorage.getItem('lang')==='es'){
-  document.body.classList.add('es');
-  document.querySelector('.lang-toggle').textContent='EN';
-}
-document.querySelector('.lang-toggle').addEventListener('click', function(){
-  document.body.classList.toggle('es');
-  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
-  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
-});
+(function(){
+  var dk=matchMedia('(prefers-color-scheme:dark)').matches,bf=dk?'#2C2C2A':'#F1EFE8',bs=dk?'rgba(255,255,255,.12)':'#fff';
+  var C={corrections:'#534AB7',prosecution:'#D85A30',policing:'#1D9E75',education:'#378ADD',opioids:'#E24B4A',other:'#888780'};
+  var SW={'Wisconsin':['corrections','prosecution'],'Illinois':['corrections'],'Pennsylvania':['corrections','opioids'],'California':['corrections','prosecution','policing'],'Idaho':['corrections'],'Nebraska':['corrections'],'Alabama':['corrections'],'Ohio':['corrections','opioids'],'New York':['corrections','prosecution','opioids'],'Texas':['prosecution','opioids'],'Connecticut':['policing'],'New Hampshire':['policing'],'Virginia':['policing'],'Oregon':['policing']};
+  var dots=[{la:20.68,lo:-101.35,c:'policing'},{la:44.39,lo:-79.69,c:'policing'},{la:38.10,lo:-122.26,c:'policing'},{la:40.86,lo:-73.63,c:'policing'},{la:32.75,lo:-96.99,c:'policing'},{la:36.51,lo:-121.44,c:'policing'},{la:34.42,lo:-119.70,c:'corrections'},{la:36.60,lo:-121.89,c:'corrections'},{la:29.53,lo:-95.77,c:'prosecution'},{la:37.35,lo:-121.95,c:'prosecution'},{la:44.03,lo:-88.69,c:'prosecution'},{la:40.63,lo:-73.95,c:'prosecution'},{la:36.16,lo:-86.78,c:'corrections'},{la:29.76,lo:-95.37,c:'opioids'},{la:40.84,lo:-73.87,c:'opioids'},{la:34.03,lo:-80.97,c:'policing'},{la:41.27,lo:-72.95,c:'policing'},{la:41.08,lo:-73.47,c:'policing'},{la:42.99,lo:-71.45,c:'policing'},{la:37.54,lo:-77.44,c:'policing'}];
+  var pr=d3.geoAlbersUsa().scale(700).translate([290,175]),pa=d3.geoPath(pr);
+  var svg=d3.select('#litmus-map').append('svg').attr('viewBox','0 0 580 350').attr('width','100%');
+  d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(function(us){
+    var st=topojson.feature(us,us.objects.states).features;
+    svg.selectAll('path.s').data(st).join('path').attr('d',pa).attr('stroke',bs).attr('stroke-width',.4).attr('fill',function(d){var w=SW[d.properties.name];return w?(dk?C[w[0]]+'44':C[w[0]]+'1a'):bf;});
+    svg.selectAll('path.b').data(st.filter(function(d){return SW[d.properties.name]})).join('path').attr('d',pa).attr('stroke',function(d){return C[SW[d.properties.name][0]]}).attr('stroke-width',.8).attr('fill','none');
+    svg.selectAll('circle').data(dots.filter(function(d){return pr([d.lo,d.la])})).join('circle').attr('cx',function(d){return pr([d.lo,d.la])[0]}).attr('cy',function(d){return pr([d.lo,d.la])[1]}).attr('r',2.5).attr('fill',function(d){return C[d.c]}).attr('stroke',dk?'#1a1a1a':'#fff').attr('stroke-width',.7).attr('opacity',.85);
+  });
+})();
 </script>
-
+<script>
+if(localStorage.getItem('lang')==='es'){document.body.classList.add('es');document.querySelector('.lang-toggle').textContent='EN';}
+document.querySelector('.lang-toggle').addEventListener('click',function(){document.body.classList.toggle('es');this.textContent=document.body.classList.contains('es')?'EN':'ES';localStorage.setItem('lang',document.body.classList.contains('es')?'es':'en');});
+</script>
 </body>
 </html>

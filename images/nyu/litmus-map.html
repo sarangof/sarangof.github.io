@@ -1,0 +1,194 @@
+
+<div id="map" style="width: 100%;"></div>
+<div id="intl" style="margin-top: 16px;"></div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0 4px; font-size: 12px; color: var(--color-text-secondary);">
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #534AB7;"></span>Corrections</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #D85A30;"></span>Prosecution</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #1D9E75;"></span>Policing</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #378ADD;"></span>Education</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #E24B4A;"></span>Opioids / substance</span>
+  <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #888780;"></span>Other</span>
+</div>
+<div style="font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px;">Litmus / BetaGov, NYU Marron Institute of Urban Management, 2017–2022. Map shows states and cities where Sara Arango Franco led or contributed to projects.</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const baseFill = isDark ? '#2C2C2A' : '#F1EFE8';
+const baseStroke = isDark ? 'rgba(255,255,255,.12)' : '#fff';
+const colors = {
+  corrections: '#534AB7',
+  prosecution: '#D85A30',
+  policing: '#1D9E75',
+  education: '#378ADD',
+  opioids: '#E24B4A',
+  other: '#888780'
+};
+
+const stateWork = {
+  'Wisconsin': ['corrections','prosecution'],
+  'Illinois': ['corrections'],
+  'Pennsylvania': ['corrections','opioids'],
+  'California': ['corrections','prosecution','policing'],
+  'Idaho': ['corrections'],
+  'Nebraska': ['corrections'],
+  'Alabama': ['corrections'],
+  'Ohio': ['corrections','opioids'],
+  'New York': ['corrections','prosecution','opioids'],
+  'Texas': ['prosecution','opioids'],
+  'Connecticut': ['policing'],
+  'New Hampshire': ['policing'],
+  'Virginia': ['policing'],
+  'Oregon': ['policing'],
+};
+
+const cityDots = [
+  {name:'Irapuato', lat:20.68, lon:-101.35, cat:'policing', label:'Mexico: evidence-based policing (national award)'},
+  {name:'Barrie', lat:44.39, lon:-79.69, cat:'policing', label:'Canada: situation table, COVID IPV'},
+  {name:'Saskatoon', lat:52.13, lon:-106.67, cat:'policing', label:'Canada: multi-site analysis'},
+  {name:'Lagos', lat:6.52, lon:3.38, cat:'corrections', label:'Nigeria: Joy Bringers program'},
+  {name:'Bogotá', lat:4.71, lon:-74.07, cat:'other', label:'Colombia: citizen services'},
+  {name:'Melbourne', lat:-37.81, lon:144.96, cat:'other', label:'Australia: crime prevention'},
+  {name:'Vallejo', lat:38.10, lon:-122.26, cat:'policing', label:'Cruising lights + lunar hypothesis'},
+  {name:'Glen Cove', lat:40.86, lon:-73.63, cat:'policing', label:'Use of force / mental health'},
+  {name:'Grand Prairie', lat:32.75, lon:-96.99, cat:'policing', label:'Street-segment patrolling'},
+  {name:'Gonzales', lat:36.51, lon:-121.44, cat:'policing', label:'Peace officer decals'},
+  {name:'Santa Barbara', lat:34.42, lon:-119.70, cat:'corrections', label:'Text reminders / probation'},
+  {name:'Monterey', lat:36.60, lon:-121.89, cat:'corrections', label:'Juvenile graduated response'},
+  {name:'Fort Bend', lat:29.53, lon:-95.77, cat:'prosecution', label:'DA dashboard'},
+  {name:'Santa Clara', lat:37.35, lon:-121.95, cat:'prosecution', label:'DA dashboard + race-blind charging'},
+  {name:'Winnebago', lat:44.03, lon:-88.69, cat:'prosecution', label:'DA dashboard + diversion RCT'},
+  {name:'Kings Co', lat:40.63, lon:-73.95, cat:'prosecution', label:'Youth gun diversion'},
+  {name:'Nashville', lat:36.16, lon:-86.78, cat:'corrections', label:'Pre-trial text messaging'},
+  {name:'Harris Co', lat:29.76, lon:-95.37, cat:'opioids', label:'OUD detection'},
+  {name:'Bronx', lat:40.84, lon:-73.87, cat:'opioids', label:'OUD detection'},
+  {name:'Richland', lat:34.03, lon:-80.97, cat:'policing', label:'Peace officer decals'},
+  {name:'West Haven', lat:41.27, lon:-72.95, cat:'policing', label:'Peer support'},
+  {name:'Darien', lat:41.08, lon:-73.47, cat:'policing', label:'Cruising lights'},
+  {name:'Manchester', lat:42.99, lon:-71.45, cat:'policing', label:'Cruising lights'},
+  {name:'Richmond', lat:37.54, lon:-77.44, cat:'policing', label:'Cruising lights'},
+];
+
+const projection = d3.geoAlbersUsa().scale(1100).translate([450, 280]);
+const path = d3.geoPath(projection);
+
+const svg = d3.select('#map').append('svg')
+  .attr('viewBox', '0 0 900 560')
+  .attr('width', '100%')
+  .attr('role', 'img');
+
+svg.append('title').text('Map of Litmus/BetaGov projects across the United States');
+svg.append('desc').text('US choropleth showing states where Sara Arango Franco worked on corrections, prosecution, policing, education, and opioid projects at NYU Marron Institute.');
+
+d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(us => {
+  const states = topojson.feature(us, us.objects.states).features;
+
+  svg.selectAll('path.state')
+    .data(states)
+    .join('path')
+    .attr('class', 'state')
+    .attr('d', path)
+    .attr('stroke', baseStroke)
+    .attr('stroke-width', 0.5)
+    .attr('fill', d => {
+      const work = stateWork[d.properties.name];
+      if (!work) return baseFill;
+      const c = colors[work[0]];
+      return isDark ? c + '55' : c + '22';
+    });
+
+  svg.selectAll('path.border')
+    .data(states.filter(d => stateWork[d.properties.name]))
+    .join('path')
+    .attr('class', 'border')
+    .attr('d', path)
+    .attr('stroke', d => colors[stateWork[d.properties.name][0]])
+    .attr('stroke-width', 1.2)
+    .attr('fill', 'none');
+
+  const usDots = cityDots.filter(d => {
+    const p = projection([d.lon, d.lat]);
+    return p !== null;
+  });
+
+  svg.selectAll('circle.dot')
+    .data(usDots)
+    .join('circle')
+    .attr('class', 'dot')
+    .attr('cx', d => projection([d.lon, d.lat])[0])
+    .attr('cy', d => projection([d.lon, d.lat])[1])
+    .attr('r', 4)
+    .attr('fill', d => colors[d.cat])
+    .attr('stroke', isDark ? '#1a1a1a' : '#fff')
+    .attr('stroke-width', 1.2)
+    .attr('opacity', 0.9)
+    .append('title')
+    .text(d => d.name + ': ' + d.label);
+
+  const stateLabels = Object.entries(stateWork).map(([name, cats]) => {
+    const feat = states.find(s => s.properties.name === name);
+    if (!feat) return null;
+    const c = path.centroid(feat);
+    return {name, cats, x: c[0], y: c[1]};
+  }).filter(Boolean);
+
+  svg.selectAll('text.slabel')
+    .data(stateLabels)
+    .join('text')
+    .attr('class', 'slabel')
+    .attr('x', d => d.x)
+    .attr('y', d => d.y)
+    .attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'central')
+    .attr('font-size', '9px')
+    .attr('font-weight', 500)
+    .attr('fill', d => colors[d.cats[0]])
+    .attr('opacity', 0.7)
+    .text(d => {
+      const abbr = {'Wisconsin':'WI','Illinois':'IL','Pennsylvania':'PA','California':'CA','Idaho':'ID','Nebraska':'NE','Alabama':'AL','Ohio':'OH','New York':'NY','Texas':'TX','Connecticut':'CT','New Hampshire':'NH','Virginia':'VA','Oregon':'OR'};
+      return abbr[d.name] || '';
+    });
+});
+
+const intlSvg = d3.select('#intl').append('svg')
+  .attr('viewBox', '0 0 900 80')
+  .attr('width', '100%');
+
+const intlData = [
+  {name:'Mexico', cat:'policing', detail:'Evidence-based policing, lunar hypothesis'},
+  {name:'Canada', cat:'policing', detail:'Barrie, Saskatoon, W. Vancouver'},
+  {name:'Colombia', cat:'other', detail:'Citizen services, data practices'},
+  {name:'Nigeria', cat:'corrections', detail:'Joy Bringers, Lagos'},
+  {name:'Australia', cat:'other', detail:'Victoria crime prevention'},
+  {name:'South Africa', cat:'other', detail:'Lionesses of Africa'},
+];
+
+const intlG = intlSvg.selectAll('g.intl')
+  .data(intlData)
+  .join('g')
+  .attr('class', 'intl')
+  .attr('transform', (d, i) => `translate(${i * 148 + 12}, 8)`);
+
+intlG.append('rect')
+  .attr('width', 140)
+  .attr('height', 56)
+  .attr('rx', 6)
+  .attr('fill', d => isDark ? colors[d.cat] + '25' : colors[d.cat] + '12')
+  .attr('stroke', d => colors[d.cat])
+  .attr('stroke-width', 0.5);
+
+intlG.append('text')
+  .attr('x', 10)
+  .attr('y', 22)
+  .attr('font-size', '12px')
+  .attr('font-weight', 500)
+  .attr('fill', d => colors[d.cat])
+  .text(d => d.name);
+
+intlG.append('text')
+  .attr('x', 10)
+  .attr('y', 40)
+  .attr('font-size', '10px')
+  .attr('fill', isDark ? 'rgba(255,255,255,.5)' : 'rgba(0,0,0,.45)')
+  .text(d => d.detail.length > 22 ? d.detail.slice(0,20) + '...' : d.detail);
+</script>
