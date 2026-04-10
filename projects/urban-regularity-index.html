@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Urban Regularity Index — Sara Arango Franco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFEBE4;--card-bg:#E4DFD7;--text:#1C1917;--muted:#78716C;--line:#D1CBC2;--accent:#B91C1C;--green:#365E4C;--serif:'EB Garamond',Georgia,serif;--mono:'Space Mono',monospace;--sans:'Outfit',system-ui,sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:400;line-height:1.6;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:#fff}
+a{color:var(--text);text-decoration:none}a:hover{color:var(--accent)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 28px;display:flex;justify-content:space-between;align-items:center}
+nav .name{font-family:var(--serif);font-size:1.05rem;font-weight:400}
+nav .links{display:flex;gap:20px;align-items:center}
+nav .links a{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+nav .links a:hover{color:var(--text)}
+.lang-toggle{background:none;border:none;font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);cursor:pointer;padding:2px 0;border-bottom:1px dotted var(--muted)}
+.lang-toggle:hover{color:var(--text);border-color:var(--text)}
+.back{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.back:hover{color:var(--text)}
+.proj-head h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:8px}
+.proj-meta{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.02em;margin-bottom:8px}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.proj-tags span{font-family:var(--mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:2px 10px}
+.proj-desc{font-size:.9rem;line-height:1.65;margin-bottom:8px}
+.sep{border:none;border-top:1px solid var(--line);margin:0 28px}
+.sec{padding:16px 28px}
+.sec-label{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.metric{padding:8px 10px;background:var(--card-bg);font-size:.78rem;line-height:1.45}
+.metric strong{font-weight:500;font-size:.72rem;font-family:var(--mono);color:var(--green)}
+.collaborators{font-family:var(--mono);font-size:.62rem;color:var(--muted);line-height:1.7;margin-top:8px}
+.collaborators strong{color:var(--text);font-weight:400}
+.ext-link{font-family:var(--mono);font-size:.62rem;color:var(--muted);border-bottom:1px solid var(--line)}.ext-link:hover{color:var(--text);border-color:var(--text)}
+.gallery-item{overflow:hidden;cursor:pointer}
+.gallery-item img{width:100%;display:block}
+.gallery-item .caption{padding:6px 0;font-family:var(--mono);font-size:.6rem;color:var(--muted);line-height:1.4}
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.92);align-items:center;justify-content:center;cursor:pointer}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain}
+.lightbox-close{position:fixed;top:20px;right:28px;font-family:var(--mono);font-size:.75rem;color:#999;cursor:pointer;z-index:201}.lightbox-close:hover{color:#fff}
+footer{padding:16px 28px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.58rem;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:768px){.proj-head,.sec{padding-left:16px;padding-right:16px}.sep{margin-left:16px;margin-right:16px}.header-grid{grid-template-columns:1fr !important}.metric-grid{grid-template-columns:1fr 1fr}}
+.lang-es{display:none}body.es .lang-en{display:none}body.es .lang-es{display:block}body.es .lang-es-inline{display:inline}body.es .lang-en-inline{display:none}body:not(.es) .lang-es-inline{display:none}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../index.html#writing"><span class="lang-en-inline">Writing</span><span class="lang-es-inline">Escritos</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<!-- HEADER + IMAGE side by side -->
+<div class="proj-head header-grid" style="padding:72px 28px 16px; display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+  <div>
+    <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+    <h1 style="margin-top:20px;">Urban Regularity Index</h1>
+    <div class="proj-meta">2024–2026 · World Resources Institute · NYU Marron Institute</div>
+    <div class="proj-tags"><span>research</span><span>data</span><span>cities</span></div>
+    <p class="proj-desc lang-en">The Urban Regularity Index measures the degree to which urban blocks exhibit morphological characteristics consistent with planned land subdivision, as distinct from informal or incrementally developed areas. The core distinction: areas that were subdivided before they were occupied versus areas where settlement preceded any formal layout of streets and lots. This distinction has direct implications for urban development outcomes. Providing infrastructure in irregular settlements costs three to six times more than in areas where land was subdivided before construction. The index operates at the block level across 1,239 cities in 77 countries in Sub-Saharan Africa and Latin America, producing a continuous score between 0 (irregular) and 1 (subdivision-like) for each of 4.8 million blocks. The approach uses only digitized vector data from OpenStreetMap and Overture Maps, without satellite imagery or computer vision.</p>
+    <p class="proj-desc lang-es">El Índice de Regularidad Urbana mide el grado en que las manzanas urbanas exhiben características morfológicas consistentes con la subdivisión planificada del suelo, a diferencia de áreas informales o de desarrollo incremental. La distinción central: áreas subdivididas antes de ser ocupadas versus áreas donde el asentamiento precedió cualquier trazado formal de calles y lotes. Esta distinción tiene implicaciones directas para el desarrollo urbano. Proveer infraestructura en asentamientos irregulares cuesta entre tres y seis veces más que en áreas subdivididas antes de la construcción. El índice opera a nivel de manzana en 1.239 ciudades de 77 países en África Subsahariana y América Latina, produciendo un puntaje continuo entre 0 (irregular) y 1 (subdivisión) para cada una de 4,8 millones de manzanas. El enfoque usa solo datos vectoriales digitalizados de OpenStreetMap y Overture Maps, sin imágenes satelitales ni visión por computador.</p>
+    <div class="collaborators">
+      <span class="lang-en-inline">With</span><span class="lang-es-inline">Con</span>
+      <strong>Shlomo (Solly) Angel</strong> (NYU),
+      <strong>Eric Mackres</strong> (WRI)
+    </div>
+  </div>
+  <div>
+    <div class="gallery-item">
+      <div class="gallery-item"><img src="../images/uri/uri-hero.png" alt="Urban Regularity Index — city block classification" style="min-height:400px; object-fit:cover;"></div>
+    </div>
+  </div>
+</div>
+<hr class="sep">
+
+<!-- METHOD -->
+<div class="sec">
+  <div class="sec-label"><span class="lang-en-inline">Method</span><span class="lang-es-inline">Método</span></div>
+  <p class="proj-desc lang-en">The methodology has four stages. First, road and natural-feature networks are used to delineate non-overlapping block polygons within each city's urban extent. Second, 13 block-level morphometric indicators are computed capturing road network structure, building fabric characteristics, and geometric regularity. Third, a calibrated statistical model is trained against a 101-city human-labeled validation set to produce a regularity score. Fourth, a hierarchical cascade classifier assigns blocks into categories: open space, non-residential, subdivision, and irregular settlement. The unit of analysis evolved during the project from fixed grid cells to variable-geometry blocks defined by the road network. Blocks better capture the actual morphological structure because they respect the geometry of the street fabric rather than imposing an arbitrary grid.</p>
+  <p class="proj-desc lang-es">La metodología tiene cuatro etapas. Primero, las redes viales y de elementos naturales se usan para delinear polígonos de manzana no superpuestos dentro de la extensión urbana de cada ciudad. Segundo, se calculan 13 indicadores morfométricos a nivel de manzana que capturan la estructura de la red vial, las características del tejido edificado y la regularidad geométrica. Tercero, un modelo estadístico calibrado se entrena contra un conjunto de validación etiquetado por humanos en 101 ciudades. Cuarto, un clasificador en cascada jerárquico asigna las manzanas a categorías: espacio abierto, no residencial, subdivisión y asentamiento irregular.</p>
+</div>
+<hr class="sep">
+
+<!-- METRICS -->
+<div class="sec">
+  <div class="sec-label"><span class="lang-en-inline">13 metrics</span><span class="lang-es-inline">13 métricas</span></div>
+  <div class="metric-grid">
+    <div class="metric"><strong>M1</strong> Share of buildings within 20m of a road</div>
+    <div class="metric"><strong>M2</strong> Average building-to-road distance</div>
+    <div class="metric"><strong>M3</strong> Road density</div>
+    <div class="metric"><strong>M4</strong> Share of 4-way intersections</div>
+    <div class="metric"><strong>M5</strong> Intersection density</div>
+    <div class="metric"><strong>M6</strong> Building orientation entropy</div>
+    <div class="metric"><strong>M7</strong> Block width (inscribed circle)</div>
+    <div class="metric"><strong>M8</strong> Road tortuosity</div>
+    <div class="metric"><strong>M9</strong> Intersection angle deviation from 90°</div>
+    <div class="metric"><strong>K</strong> Parcel-layer complexity (Voronoi peeling)</div>
+    <div class="metric"><strong>M10</strong> Building density</div>
+    <div class="metric"><strong>M11</strong> Built-up area fraction</div>
+    <div class="metric"><strong>M12</strong> Average building footprint area</div>
+  </div>
+  <p class="lang-en" style="font-size:.82rem;line-height:1.55;color:var(--muted);margin-top:10px;">The first 10 capture regularity (how the area was laid out). The last 3 capture saturation (how densely built it is). The strongest discriminators between subdivisions and irregular settlements are intersection angle deviation (M9), building orientation entropy (M6), and road tortuosity (M8).</p>
+  <p class="lang-es" style="font-size:.82rem;line-height:1.55;color:var(--muted);margin-top:10px;">Las primeras 10 capturan regularidad (cómo fue trazada el área). Las últimas 3 capturan saturación (qué tan densamente construida está). Los discriminadores más fuertes entre subdivisiones y asentamientos irregulares son la desviación angular de intersecciones (M9), la entropía de orientación de edificios (M6) y la tortuosidad vial (M8).</p>
+</div>
+<hr class="sep">
+
+<!-- KEY FINDINGS -->
+<div class="sec">
+  <div class="sec-label"><span class="lang-en-inline">Key findings</span><span class="lang-es-inline">Hallazgos clave</span></div>
+  <p class="proj-desc lang-en">77.6% of blocks across the 1,239 cities are classified as subdivisions, 17.1% as irregular settlements, 5.2% as open space. The formal/informal subdivision distinction (Stage 4 of the cascade) shows limited discriminatory power (AUC ~0.66), confirming that digitized road geometry alone cannot distinguish surveyed from unsurveyed subdivisions at this resolution. This is a meaningful negative finding. Latin American cities tend to have higher subdivision shares than Sub-Saharan African cities. Among individual cities, the highest subdivision shares are in Mexican border towns and Congolese cities; the lowest in Kenyan, Ugandan, and Malawian cities.</p>
+  <p class="proj-desc lang-es">El 77,6% de las manzanas en las 1.239 ciudades se clasifican como subdivisiones, 17,1% como asentamientos irregulares, 5,2% como espacio abierto. La distinción formal/informal (Etapa 4 de la cascada) muestra poder discriminatorio limitado (AUC ~0,66), confirmando que la geometría vial digitalizada por sí sola no puede distinguir subdivisiones levantadas de las no levantadas. Este es un hallazgo negativo significativo. Las ciudades latinoamericanas tienden a tener mayores proporciones de subdivisión que las africanas subsaharianas.</p>
+</div>
+<hr class="sep">
+
+<!-- GALLERY -->
+<div class="sec">
+  <div class="sec-label"><span class="lang-en-inline">Visual outputs</span><span class="lang-es-inline">Productos visuales</span></div>
+
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <div class="gallery-item"><img src="../images/uri/uri-01.png" alt="URI city comparison" style="height:350px; object-fit:cover;"></div>
+    <div class="gallery-item"><img src="../images/uri/uri-02.png" alt="URI metric visualization" style="height:350px; object-fit:cover;"></div>
+  </div>
+
+</div>
+<hr class="sep">
+
+<!-- CODE + LINKS -->
+<div class="sec" style="padding-bottom:8px;">
+  <div class="sec-label"><span class="lang-en-inline">Code & data</span><span class="lang-es-inline">Código y datos</span></div>
+  <p style="font-size:.82rem;line-height:1.55;color:var(--text);">
+    <a href="https://github.com/sarangof/identifyingLandSubdivisions" target="_blank" class="ext-link">GitHub repository ↗</a>
+  </p>
+</div>
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img=>{img.addEventListener('click',()=>{document.getElementById('lightbox-img').src=img.src;document.getElementById('lightbox').classList.add('active');});});
+</script>
+<script>
+if(localStorage.getItem('lang')==='es'){document.body.classList.add('es');document.querySelector('.lang-toggle').textContent='EN';}
+document.querySelector('.lang-toggle').addEventListener('click',function(){document.body.classList.toggle('es');this.textContent=document.body.classList.contains('es')?'EN':'ES';localStorage.setItem('lang',document.body.classList.contains('es')?'es':'en');});
+</script>
+</body>
+</html>
