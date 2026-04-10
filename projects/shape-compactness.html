@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noai, noimageai">
+<title>Shape Compactness of Urban Footprints — Sara Arango Franco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFEBE4;--card-bg:#E4DFD7;--text:#1C1917;--muted:#78716C;--line:#D1CBC2;--accent:#B91C1C;--green:#365E4C;--serif:'EB Garamond',Georgia,serif;--mono:'Space Mono',monospace;--sans:'Outfit',system-ui,sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:400;line-height:1.6;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:#fff}
+a{color:var(--text);text-decoration:none}a:hover{color:var(--accent)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 28px;display:flex;justify-content:space-between;align-items:center}
+nav .name{font-family:var(--serif);font-size:1.05rem;font-weight:400}
+nav .links{display:flex;gap:20px;align-items:center}
+nav .links a{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+nav .links a:hover{color:var(--text)}
+.lang-toggle{background:none;border:none;font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);cursor:pointer;padding:2px 0;border-bottom:1px dotted var(--muted)}
+.lang-toggle:hover{color:var(--text);border-color:var(--text)}
+.back{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.back:hover{color:var(--text)}
+.proj-head h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.1;margin-bottom:8px}
+.proj-meta{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.02em;margin-bottom:8px}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.proj-tags span{font-family:var(--mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:2px 10px}
+.proj-desc{font-size:.9rem;line-height:1.65;margin-bottom:8px}
+.sep{border:none;border-top:1px solid var(--line);margin:0 28px}
+.sec{padding:16px 28px}
+.sec-label{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
+.collaborators{font-family:var(--mono);font-size:.62rem;color:var(--muted);line-height:1.7;margin-top:8px}
+.collaborators strong{color:var(--text);font-weight:400}
+.ext-link{font-family:var(--mono);font-size:.62rem;color:var(--muted);border-bottom:1px solid var(--line)}.ext-link:hover{color:var(--text);border-color:var(--text)}
+.gallery-item{overflow:hidden;cursor:pointer}
+.gallery-item img{width:100%;display:block}
+.gallery-item .caption{padding:6px 0;font-family:var(--mono);font-size:.6rem;color:var(--muted);line-height:1.4}
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.92);align-items:center;justify-content:center;cursor:pointer}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain}
+.lightbox-close{position:fixed;top:20px;right:28px;font-family:var(--mono);font-size:.75rem;color:#999;cursor:pointer;z-index:201}.lightbox-close:hover{color:#fff}
+footer{padding:16px 28px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.58rem;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:768px){.proj-head,.sec{padding-left:16px;padding-right:16px}.sep{margin-left:16px;margin-right:16px}.header-grid{grid-template-columns:1fr !important}}
+.lang-es{display:none}body.es .lang-en{display:none}body.es .lang-es{display:block}body.es .lang-es-inline{display:inline}body.es .lang-en-inline{display:none}body:not(.es) .lang-es-inline{display:none}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <div class="links">
+    <a href="../index.html#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
+    <a href="../cv.html">CV</a>
+    <a href="../index.html#about"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></a>
+    <button class="lang-toggle">ES</button>
+  </div>
+</nav>
+
+<div class="proj-head" style="padding:72px 28px 16px;">
+    <a href="../index.html#work" class="back">← <span class="lang-en-inline">Back to work</span><span class="lang-es-inline">Volver</span></a>
+    <h1 style="margin-top:20px;">The Shape Compactness of Urban Footprints</h1>
+    <div class="proj-meta">2018 · NYU Marron Institute · Progress in Planning, Vol. 139</div>
+    <div class="proj-tags"><span>research</span><span>data</span><span>cities</span><span>policy</span></div>
+    <p class="proj-desc lang-en">Urban population density has featured in a large body of literature on the Compact City paradigm as the key compactness attribute of cities, yet the shape compactness of urban footprints has hardly deserved a mention. This paper seeks to correct that. Both population density and shape compactness help determine the average travel distances in cities, and hence affect their energy consumption and their greenhouse gas emissions. They also affect the length of infrastructure lines and the length of commutes. We review the literature on the Compact City Paradigm with a special focus on the relationship between urban form and climate change, and focus on twelve physical attributes of cities that make them more or less compact. We define a set of metrics for measuring shape compactness, then use them to measure urban footprints obtained from satellite imagery in a stratified global sample of 200 cities across three time periods: 1990, 2000, and 2014.</p>
+    <p class="proj-desc lang-es">La densidad poblacional urbana ha sido central en la literatura sobre la Ciudad Compacta, pero la compacidad de forma de las huellas urbanas apenas se ha mencionado. Este artículo busca corregir eso. Tanto la densidad como la compacidad de forma determinan las distancias promedio de viaje en las ciudades, afectando su consumo energético y emisiones de gases de efecto invernadero. Definimos métricas de compacidad de forma y las usamos para medir huellas urbanas de imágenes satelitales en una muestra global estratificada de 200 ciudades en tres periodos: 1990, 2000 y 2014.</p>
+    <div class="collaborators">
+      <span class="lang-en-inline">With</span><span class="lang-es-inline">Con</span>
+      <strong>Shlomo (Solly) Angel</strong>,
+      <strong>Yang Liu</strong>,
+      <strong>Alejandro M. Blei</strong>
+    </div>
+</div>
+<hr class="sep">
+
+<div class="sec">
+  <div class="sec-label"><span class="lang-en-inline">Key findings</span><span class="lang-es-inline">Hallazgos clave</span></div>
+  <p class="proj-desc lang-en">The shape compactness of urban footprints worldwide is independent of city size, area, density, and income. It is strongly affected by topography. Shape compactness has declined overall between 1990 and 2014. There are strong forces that push urban footprints to become more compact (circular) and powerful forces that push them to become less compact over time. Increasing either shape compactness or population density can contribute to mitigating climate change.</p>
+  <p class="proj-desc lang-es">La compacidad de forma de las huellas urbanas a nivel mundial es independiente del tamaño, área, densidad e ingreso de las ciudades. Está fuertemente afectada por la topografía. La compacidad de forma ha disminuido entre 1990 y 2014. Existen fuerzas que empujan las huellas urbanas a ser más compactas (circulares) y fuerzas que las empujan a serlo menos. Aumentar la compacidad de forma o la densidad poblacional puede contribuir a mitigar el cambio climático.</p>
+</div>
+<hr class="sep">
+
+<div class="sec">
+  <div class="sec-label"><span class="lang-en-inline">Visual outputs</span><span class="lang-es-inline">Productos visuales</span></div>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:16px;">
+    <div class="gallery-item"><img src="../images/compactness/compactness1.png" alt="Urban footprint compactness metrics" style="width:100%; aspect-ratio:1/1; object-fit:contain;"></div>
+    <div class="gallery-item"><img src="../images/compactness/compactness2.png" alt="City compactness comparison" style="width:100%; aspect-ratio:1/1; object-fit:contain;"></div>
+    <div class="gallery-item"><img src="../images/compactness/compactness3.png" alt="City compactness comparison" style="width:100%; aspect-ratio:1/1; object-fit:contain;"></div>
+    <div class="gallery-item"><img src="../images/compactness/compactness4.png" alt="City compactness comparison" style="width:100%; aspect-ratio:1/1; object-fit:contain;"></div>
+  </div>
+</div>
+<hr class="sep">
+
+<div class="sec" style="padding-bottom:8px;">
+  <div class="sec-label"><span class="lang-en-inline">Publication</span><span class="lang-es-inline">Publicación</span></div>
+  <p style="font-size:.82rem;line-height:1.55;color:var(--text);">
+    Angel, S., Arango Franco, S., Liu, Y., & Blei, A. M. (2020). The shape compactness of urban footprints. <em>Progress in Planning</em>, 139, 100429.
+    <a href="https://doi.org/10.1016/j.progress.2018.12.001" target="_blank" class="ext-link" style="margin-left:8px;">DOI ↗</a>
+    <a href="https://marroninstitute.nyu.edu/blog/the-shape-compactness-of-urban-footprints" target="_blank" class="ext-link" style="margin-left:8px;">Marron Institute ↗</a>
+  </p>
+  <p style="font-size:.75rem;line-height:1.55;color:var(--muted);margin-top:6px;">
+    <span class="lang-en-inline">Funded by UN-Habitat, the Lincoln Institute of Land Policy, and the Marron Institute of Urban Management at NYU.</span>
+    <span class="lang-es-inline">Financiado por ONU-Habitat, el Lincoln Institute of Land Policy y el Marron Institute of Urban Management de NYU.</span>
+  </p>
+</div>
+<hr class="sep">
+
+<footer><span>© 2026 Sara Arango Franco</span><span>Medellín</span></footer>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <span class="lightbox-close">✕ close</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+document.querySelectorAll('.gallery-item img').forEach(img=>{img.addEventListener('click',()=>{document.getElementById('lightbox-img').src=img.src;document.getElementById('lightbox').classList.add('active');});});
+</script>
+<script>
+if(localStorage.getItem('lang')==='es'){document.body.classList.add('es');document.querySelector('.lang-toggle').textContent='EN';}
+document.querySelector('.lang-toggle').addEventListener('click',function(){document.body.classList.toggle('es');this.textContent=document.body.classList.contains('es')?'EN':'ES';localStorage.setItem('lang',document.body.classList.contains('es')?'es':'en');});
+</script>
+</body>
+</html>
