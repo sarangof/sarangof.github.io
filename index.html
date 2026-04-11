@@ -196,9 +196,7 @@ body.es .pcard.expanded .pcard-body .pd.lang-en { display:none; }
 .about-text h2 em { font-style:italic; color:var(--green); }
 .about-text p { font-size:0.9rem; line-height:1.7; margin-bottom:10px; }
 .about-photo {
-  width:100%; aspect-ratio:3/4; background:var(--card-bg);
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--mono); font-size:0.6rem; color:var(--muted);
+  width:100%;
 }
 
 /* CONTACT */
@@ -428,7 +426,7 @@ body.es .witem .wd.lang-es { display:block; }
     <div class="about-text">
       <h2 class="lang-en">The work moves between <em>signal</em> and <em>noise</em></h2>
       <h2 class="lang-es">El trabajo se mueve entre <em>señal</em> y <em>ruido</em></h2>
-      <p class="lang-en">Sara Arango Franco is an artist-researcher based in Medellín, Colombia. Her work makes invisible urban systems visible — through data, devices, writing, and perception. Trained as a mathematical engineer (EAFIT) and urban scientist (NYU), she has worked with the World Bank, WRI, and the Edgelands Institute, and participated in the Complex Systems Summer School at the Santa Fe Institute.</p>
+      <p class="lang-en">Sara Arango Franco is an artist-researcher based in Medellín, Colombia. Her work makes invisible urban systems visible — through data, devices, writing, and perception. Trained as a mathematical engineer (EAFIT) and urban data scientist (NYU), she has worked with the World Bank, WRI, and the Edgelands Institute, and participated in the Complex Systems Summer School at the Santa Fe Institute.</p>
       <p class="lang-es">Sara Arango Franco es una artista-investigadora basada en Medellín, Colombia. Su trabajo hace visibles los sistemas urbanos invisibles — a través de datos, dispositivos, escritura y el cuerpo.</p>
       <p class="lang-en">Her practice, <strong>Ruido y Señal</strong>, threads through Radio Aburrá, Monumento, a forthcoming Routledge chapter on the algorithm as spiritual force, and fourteen years of civic engagement. She is working toward a book that uses noise as a lens for territory, algorithms, grief, extortion, birdsong, and the commons.</p>
       <p class="lang-es">Su práctica, <strong>Ruido y Señal</strong>, atraviesa Radio Aburrá, Monumento, un capítulo en Routledge sobre el algoritmo como fuerza espiritual, y catorce años de participación ciudadana. Trabaja en un libro que usa el ruido como lente para el territorio, los algoritmos, el duelo, la extorsión, el canto de los pájaros y los comunes.</p>
@@ -440,7 +438,7 @@ body.es .witem .wd.lang-es { display:block; }
         <a href="https://github.com/sarangof" target="_blank">GitHub</a>
       </div>
     </div>
-    <div class="about-photo"><img src="images/DSCF8500_bw.png" alt="Sara Arango Franco" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="about-photo"><img src="images/DSCF8500_bw.png" alt="Sara Arango Franco" style="width:100%;max-height:300px;object-fit:contain;"></div>
   </div>
 </section>
 
@@ -490,4 +488,14 @@ document.querySelectorAll('nav a[href^="#"]').forEach(a => {
 });
 </script>
 
-<scrip
+<script>
+if(localStorage.getItem('lang')==='es'){
+  document.body.classList.add('es');
+  document.querySelector('.lang-toggle').textContent='EN';
+}
+document.querySelector('.lang-toggle').addEventListener('click', function(){
+  document.body.classList.toggle('es');
+  this.textContent = document.body.classList.contains('es') ? 'EN' : 'ES';
+  localStorage.setItem('lang', document.body.classList.contains('es') ? 'es' : 'en');
+});
+</script>
