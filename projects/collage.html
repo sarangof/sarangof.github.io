@@ -113,7 +113,7 @@ nav .links a:hover { color:var(--text); }
 
 /* Masonry-like gallery using columns */
 .gallery {
-  column-count:3;
+  column-count:4;
   column-gap:12px;
 }
 
@@ -132,15 +132,28 @@ nav .links a:hover { color:var(--text); }
 
 .gallery-item .placeholder {
   width:100%;
-  background:var(--card-bg);
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--mono); font-size:0.55rem; color:var(--muted);
 }
 
-/* Different heights for visual variety */
-.gallery-item .placeholder.tall { aspect-ratio:3/4; }
-.gallery-item .placeholder.wide { aspect-ratio:4/3; }
-.gallery-item .placeholder.square { aspect-ratio:1/1; }
+/* Exhibition row: equal-height, no cropping, moderate size */
+.gallery-row {
+  display:flex;
+  gap:12px;
+  align-items:stretch;
+  max-height:340px;
+}
+.gallery-row .gallery-item {
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+.gallery-row .gallery-item img {
+  width:100%;
+  flex:1;
+  object-fit:contain;
+  object-position:top;
+  min-height:0;
+}
 
 .gallery-item .caption {
   padding:6px 0;
@@ -199,6 +212,36 @@ nav .links a:hover { color:var(--text); }
   line-height:1.6;
 }
 
+/* EXHIBITION: text + images side by side */
+.exhibition-sec {
+  display:grid;
+  grid-template-columns:1fr 3fr;
+  gap:32px;
+  padding:32px 28px 48px;
+  align-items:start;
+}
+.exhibition-sec h2 {
+  font-family:var(--serif); font-size:1.4rem; font-weight:400;
+  margin-bottom:12px;
+}
+.exhibition-sec p {
+  font-size:0.9rem; line-height:1.7;
+  color:var(--text);
+}
+.exhibition-images {
+  display:flex;
+  gap:12px;
+}
+.exhibition-images .gallery-item {
+  flex:1;
+  min-width:0;
+}
+.exhibition-images .gallery-item img {
+  width:100%;
+  height:480px;
+  object-fit:cover;
+}
+
 footer {
   padding:16px 28px; display:flex; justify-content:space-between;
   font-family:var(--mono); font-size:0.58rem; color:var(--muted);
@@ -209,6 +252,9 @@ footer {
   .proj-head { grid-template-columns:1fr; }
   .proj-head .proj-desc { grid-column:1; grid-row:auto; }
   .gallery { column-count:2; }
+  .gallery-row { flex-direction:column; max-height:none; }
+  .exhibition-sec { grid-template-columns:1fr; }
+  .exhibition-images { flex-direction:column; }
   .proj-head, .gallery-sec, .proj-text { padding-left:16px; padding-right:16px; }
   .sep { margin-left:16px; margin-right:16px; }
 }
@@ -250,34 +296,39 @@ body:not(.es) .lang-es-inline { display:none; }
     <span>data</span>
   </div>
 
-  <p class="proj-desc lang-en">Analog collage practice drawing on family archives, found images, and printed matter. Cutting, layering, and reassembling as acts of visual thinking — joining the irreconcilable, reconciling languages, making peace with the implausible. Exhibited at Teatro Comfama (2022) in the context of MATZA × Edgelands.</p>
-  <p class="proj-desc lang-es">Práctica de collage análogo a partir de archivos familiares, imágenes encontradas y material impreso. Cortar, superponer y reensamblar como actos de pensamiento visual — juntar lo irreconciliable, conciliar lenguajes, hacer paces con lo inverosímil. Exhibido en el Teatro Comfama (2022) en el contexto de MATZA × Edgelands.</p>
+  <p class="proj-desc lang-en">Analog collage practice drawing on family archives, found images, and printed matter. Cutting, layering, and reassembling as acts of visual thinking — joining the irreconcilable, reconciling languages, making peace with the implausible. Exhibited at Teatro Comfama (2022).</p>
+  <p class="proj-desc lang-es">Práctica de collage analógica a partir de archivos familiares, imágenes encontradas y material impreso. Cortar, superponer y reensamblar como actos de pensamiento visual — juntar lo irreconciliable, conciliar lenguajes, hacer paces con lo inverosímil. Exhibido en el Teatro Comfama (2022).</p>
+</div>
+
+<div class="proj-text" style="padding-top:0; padding-bottom:12px;">
+  <blockquote class="lang-en">Before the pandemic I tried to channel creativity (stumblingly) through drawing and — very limitedly — through my work as a data scientist. Through texts and reflections I arrived at collage and I can't let go: I see it as a symbolic act of joining the irreconcilable, of reconciling languages — that is, solitudes — of making peace with the implausible and thus letting it go.</blockquote>
+  <blockquote class="lang-es">Antes de la pandemia la creatividad la intentaba canalizar (a tropezones) por medio del dibujo y –muy limitadamente– de mi trabajo como científica de datos. A través de textos y reflexiones llegué al collage y no me despego: lo veo como un acto simbólico de juntar lo irreconciliable, de conciliar lenguajes –es decir soledades–, de hacer paces con lo inverosímil y así dejarlo ir.</blockquote>
 </div>
 
 <hr class="sep">
 
 <!-- ANALOG COLLAGE -->
 <div class="gallery-sec">
-  <div class="gallery-label"><span class="lang-en-inline">Analog collage</span><span class="lang-es-inline">Collage análogo</span></div>
+  <div class="gallery-label"><span class="lang-en-inline">Analog collage</span><span class="lang-es-inline">Collage analógico</span></div>
 
   <div class="gallery">
     <div class="gallery-item">
       <div class="placeholder tall"><img src="../images/collage/low_resolution 2.png" alt="Analog collage, 2022. 21.7 × 27.8 cm."></div>
-      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 21.7 × 27.8 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 21.7 × 27.8 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 21.7 × 27.8 cm.</span><span class="lang-es-inline">Collage analógico, 2022. 21.7 × 27.8 cm.</span></div>
     </div>
     <div class="gallery-item">
       <div class="placeholder tall"><img src="../images/collage/low_resolution 3.png" alt="Analog collage, 2022. 21.7 × 27.8 cm."></div>
-      <div class="caption"><span class="lang-en-inline">Analog collage, 2021. 29.8 × 22.2 cm.</span><span class="lang-es-inline">Collage análogo, 2021. 29.8 × 22.2 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2021. 29.8 × 22.2 cm.</span><span class="lang-es-inline">Collage analógico, 2021. 29.8 × 22.2 cm.</span></div>
     </div>
 
     <div class="gallery-item">
       <div class="placeholder wide"><img src="../images/collage/Maira.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
-      <div class="caption"><span class="lang-en-inline">(In process). Analog collage, 2022. Mounted on retablo. 60.2 × 44.5 cm.</span><span class="lang-es-inline">(En proceso). Collage análogo, 2022. Montado en retablo. 60.2 × 44.5 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">(In process). Analog collage, 2022. Mounted on retablo. 60.2 × 44.5 cm.</span><span class="lang-es-inline">(En proceso). Collage analógico, 2022. Montado en retablo. 60.2 × 44.5 cm.</span></div>
     </div>
     
     <div class="gallery-item">
       <div class="placeholder wide"><img src="../images/collage/low_resolution 4.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
-      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 27.2 × 21.4 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage analógico, 2022. 27.2 × 21.4 cm.</span></div>
     </div>
 
     <div class="gallery-item">
@@ -287,23 +338,23 @@ body:not(.es) .lang-es-inline { display:none; }
 
     <div class="gallery-item">
       <div class="placeholder tall"><img src="../images/collage/low_resolution 16.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
-      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 27.2 × 21.4 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage analógico, 2022. 27.2 × 21.4 cm.</span></div>
     </div>
     
     <div class="gallery-item">
       <div class="placeholder tall"><img src="../images/collage/Juanes.jpg" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
-      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 27.2 × 21.4 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 27.2 × 21.4 cm.</span><span class="lang-es-inline">Collage analógico, 2022. 27.2 × 21.4 cm.</span></div>
     </div>
 
 
     <div class="gallery-item">
       <div class="placeholder tall"><img src="../images/collage/low_resolution 12.png" alt="Analog collage, 2022. 21.7 × 27.8 cm."></div>
-      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 31.2 × 24.5 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 31.2 × 24.5 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 31.2 × 24.5 cm.</span><span class="lang-es-inline">Collage analógico, 2022. 31.2 × 24.5 cm.</span></div>
     </div>
 
     <div class="gallery-item">
       <div class="placeholder tall"><img src="../images/collage/sumo.png" alt="Analog collage, 2022. 27.2 × 21.4 cm."></div>
-      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 34 × 27 cm.</span><span class="lang-es-inline">Collage análogo, 2022. 34 × 27 cm.</span></div>
+      <div class="caption"><span class="lang-en-inline">Analog collage, 2022. 34 × 27 cm.</span><span class="lang-es-inline">Collage analógico, 2022. 34 × 27 cm.</span></div>
     </div>
 
   </div>
@@ -312,15 +363,29 @@ body:not(.es) .lang-es-inline { display:none; }
 <hr class="sep">
 
 <!-- EXHIBITION CONTEXT -->
-<div class="proj-text">
-  <h2 class="lang-en">Exhibition: Bodega Comfama (2022)</h2>
-  <h2 class="lang-es">Exposición: Bodega Comfama (2022)</h2>
+<div class="exhibition-sec">
+  <div class="exhibition-text">
+    <h2 class="lang-en">Workshop: Claustro Comfama (2022)</h2>
+    <h2 class="lang-es">Taller: Claustro Comfama (2022)</h2>
 
-  <p class="lang-en">Solo exhibition at Teatro Comfama, San Ignacio, Medellín, in the context of MATZA × Edgelands. The show included analog and digital collage work, a collage workshop using materials collected through walks in the city center and historical archives, and the curation of a collective "Collage de Collages" — an assembly of participants' individual works into a final collective piece.</p>
-  <p class="lang-es">Exposición individual en el Teatro Comfama, San Ignacio, Medellín, en el contexto de MATZA × Edgelands. La muestra incluyó collage análogo y digital, un taller de collage usando materiales recolectados en caminatas por el centro y archivos históricos, y la curaduría de un "Collage de Collages" — un ensamblaje de obras individuales de los participantes en una pieza colectiva final.</p>
+    <p class="lang-en">Solo exhibition at Teatro Comfama, San Ignacio, Medellín. The show included analog and digital collage work, a collage workshop using materials collected through walks in the city center and historical archives, and the curation of a collective "Collage de Collages", an assembly of participants' individual works into a final collective piece.</p>
+    <p class="lang-es">Exposición individual en el Teatro Comfama, San Ignacio, Medellín. La muestra incluyó collage analógico y digital, un taller de collage usando materiales recolectados en caminatas por el centro y archivos históricos, y la curaduría de un "Collage de Collages", un ensamblaje de obras individuales de los participantes en una pieza colectiva final.</p>
+  </div>
 
-  <blockquote class="lang-en">"Before the pandemic I tried to channel creativity (stumblingly) through drawing and — very limitedly — through my work as a data scientist. Through texts and reflections I arrived at collage and I can't let go: I see it as a symbolic act of joining the irreconcilable, of reconciling languages — that is, solitudes — of making peace with the implausible and thus letting it go."</blockquote>
-  <blockquote class="lang-es">"Antes de la pandemia la creatividad la intentaba canalizar (a tropezones) por medio del dibujo y –muy limitadamente– de mi trabajo como científica de datos. A través de textos y reflexiones llegué al collage y no me despego: lo veo como un acto simbólico de juntar lo irreconciliable, de conciliar lenguajes –es decir soledades–, de hacer paces con lo inverosímil y así dejarlo ir."</blockquote>
+  <div class="exhibition-images">
+    <div class="gallery-item">
+      <img src="../images/collage/taller3.jpeg" alt="Collage workshop, 2022. Comfama.">
+      <div class="caption"><span class="lang-en-inline">Collage workshop, 2022.</span><span class="lang-es-inline">Taller de collage, 2022.</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/collage/ensamble.jpeg" alt="Collage of collages, 2022. Comfama.">
+      <div class="caption"><span class="lang-en-inline">Collage of collages, 2022.</span><span class="lang-es-inline">Collage de collages, 2022.</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="../images/collage/taller1.png" alt="Collage workshop, 2022. Comfama.">
+      <div class="caption"><span class="lang-en-inline">Collage workshop, 2022.</span><span class="lang-es-inline">Taller de collage, 2022.</span></div>
+    </div>
+  </div>
 </div>
 
 <hr class="sep">
