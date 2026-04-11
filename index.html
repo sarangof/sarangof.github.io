@@ -460,7 +460,7 @@ function updateFilter() {
     const filters = active.map(b => b.dataset.filter);
     cards.forEach(c => {
       const tags = c.dataset.tags;
-      const match = filters.some(f => tags.includes(f));
+      const match = filters.every(f => tags.includes(f));
       c.style.display = match ? '' : 'none';
     });
   }
