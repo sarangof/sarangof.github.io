@@ -9,18 +9,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #E4DFD7;
-  --card-bg: #E4DFD7;
+  --bg: #ffffff;
+  --card-bg: #ffffff;
   --text: #1C1917;
   --muted: #78716C;
-  --line: #D1CBC2;
+  --line: #ffffff;
   --accent: #B91C1C;
   --green: #365E4C;
-  --serif: 'EB Garamond', Georgia, serif;
-  --mono: 'Space Mono', monospace;
+  --serif: 'Newsreader', Georgia, serif;
+  --mono: 'General Sans', sans-serif;
   --sans: 'Outfit', system-ui, sans-serif;
 }
 
@@ -39,7 +42,7 @@ nav {
   padding:12px 28px;
   display:flex; justify-content:space-between; align-items:center;
 }
-nav .name { font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+nav .name { font-family:'General Sans', sans-serif; font-weight:600; font-size:1.05rem; }
 nav .links { display:flex; gap:20px; align-items:center; }
 nav .links a {
   font-family:var(--mono); font-size:0.65rem; text-transform:uppercase;
@@ -55,20 +58,20 @@ nav .links a:hover { color:var(--text); }
 
 /* HERO */
 .hero {
-  padding:56px 28px 16px;
-  max-width:900px;
+  padding:80px 28px 12px;
+  max-width:none;
   display:flex; align-items:baseline; flex-wrap:wrap; gap:8px 24px;
 }
 .hero h1 {
-  font-family:var(--serif);
+  font-family:'General Sans', sans-serif;
   font-size:clamp(1.8rem, 4vw, 2.8rem);
-  font-weight:400; line-height:1.05;
+  font-weight:600; line-height:1.05;
   letter-spacing:-0.01em;
 }
 .hero h1 em { font-style:italic; color:var(--accent); }
 .hero .lead {
-  font-size:0.88rem; font-weight:300; color:var(--muted);
-  line-height:1.5;
+  font-family:var(--serif); font-style:italic; font-size:1.15rem;
+  font-weight:400; color:var(--text); line-height:1.4;
 }
 .hero .loc {
   font-family:var(--mono); font-size:0.62rem;
@@ -76,7 +79,7 @@ nav .links a:hover { color:var(--text); }
 }
 
 /* SECTIONS */
-.sec { padding:32px 28px 40px; }
+.sec { padding:16px 28px 24px; }
 .sep { border:none; border-top:1px solid var(--line); margin:0 28px; }
 .sec-label {
   font-family:var(--mono); font-size:0.62rem; text-transform:uppercase;
@@ -121,10 +124,9 @@ nav .links a:hover { color:var(--text); }
 .pcard-body { padding:8px 10px 10px; }
 
 .pcard-body h3 {
-  font-family:var(--serif); font-size:0.88rem; font-weight:400;
-  line-height:1.2;
+  font-family:'General Sans', sans-serif; font-size:0.92rem; font-weight:500;
+  line-height:1.2; letter-spacing:-0.005em;
 }
-
 /* Hidden by default */
 .pcard-body .pm,
 .pcard-body .pd,
@@ -190,11 +192,17 @@ body.es .pcard.expanded .pcard-body .pd.lang-en { display:none; }
 /* ABOUT */
 .about-layout { display:grid; grid-template-columns:1fr 300px; gap:24px; align-items:start; }
 .about-text h2 {
-  font-family:var(--serif); font-size:clamp(1.5rem, 3vw, 2.4rem);
-  font-weight:400; line-height:1.15; margin-bottom:10px;
+  font-family:'General Sans', sans-serif; font-size:clamp(1.5rem, 3vw, 2.4rem);
+  font-weight:600; line-height:1.05; letter-spacing:-0.02em; margin-bottom:14px;
 }
-.about-text h2 em { font-style:italic; color:var(--green); }
-.about-text p { font-size:0.9rem; line-height:1.7; margin-bottom:10px; }
+.about-text h2 em {
+  font-family:var(--serif); font-style:italic; font-weight:500;
+  color:var(--text); letter-spacing:-0.01em;
+}
+.about-text p {
+  font-family:var(--serif); font-size:1.1rem; line-height:1.55;
+  margin-bottom:10px;
+}
 .about-photo {
   width:100%;
 }
@@ -256,7 +264,7 @@ body.es .witem .wd.lang-es { display:block; }
 <body>
 
 <nav>
-  <a href="#" class="name" style="color:var(--text)">Sara Arango Franco</a>
+  <a href="#" class="name" style="color:var(--text)">Ruido y Señal</a>
   <div class="links">
     <a href="#work"><span class="lang-en-inline">Work</span><span class="lang-es-inline">Trabajo</span></a>
     <a href="cv.html">CV</a>
@@ -266,7 +274,7 @@ body.es .witem .wd.lang-es { display:block; }
 </nav>
 
 <header class="hero">
-  <h1>Sara Arango <em>Franco</em></h1>
+  <h1>Sara Arango Franco</h1>
   <p class="lead lang-en">Research, art, and urban inquiry. Making invisible systems visible through data, devices, writing, and perception.</p>
   <p class="lead lang-es">Investigación, arte e indagación urbana. Haciendo visibles los sistemas invisibles a través de datos, dispositivos, escritura y la percepción.</p>
   <p class="loc">Medellín, Colombia</p>
@@ -424,8 +432,8 @@ body.es .witem .wd.lang-es { display:block; }
   <div class="sec-label"><span class="lang-en-inline">About</span><span class="lang-es-inline">Acerca</span></div>
   <div class="about-layout">
     <div class="about-text">
-      <h2 class="lang-en">Work that moves between <em>noise</em> and <em>signal</em></h2>
-      <h2 class="lang-es">Trabajo que se mueve entre <em>ruido</em> y <em>señal</em></h2>
+      <h2 class="lang-en">Work that moves between noise and signal</h2>
+      <h2 class="lang-es">Trabajo que se mueve entre ruido y señal</h2>
       <p class="lang-en">Sara Arango Franco is an artist-researcher based in Medellín, Colombia. Her work makes invisible urban systems visible, through data, devices, writing, and perception. Trained as a mathematical engineer (EAFIT) and urban data scientist (NYU), she has worked with the World Bank, the World Resources Institute, and the Edgelands Institute, and participated in the Complex Systems Summer School at the Santa Fe Institute.</p>
       <p class="lang-es">Sara Arango Franco es una artista-investigadora basada en Medellín, Colombia. Su trabajo hace visibles los sistemas urbanos invisibles, a través de datos, dispositivos, escritura y el cuerpo.</p>
       <p class="lang-en">Her practice, <strong>Ruido y Señal</strong>, threads through Radio Aburrá, Monumento, a forthcoming Routledge chapter on the algorithm as spiritual force, and fourteen years of civic engagement. She is working toward a book that uses noise as a lens for territory, algorithms, grief, extortion, birdsong, and the commons.</p>
